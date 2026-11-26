@@ -110,6 +110,8 @@ nav.baixo button[aria-current=page] svg{filter:drop-shadow(0 2px 0 #6a4a20)}
 .ed .palco{width:42%;flex:none;position:sticky;top:0;border:3px solid var(--bd)}
 .ed .palco svg{width:100%;display:block}
 .ctl{flex:1;display:grid;gap:4px}
+.lblc{font-family:system-ui,sans-serif;font-size:12px;color:var(--mu);margin-top:4px}
+.cores{display:flex;flex-wrap:wrap;gap:3px;align-items:center}.cores button{width:22px;height:22px;border:2px solid #0c0812;padding:0;cursor:pointer}.cores button[aria-pressed=true]{outline:2px solid #fff0a0;outline-offset:1px}.cores input{width:30px;height:26px;border:0;padding:0;background:none}
 .ctl .row{display:flex;align-items:center;gap:4px;background:var(--card);border:2px solid var(--bd);padding:2px 4px}
 .ctl .row span{flex:1;font-size:12px;color:var(--mu);font-family:system-ui,sans-serif}
 .ctl .row b{min-width:76px;text-align:center;font-weight:400;color:var(--au);font-size:13px;line-height:1.05}
@@ -261,7 +263,10 @@ const LA=["#f0e6d8","#d0c4b0","#a89a86","#6a5e50"];
 const PAPEL=["#fff8e6","#f0e2c0","#c8b48a","#7a6844"];
 const VIDRO_L=["#fff8d0","#ffe080","#e0a030","#8a5a1a"];
 const AREIA_V=["#f6e0ff","#c8a0f0","#9a6ad0","#5a3a8a"];
-const OLHO_COR=[["#5a3a24","Castanho"],["#3a6ab8","Azul"],["#3a8a4a","Verde"],["#6a6e78","Cinza"],["#c08a20","Âmbar"]];
+const OLHO_COR=[["#5a3a24","Castanho"],["#3a6ab8","Azul"],["#3a8a4a","Verde"],["#6a6e78","Cinza"],["#c08a20","Âmbar"],["#c02a3a","Vermelho"],["#8a3ac8","Violeta"],["#20b8d0","Ciano"],["#e0b020","Dourado"],["#e05aa0","Rosa"],["#d8e4f0","Branco"]];
+function rampa(hex){const [h,s,l]=hex2hsl(hex);return [hsl2hex((h+352)%360,Math.min(1,s*.95),Math.min(.94,l+.13)),hex,hsl2hex((h+10)%360,Math.min(1,s*1.05+.03),Math.max(.06,l-.15)),hsl2hex((h+18)%360,Math.min(1,s*.9),Math.max(.04,l*.42))]}
+[["#8ac070","Verde-musgo"],["#b8e060","Verde-limão"],["#6aa8e0","Azul"],["#a080d8","Lilás"],["#7a4ab0","Roxo"],["#9aa0a8","Pedra"],["#d05a4a","Rubro"],["#e8c050","Dourada"],["#50c0b0","Turquesa"],["#f090c0","Rosa"],["#f0f0f4","Alva"],["#4a4a5a","Grafite"]].forEach(([h,n])=>PELE.push([...rampa(h),n]));
+[["#f070b0","Rosa"],["#50e070","Verde"],["#9050e0","Roxo"],["#30a0f0","Azul"],["#f09020","Laranja"],["#e8f070","Limão"],["#40e0d0","Água"]].forEach(([h,n])=>CAB.push([...rampa(h),n]));
 
 const TONS={
  "Preparação":[["#f6b080","#d0723c","#8e4420","#4a200e","Cobre"],["#e08a60","#b0502e","#7a321c","#401a0e","Ferrugem"],["#e8a088","#c06a52","#8a4434","#4a221a","Terracota"],["#f0c070","#c88a30","#8a5a1a","#4a2e0c","Bronze"],["#c89070","#9a6444","#6a422c","#3a2218","Barro"]],
@@ -278,7 +283,7 @@ const PRATA=["#ffffff","#d8e0ea","#a0acbe","#4e586c"];
 const ARMINHO=["#ffffff","#f4f0ea","#d8d0c4","#8a8070"];
 const LIDER={"Mestre da Guilda":{metal:BRONZE,gema:"#3ac070",capa:1},"Conselheiro do Reino":{metal:PRATA,gema:"#4aa0ff",capa:2},"Regente do Reino":{metal:OURO,gema:"#ff3050",capa:3}};
 const tonsDe=(a)=>TONS[ETAPAS[a.guilda][a.etapa||0].nome];
-const W=57,H=70,DX=4,DY=6,FX=5,FY=8,WB=44,HB=54;
+const ESC=42/16,W=114,H=140,DX=8,DY=6,FX=10,FY=16,WB=88,HB=108;
 const ETAPAS={
  min:[{nome:"Preparação",cor:["#f6b080","#d0723c","#8e4420","#4a200e"],ferr:[0,1,3,5]},{nome:"Digitalização",cor:["#c8f6ff","#4cc4e6","#2884ac","#12465c"],ferr:[2,6,4,7]}],
  gua:[{nome:"Segregação",cor:["#e6b8ff","#a464e4","#6a3aa0","#341a58"],ferr:[0,2,3,6]},{nome:"Cadastro",cor:["#fff0a0","#f0b030","#b07818","#5a3a0a"],ferr:[1,4,5,7]}],
@@ -456,16 +461,16 @@ const BARBAS=[
 // ================= PERNAS e PÉS =================
 const CALCAS_F=[
  {nome:"Reta",      f:()=>M(R(10,30,21,31),R(10,32,14,35),R(17,32,21,35))},
- {nome:"Remendada", sx:"m", f:()=>M(R(10,30,21,31),R(10,32,14,35),R(17,32,21,35)), rem:true},
+ {nome:"Com remendo", sx:"m", f:()=>M(R(10,30,21,31),R(10,32,14,35),R(17,32,21,35)), rem:true},
  {nome:"Bufante",   sx:"m", f:()=>M(R(9,30,22,33),R(9,34,14,35),R(17,34,22,35))},
- {nome:"Listrada",  f:()=>M(R(10,30,21,31),R(10,32,14,35),R(17,32,21,35)), lis:true},
+ {nome:"Faixa lateral",  f:()=>M(R(10,30,21,31),R(10,32,14,35),R(17,32,21,35)), lis:true},
  {nome:"Joelheira", sx:"m", f:()=>M(R(10,30,21,31),R(10,32,14,35),R(17,32,21,35)), joe:true},
- {nome:"Saia",      sx:"f", f:()=>M(R(10,30,21,31),R(9,32,22,33),R(11,34,14,35),R(17,34,20,35)), saia:true},
+ {nome:"Saia",      sx:"f", f:()=>M({30:[[10,21]]},{31:[[9,22]]},{32:[[9,22]]},{33:[[8,23]]}), saia:true, legging:true},
  {nome:"Bermuda",   sx:"m", f:()=>M(R(10,30,21,31),R(10,32,14,33),R(17,32,21,33)), canela:true},
  {nome:"Cargo",     sx:"m", f:()=>M(R(10,30,21,31),R(10,32,14,35),R(17,32,21,35)), cargo:true},
  {nome:"Justa",     sx:"f", f:()=>M(R(10,30,21,31),R(10,32,13,35),R(18,32,21,35))},
  {nome:"Saia longa",sx:"f", f:()=>M(R(10,30,21,31),R(9,32,22,33),R(8,34,23,35)), barra:true, saia:true},
- {nome:"Saia rodada",sx:"f",f:()=>M(R(10,30,21,30),R(9,31,22,31),R(8,32,23,33),R(11,34,13,35),R(18,34,20,35)), meia:true, saia:true},
+ {nome:"Saia rodada",sx:"f",f:()=>M({30:[[10,21]]},{31:[[8,23]]},{32:[[7,24]]},{33:[[7,24]]}), meia:true, saia:true},
  {nome:"Pantalona", sx:"f", f:()=>M(R(10,30,21,31),R(9,32,14,35),R(17,32,22,35)), saia:true},
 ];
 const BOTAS_F=[
@@ -658,6 +663,70 @@ const G={
  }
 };
 
+// ================= ROSTO FINO (boca e nariz desenhados na escala 2×) =================
+const BOCA_F={
+ "m:Séria":[0,"..........","..dddddd.."],
+ "m:Sorriso":[0,".d......d.","..dddddd.."],
+ "m:Aberta":[1,"..dddddd..","..dwwwwd..","..dmttmd..","...dddd..."],
+ "m:Brava":[1,"...dddd...","..d....d.."],
+ "m:Assobio":[0,"....dd....","...dmmd...","....dd...."],
+ "m:Dentuça":[1,"..dddddd..","....ww....","....ww...."],
+ "m:De lado":[0,"........d.","...ddddd.."],
+ "m:Sorriso largo":[0,"d........d",".dwwwwwwd.","..dmmmmd..","...dddd..."],
+ "f:Natural":[1,"...aaaa...","....bb...."],
+ "f:Sorriso":[0,"..a....a..","...aaaa...","....bb...."],
+ "f:Riso aberto":[0,"..a....a..","..awwwwa..","...abba..."],
+ "f:Batom rosa":[0,"...a..a...","..aaaaaa..","...bhbb..."],
+ "f:Batom vermelho":[0,"...a..a...","..aaaaaa..","...bhbb..."],
+ "f:Batom vinho":[0,"...a..a...","..aaaaaa..","...bhbb..."],
+ "f:Beicinho":[0,"....aa....","...abba...","....bb...."],
+ "f:De lado":[0,"........a.","...aaaa...","....bb...."],
+};
+const NARIZ_F={
+ "Batata":["..lb..",".lbbs.",".nssn."],
+ "Grandão":["..lb..",".lbbs.","lbbbbs",".n..n."],
+ "Fino":["..l...","..bs..","..bs..","..ns.."],
+ "Pontudo":["..l...","..bs..","..bbs.","...nss"],
+ "Arrebitado":["..lb..",".nbbn."],
+ "Largo":[".lbbb.","lbbbbs",".n..n."],
+ "Vermelho":["..RR..",".RrrQ.",".QQQQ."],
+ "Pequeno":["..bs..","..ss.."],
+ "Torto":["...l..","...bs.","..bbs.",".n.ss."],
+};
+function corBoca(nome,s){const bt=/vermelho/.test(nome)?BATOM[2]:/vinho/.test(nome)?BATOM[3]:/rosa/.test(nome)?BATOM[1]:null;
+  const c=bt?[bt[0],bt[1]]:[mix(s[1],"#d0506a",.5),mix(s[3],"#a03050",.35)];
+  return {d:mix(s[3],"#1a0e10",.15),m:"#5a2020",w:"#ffffff",t:"#c04848",a:c[1],b:c[0],h:mix(c[0],"#ffffff",.45)}}
+const corNariz=s=>({l:s[0],b:s[1],s:s[2],n:mix(s[3],s[2],.35),R:"#f0a090",r:"#d06a5a",Q:"#b04a40"});
+const OCULOS=["Nenhum","Redondos","Quadrados","Escuros","Meia-lua","Monóculo"];
+// ================= ROUPAS NOVAS (silhuetas diferentes) =================
+G.min.roupas.push(
+ {nome:"Armadura de placas", f:(p)=>[
+   L("peito",FERRO,M({18:[[10,21]]},R(9,19,22,28)),Object.assign(ex([[15,19],[15,20],[15,21],[15,22],[15,23],[15,24],[15,25],[15,26]],FERRO[0]),ex([[10,20],[21,20],[10,27],[21,27]],OURO[1]),ex([[12,24],[13,24],[18,24],[19,24]],FERRO[2]))),
+   L("tassete",FERRO,M(R(9,29,14,32),R(17,29,22,32)),ex([[10,30],[13,30],[18,30],[21,30]],OURO[1])),
+   L("ombreiras",FERRO,M({16:[[6,9],[22,25]]},{17:[[5,10],[21,26]]},R(4,18,10,21),R(21,18,27,21)),Object.assign(ex([[6,17],[7,17],[23,17],[24,17]],FERRO[0]),ex([[5,20],[8,20],[23,20],[26,20]],OURO[1])))]},
+ {nome:"Manto de pele", f:(p)=>[
+   L("casaco",COURO,M(R(8,18,23,29),R(8,30,14,35),R(17,30,23,35),{36:[[7,14],[17,24]]}),Object.assign(ex([[15,22],[15,25],[15,28],[16,22],[16,25],[16,28]],BRONZE[1]),ex([[8,36],[10,36],[12,36],[19,36],[21,36],[23,36]],COURO[3]))),
+   L("pele-gola",LA,M({16:[[9,22]]},{17:[[7,24]]},R(5,18,26,20),{21:[[6,10],[21,25]]},{22:[[7,9],[22,24]]}),ex([[6,19],[9,18],[12,19],[19,19],[22,18],[25,19],[8,21],[23,21]],LA[2]))]},
+);
+G.gua.roupas.push(
+ {nome:"Robe de mangas largas", f:(p)=>[
+   L("robe",p,M(R(9,18,22,29),R(9,30,22,35),{36:[[8,23]]}),Object.assign(ex([[15,18],[16,18],[14,19],[17,19],[13,20],[18,20]],OURO[1]),ex([[8,36],[9,36],[10,36],[11,36],[12,36],[13,36],[14,36],[15,36],[16,36],[17,36],[18,36],[19,36],[20,36],[21,36],[22,36],[23,36]],OURO[2]))),
+   L("mangas",p,M(R(5,19,9,21),R(4,22,9,24),R(3,25,9,26),R(2,27,9,29),R(22,19,26,21),R(22,22,27,24),R(22,25,28,26),R(22,27,29,29)),ex([[2,29],[3,29],[4,29],[5,29],[6,29],[7,29],[8,29],[9,29],[22,29],[23,29],[24,29],[25,29],[26,29],[27,29],[28,29],[29,29]],OURO[1]))]},
+ {nome:"Capa de gola alta", f:(p)=>[
+   Object.assign(L("capa-gola",[p[1],p[2],p[3],escurece(p[3],.6)],M(R(7,10,9,17),R(22,10,24,17),R(6,18,25,24),R(5,25,26,31),R(4,32,27,36),{37:[[3,28]]}),Object.assign(ex([[7,10],[24,10],[8,10],[23,10],[7,11],[24,11]],OURO[1]),ex([[3,37],[5,37],[7,37],[9,37],[22,37],[24,37],[26,37],[28,37]],OURO[2]))),{fundo:true}),
+   L("gola-frente",p,{18:[[9,11],[20,22]],19:[[9,10],[21,22]]},ex([[9,18],[22,18]],OURO[1])),
+   L("broche",AREIA_V,R(15,18,16,19),ex([[15,18]],OURO[0]))]},
+);
+G.elf.roupas.push(
+ {nome:"Capa de um ombro", f:(p)=>[
+   L("tunica",p,M(R(9,18,22,29),R(10,30,21,31))),
+   L("capa",p,M({18:[[6,16]]},R(4,19,14,23),R(4,24,11,29),R(4,30,9,34)),Object.assign(ex([[4,34],[6,34],[8,34]],FOLHA[1]),ex([[14,19],[15,19]],OURO[1]),ex([[13,20],[11,22],[9,24],[7,26],[6,29],[5,32]],FOLHA[0]))),
+   L("braçal",COURO,R(23,22,26,25),ex([[23,23],[26,23]],OURO[1]))]},
+ {nome:"Armadura de casca", f:(p)=>[
+   L("peito",MADEIRA,M({18:[[11,20]]},R(9,19,22,28)),Object.assign(ex([[12,20],[12,21],[12,22],[19,21],[19,22],[19,23],[15,24],[16,24],[14,26],[17,26]],MADEIRA[2]),ex([[15,21],[16,21]],"#2eb878"))),
+   L("ombr-folha",FOLHA,M({15:[[5,5],[26,26]]},{16:[[5,6],[25,26]]},{17:[[5,8],[23,26]]},R(5,18,10,21),R(21,18,26,21)),ex([[6,19],[8,20],[23,20],[25,19]],FOLHA[0]))]},
+);
+
 // ================= MONTAGEM =================
 // ---- travamento de cor por etapa ----
 function hex2hsl(h){let r=parseInt(h.slice(1,3),16)/255,g=parseInt(h.slice(3,5),16)/255,b=parseInt(h.slice(5,7),16)/255;const mx=Math.max(r,g,b),mn=Math.min(r,g,b);let H=0,S=0,Lm=(mx+mn)/2;if(mx!==mn){const d=mx-mn;S=Lm>.5?d/(2-mx-mn):d/(mx+mn);H=mx===r?(g-b)/d+(g<b?6:0):mx===g?(b-r)/d+2:(r-g)/d+4;H/=6}return [H*360,S,Lm]}
@@ -731,7 +800,7 @@ function ferramentaAssinatura(nome){
 }
 
 function montar(a){
-  const g=G[a.guilda]; const pele=PELE[a.pele], cab=CAB[a.cabCor], pano=tonsDe(a)[a.pano%5], calcaC=(t=>[t[1],t[2],t[3],escurece(t[3],.6)])(tonsDe(a)[a.calcaCor%5]), bota=(t=>[t[2],t[3],escurece(t[3],.7),escurece(t[3],.45)])(tonsDe(a)[a.botaCor%5]);
+  const g=G[a.guilda]; const pele=a.peleHex?rampa(a.peleHex):PELE[(a.pele||0)%PELE.length], cab=a.cabHex?rampa(a.cabHex):CAB[(a.cabCor||0)%CAB.length], pano=tonsDe(a)[a.pano%5], calcaC=(t=>[t[1],t[2],t[3],escurece(t[3],.6)])(tonsDe(a)[a.calcaCor%5]), bota=(t=>[t[2],t[3],escurece(t[3],.7),escurece(t[3],.45)])(tonsDe(a)[a.botaCor%5]);
   const sx=a.sexo||"m", fem=sx==="f", TP=TIPOS[sx]; const LD=LIDER[ETAPAS[a.guilda][a.etapa||0].nome]; const raca=LD?["min","gua","elf"][(a.raca||0)%3]:a.guilda; const tipo=TP[a.corpo%TP.length], corpo=CORPOS[tipo.f], cabeca=SX(CABECAS,sx)[a.cabeca]||SX(CABECAS,sx)[0];
   const pick=(arr,i)=>{const l=SX(arr,sx);return l[(i||0)%l.length]};
   const C=[];
@@ -744,35 +813,35 @@ function montar(a){
     C.push(L("capa-fundo",[forro[1],forro[2],forro[3],escurece(forro[3],.6)],fundo,e));
   }
   const cf=pick(CALCAS_F,a.calca); const ext={};
-  if(cf.rem) Object.assign(ext,ex([[11,33],[12,33],[11,34],[12,34]],CALCAS[1][1]),ex([[19,31],[20,31]],CALCAS[1][1]));
-  if(cf.lis) for(let y=30;y<=35;y+=2) for(let x=9;x<=22;x++) ext[x+","+y]=calcaC[2];
-  if(cf.joe) Object.assign(ext,ex([[11,33],[12,33],[13,33],[18,33],[19,33],[20,33]],FERRO[1]));
-  if(cf.barra) for(let x=8;x<=23;x+=2) ext[x+",35"]=calcaC[0];
-  if(cf.cargo) Object.assign(ext,ex([[10,32],[11,32],[10,33],[11,33],[20,32],[21,32],[20,33],[21,33]],calcaC[2]));
   if(cf.meia) C.push(L("meia",LA,M(R(11,34,13,35),R(18,34,20,35))));
+  if(cf.legging){C.push(L("meia-calça",[calcaC[2],calcaC[3],escurece(calcaC[3],.7),escurece(calcaC[3],.45)],M(R(11,34,13,35),R(18,34,20,35))));C[C.length-1].perna=true;}
   if(cf.canela) C.push(L("canela",pele,M(R(11,34,13,35),R(18,34,20,35))));
   C.push(L("calça",calcaC,fem&&!cf.saia?M(cf.f(),{30:[[9,22]]}):cf.f(),ext)); if(!cf.saia)C[C.length-1].perna=true;
+  { const sub=(n,r,f,e={})=>{const q=L(n,r,f,e);if(!cf.saia)q.perna=true;C.push(q)};
+    if(cf.rem)sub("remendo",[mix(calcaC[0],"#ffffff",.3),calcaC[0],calcaC[1],calcaC[3]],R(11,32,13,34),ex([[11,32],[13,34]],calcaC[3]));
+    if(cf.lis)sub("faixa-lateral",[mix(pano[0],"#ffffff",.3),pano[0],pano[1],calcaC[3]],M(R(10,30,10,35),R(21,30,21,35)));
+    if(cf.joe)sub("joelheira",FERRO,M(R(10,32,14,33),R(17,32,21,33)),ex([[12,32],[19,32]],OURO[1]));
+    if(cf.cargo)sub("bolso",[calcaC[1],calcaC[2],calcaC[3],escurece(calcaC[3],.6)],M(R(9,31,10,34),R(21,31,22,34)),ex([[9,31],[10,31],[21,31],[22,31]],calcaC[0])); }
   const bf=pick(BOTAS_F,a.bota); const bext={};
   if(bf.bico) Object.assign(bext,ex([[8,39],[9,39],[22,39],[23,39],[9,38],[22,38]],FERRO[1]));
   if(bf.pelo) Object.assign(bext,ex([[9,36],[10,36],[11,36],[12,36],[13,36],[14,36],[17,36],[18,36],[19,36],[20,36],[21,36],[22,36]],LA[1]));
   if(bf.cadarco) Object.assign(bext,ex([[11,34],[12,35],[11,36],[12,37],[19,34],[20,35],[19,36],[20,37]],LA[1]));
-  if(bf.laco) Object.assign(bext,ex([[10,33],[11,34],[12,33],[18,33],[19,34],[20,33]],"#ffffff"));
   if(bf.sapat) Object.assign(bext,ex([[12,38],[19,38]],"#ffffff"));
   if(bf.fiv) Object.assign(bext,ex([[12,37],[19,37]],OURO[1]));
   if(bf.sand){C.push(L("pés",pele,M(R(10,36,14,37),R(17,36,21,37))));Object.assign(bext,ex([[11,37],[13,37],[18,37],[20,37]],bota[2]));}
-  C.push(L("botas",bota,bf.f(),bext));
+  C.push(L("botas",bota,bf.f(),bext)); if(bf.laco)C[C.length-1].sprites=["12,33","19,33"].map(k=>({k,ox:-2,oy:0,rows:["ww.ww",".www.","ww.ww"],cores:{w:"#ffffff"}}));
   C.forEach(c=>{if(/canela|pés|botas/.test(c.nome))c.perna=true});
   // tronco + braços na cor da roupa
   const roupa=pick(g.roupas,a.roupa);
   C.push(L("camisa",pano,M(tronco(corpo),fem?BRACOS_F:BRACOS)));
-  C.push(corpo.cin?L("cinto",COURO,R(corpo.cin[0],corpo.cin[2],corpo.cin[1],corpo.cin[2]),ex([[15,corpo.cin[2]],[16,corpo.cin[2]]],OURO[1])):L("cinto",COURO,R(corpo.b[28][0][0],29,corpo.b[28][0][1],29),ex([[15,29],[16,29]],OURO[1])));
-  C.push(...roupa.f(pano,cab,pele));
+  {const yc=corpo.cin?corpo.cin[2]:29;C.push(corpo.cin?L("cinto",COURO,R(corpo.cin[0],yc,corpo.cin[1],yc)):L("cinto",COURO,R(corpo.b[28][0][0],29,corpo.b[28][0][1],29)));C[C.length-1].sprites=[{k:"16,"+yc,ox:-4,oy:-1,rows:["oooooooo","oGGGGGGo","oG....Go","oGGGGGGo","oooooooo"],cores:{o:OURO[3],G:OURO[1]}}];}
+  C.push(...roupa.f(pano,cab,pele)); for(let i=C.length-1,n=0;i>=n;i--)if(C[i].fundo){const [q]=C.splice(i,1);C.unshift(q);n++;i++}
   C.forEach(c=>c.roupa=true);
   if(fem){ // pescoço à mostra e pernas mais finas e próximas
     const mapa=(k)=>{const [x,y]=k.split(",").map(Number);return y>=32?(x<=10?x+1:x>=21?x-1:x)+","+y:k};
     C.forEach(c=>{
       if(c.perna){c.px=new Set([...c.px].map(mapa));const e={};for(const k in c.extra)e[mapa(k)]=c.extra[k];c.extra=e;}
-      else if(c.nome!=="camisa"&&!/capa|xale|ombr|aljava|rolos|bolsa|broche/.test(c.nome)){
+      else if(c.nome!=="camisa"&&!/capa|xale|ombr|aljava|rolos|bolsa|broche|mang|gola/.test(c.nome)){
         const cam=C.find(q=>q.nome==="camisa").px; const fora=k=>{const y=+k.split(",")[1];return y>=19&&y<=29&&!cam.has(k)};
         for(const k of [...c.px])if(fora(k))c.px.delete(k); for(const k in c.extra)if(fora(k))delete c.extra[k];for(const k of [...c.px])if(k.endsWith(",18"))c.px.delete(k);for(const k in c.extra)if(k.endsWith(",18"))delete c.extra[k];}
     });
@@ -787,21 +856,19 @@ function montar(a){
     else C.push(L("fecho",LD.metal,M(R(9,18,10,19),R(21,18,22,19))));
   } else {
   C.push(L("braçadeira",et.cor,fem?{21:[[7,8]],22:[[6,7]]}:R(5,22,8,23)));
-  C.push(L("insígnia",et.cor,{20:[[19,19]]},Object.assign(ex([[18,21],[20,21],[19,22]],et.cor[1]),ex([[19,21]],et.cor[0]),ex([[19,20]],et.cor[1]))));
+  C.push(L("insígnia",et.cor,{},{}));C[C.length-1].sprites=[{k:"19,21",ox:-2,oy:-2,rows:["..o..",".oLo.","oLBDo",".oDo.","..o.."],cores:{o:et.cor[3],L:et.cor[0],B:et.cor[1],D:et.cor[2]}}];
   }
-  C.push(L("mãos",pele,fem?MAOS_F:M(R(5,26,8,28),R(23,26,26,28)))); C[C.length-1].mao=true;
+  C.push(L("mãos",pele,raca==="min"?(fem?M(R(9,24,12,26),R(23,26,26,28)):M(R(4,26,8,29),R(23,26,27,29))):fem?MAOS_F:M(R(5,26,8,28),R(23,26,26,28)))); C[C.length-1].mao=true;
   // cabeça
-  const l=cabeca.l, orel=ORELHAS[a.orelhas];
+  const l=cabeca.l, orel=raca==="elf"?(a.orelhas>=8?ORELHAS[a.orelhas]:ORELHAS[8+(a.orelhas%2)]):(a.orelhas>=8?ORELHAS[0]:ORELHAS[a.orelhas]);
   const oext={}; if(orel.brinco)Object.assign(oext,ex([[l-1,14],[31-(l-1),14]],OURO[1])); if(orel.argola)Object.assign(oext,ex([[l-1,14],[l-1,15],[31-(l-1),14],[31-(l-1),15]],OURO[1]));
   C.push(L("orelhas",pele,orel.f(l),oext));
-  const rosto={}; const oc=OLHO_COR[a.olhoCor][0];
-  pick(OLHOS,a.olhos).f(oc,pele).forEach(([k,c])=>{const [x,y]=k.split(",").map(Number);rosto[x+","+(y+(fem?1:0))]=c});
-  NARIZES[a.nariz].f(pele).forEach(([k,c])=>rosto[k]=c);
+  const rosto={}; const oc=a.olhoHex||OLHO_COR[(a.olhoCor||0)%OLHO_COR.length][0]; const olhoSet=new Set();
+  pick(OLHOS,a.olhos).f(oc,pele).forEach(([k,c])=>{const [x,y]=k.split(",").map(Number);rosto[x+","+(y+(fem?1:0))]=c;olhoSet.add(x+","+(y+(fem?1:0)))});
   const barba=fem?BARBAS[0]:pick(BARBAS,a.barba); const boca=pick(BOCAS,a.boca);
   if(fem) Object.assign(rosto,ex([[12,15],[19,15]],mix(pele[1],"#ff6a7a",.35)));
-  if(!barba.big||barba.big===3) boca.f(pele).forEach(([k,c])=>rosto[k]=c);
   if(barba.rala){for(let y=14;y<=18;y++)for(let x=11;x<=20;x++)if((x+y)%2===0&&!(y<16&&x>12&&x<19))rosto[x+","+y]=cab[2];}
-  C.push(L("cabeça",pele,cabeca.f,rosto));
+  C.push(L("cabeça",pele,cabeca.f,rosto)); Object.assign(C[C.length-1],{olhos:olhoSet,oc,raca,rostoF:{boca:BOCA_F[(fem?"f:":"m:")+boca.nome],cb:corBoca(boca.nome,pele),nariz:NARIZ_F[NARIZES[a.nariz%NARIZES.length].nome],cn:corNariz(pele)},oculos:(a.oculos||0)%OCULOS.length,anc:new Set(["16,16","16,13"])});
   C.push(L("sobrancelha",cab,fem?{10:[[12,14],[17,19]]}:{10:[[13,14],[17,18]],11:[[12,14],[17,19]]}));
   const cb=pick(CABELOS,a.cabelo); C.push(L("cabelo",cab,cb.f()));
   if(cb.pontas){const e={};for(let y=15;y<=25;y+=3){e["8,"+y]=cab[2];e["23,"+y]=cab[2];}Object.assign(e,ex([[8,25],[9,25],[22,25],[23,25]],OURO[1]));C.push(L("pontas",cab,{},e));}
@@ -812,15 +879,14 @@ function montar(a){
     C.push(L("barba",cab,barba.f(),e));
     if(barba.big===1||barba.big===2) C.push(L("bigode",cab,barba.big===2?{14:[[12,19]],15:[[10,13],[18,21]],16:[[10,11],[20,21]]}:BIGODE,ex([[14,14],[17,14]],cab[0])));
     if(barba.big===3) C.push(L("bigodinho",cab,{15:[[13,14],[17,18]]}));
-    if(barba.big===1) boca.f(pele).forEach(([k,c])=>{const [x,y]=k.split(",").map(Number);if(y>=16)C.push(L("boca",pele,{},{[k]:c}))});
-    if(barba.big===2) boca.f(pele).forEach(([k,c])=>C.push(L("boca",pele,{},{[k]:c})));
   }
   const n0=C.length; C.push(...g.chapeus[a.chapeu].f(pano)); for(let i=n0;i<C.length;i++)C[i].roupa=true;
+  C.forEach(c=>{const r=c.ramp,n=c.nome;c.cat=r===pele?"pele":r===cab?(/sobrancelha/.test(n)?"":/barba|bigode/.test(n)?"barba":"cabelo"):([FERRO,OURO,BRONZE,PRATA].includes(r)||(LD&&r===LD.metal)||/elmo|coroa|tiara|diadema|peito|ombr|marreta|pica|lamina|garra|aro\b/.test(n))?"metal":(COUROS.includes(r)||r===bota||/bota|cinto|susp|alça/.test(n))?"couro":r===MADEIRA?"madeira":r===FOLHA?"folha":r===LA?"la":(c.roupa||/capa/.test(n))?"pano":"";});
   { const [fh,fs]=hex2hsl(pano[1]); const fam={h:fh,prata:et.nome==="Conferência"}; if(!LD)
     C.forEach(c=>{if(!c.roupa||c.ramp===pele)return; if(c.ramp)c.ramp=c.ramp.slice(0,4).map(x=>travar(x,fam)); for(const k in c.extra)c.extra[k]=travar(c.extra[k],fam);}); }
   // ---- 1) corpo: largura e altura aplicadas em cada camada (coordenadas base) ----
-  const Lg=tipo.l, fl=Math.floor(Math.abs(Lg)/2), ce=Math.ceil(Math.abs(Lg)/2);
-  const D=Math.max(-3,Math.min(7,tipo.h+(raca==="elf"?3:0)-(raca==="min"?1:0)+(LD?1:0)));
+  const Lg=Math.max(-3,Math.min(6,tipo.l+(raca==="min"?2:raca==="elf"?-1:0))), fl=Math.floor(Math.abs(Lg)/2), ce=Math.ceil(Math.abs(Lg)/2);
+  const D=Math.max(-2,Math.min(7,tipo.h+(raca==="elf"?3:0)-(raca==="min"?1:0)+(LD?1:0)));
   const top=32-D, rows=36-top, linhasPerna={};
   for(let r=top;r<=35;r++){const src=32+Math.min(3,Math.floor((r-top)*4/rows));(linhasPerna[src]=linhasPerna[src]||[]).push(r);}
   const largura=(x,y,c)=>{ if(!Lg)return [[x,y]]; if(c.ferr)return [[x+(Lg>0?ce:-ce),y]]; if(y<17)return [[x,y]];
@@ -828,29 +894,112 @@ function montar(a){
     if(y>=30)return [[x,y]]; if(x<16-fl)return [[x+fl,y]]; if(x>15+ce)return [[x-ce,y]]; return []; };
   const altura=(x,y,c)=>{ if(!D)return [[x,y]]; if(c.ferr||c.mao||y<=31)return [[x,y-D]]; if(y>=36)return [[x,y]]; return (linhasPerna[y]||[]).map(r=>[x,r]); };
   // ---- 2) escala fina (~31% mais pixels), espelhada no eixo do corpo ----
-  const rng=i=>[Math.floor(i*21/16),Math.floor((i+1)*21/16)-1];
-  const fx=x=>{if(x>=16){const [p,q]=rng(x-16);return [21+p,21+q]}const [p,q]=rng(15-x);return [20-q,20-p]};
+  const rng=i=>[Math.floor(i*ESC),Math.floor((i+1)*ESC)-1], EIXO=Math.round(16*ESC);
+  const fx=x=>{if(x>=16){const [p,q]=rng(x-16);return [EIXO+p,EIXO+q]}const [p,q]=rng(15-x);return [EIXO-1-q,EIXO-1-p]};
   const fy=y=>rng(y);
   const fino=(x,y)=>{const [x0,x1]=fx(x),[y0,y1]=fy(y),o=[];for(let yy=y0;yy<=y1;yy++)for(let xx=x0;xx<=x1;xx++)o.push(xx+","+yy);return o};
   C.forEach(c=>{
     const conv=(x,y)=>{const o=[];largura(x,y,c).forEach(([x2,y2])=>altura(x2,y2,c).forEach(([x3,y3])=>o.push(...fino(x3,y3))));return o};
     const px=new Set();c.px.forEach(k=>{const [x,y]=k.split(",").map(Number);conv(x,y).forEach(q=>px.add(q))});
-    const ex2={};for(const k in c.extra){const [x,y]=k.split(",").map(Number);conv(x,y).forEach(q=>ex2[q]=c.extra[k])}
-    c.px=px;c.extra=ex2;});
-  // ---- 3) rasterização fina: luz em cima, sombra à direita/abaixo, contorno colorido ----
+    const ex2={};for(const k in c.extra){const [x,y]=k.split(",").map(Number);if(c.perna){largura(x,y,c).forEach(([x2,y2])=>altura(x2,y2,c).slice(0,1).forEach(([x3,y3])=>fino(x3,y3).forEach(q=>ex2[q]=c.extra[k])))}else conv(x,y).forEach(q=>ex2[q]=c.extra[k])}
+    c.px=px;c.extra=ex2;
+    if(c.sprites)c.sprites.forEach(s=>{const [x,y]=s.k.split(",").map(Number);const q=conv(x,y).map(v=>v.split(",").map(Number));if(q.length){s.fx=Math.min(...q.map(v=>v[0]));s.fy=Math.min(...q.map(v=>v[1]));}});
+    if(c.anc){c.ancF={};["16,16","16,13"].forEach(k=>{const [x,y]=k.split(",").map(Number);const q=conv(x,y).map(v=>v.split(",").map(Number));c.ancF[k]=[Math.min(...q.map(v=>v[0])),Math.min(...q.map(v=>v[1])),Math.max(...q.map(v=>v[1]))]})}
+    if(c.olhos){const s=new Set();c.olhos.forEach(k=>{const [x,y]=k.split(",").map(Number);conv(x,y).forEach(q=>s.add(q))});c.olhos=s;}});
+  // ---- 3) detalhe na escala fina (2×): cantos arredondados, volume, textura por material ----
+  const temS=(s,x,y)=>s.has(x+","+y);
+  C.forEach(c=>{const s=c.px;if(s.size<50)return;
+    for(let pass=0;pass<(s.size>500?2:1);pass++){const rm=[];
+      s.forEach(k=>{const [x,y]=k.split(",").map(Number);const u=temS(s,x,y-1),d=temS(s,x,y+1),l=temS(s,x-1,y),r=temS(s,x+1,y);
+        if((!u&&!l&&d&&r)||(!u&&!r&&d&&l)||(!d&&!l&&u&&r&&c.cat!=="couro")||(!d&&!r&&u&&l&&c.cat!=="couro"))rm.push(k)});
+      rm.forEach(k=>{s.delete(k);delete c.extra[k]});}});
   const grid={},dono={};
-  const tem=(c,x,y)=>c.px.has(x+","+y);
-  C.forEach((c,z)=>{c.px.forEach(k=>{const [x,y]=k.split(",").map(Number);let t=1;
-    if(!tem(c,x,y-1))t=0;                                   // topo iluminado
-    else if(!tem(c,x+1,y)||!tem(c,x,y+1))t=2;               // borda direita/baixo na sombra
-    else if(!tem(c,x-1,y)&&!tem(c,x-1,y-1))t=0;            // canto superior esquerdo iluminado
-    grid[k]=c.ramp[t];dono[k]=z;});for(const k in c.extra){grid[k]=c.extra[k];dono[k]=z;}});
+  const HL=r=>mix(r[0],"#ffffff",.45), hsh=(x,y)=>(((x*73856093)^(y*19349663))>>>0);
+  const escuro=h=>{const [,,l]=hex2hsl(h);return l<.16}, claro=h=>{const [,,l]=hex2hsl(h);return l>.9};
+  C.forEach((c,z)=>{const s=c.px,r=c.ramp,cat=c.cat;
+    if(s.size&&r){let y0=1e9,y1=-1e9;s.forEach(k=>{const y=+k.split(",")[1];if(y<y0)y0=y;if(y>y1)y1=y});const alt=y1-y0+1,grande=s.size>200;
+      const dist=(x,y,dx,dy,mx)=>{for(let i=1;i<=mx;i++)if(!temS(s,x+dx*i,y+dy*i))return i;return mx+1};
+      s.forEach(k=>{const [x,y]=k.split(",").map(Number);
+        const dt=dist(x,y,0,-1,4),db=dist(x,y,0,1,10),dl=dist(x,y,-1,0,3),dr=dist(x,y,1,0,4);
+        let t=1;
+        if(dt===1)t=0;
+        else if(dr===1||db===1)t=2;
+        else if(dl===1&&dt<=3)t=0;
+        else if(grande&&(dr===2||db===2))t=2;
+        let cor=r[t];
+        if(cat==="cabelo"&&t===1){ // mechas grandes: uma faixa de brilho em blocos e poucas divisões
+          const yy=y-y0;
+          if(dt>=2&&dt<=3&&yy<alt*.45&&((x+Math.floor(yy/2))%7)<4)cor=r[0];
+          else if(dt>4&&db>3&&(((x+Math.floor(yy/3))%9)+9)%9===0)cor=r[2];
+        } else if(cat==="barba"&&t===1){ if(dt>3&&db>3&&((x%7)+7)%7===0)cor=r[2]; }
+        else if(cat==="metal"&&t===1){ if(dt===2&&dl<=4)cor=HL(r); }
+        grid[k]=cor;dono[k]=z;});}
+    // detalhes (extras) ganham volume: topo claro, base escura
+    for(const k in c.extra){const e=c.extra[k];let v=e;
+      if(false&&typeof e==="string"&&e.length===7&&!escuro(e)&&!claro(e)){const [x,y]=k.split(",").map(Number);
+        if(c.extra[x+","+(y-1)]!==e)v=mix(e,"#ffffff",.25);else if(c.extra[x+","+(y+1)]!==e||c.extra[(x+1)+","+y]!==e)v=mix(e,"#000000",.2);}
+      grid[k]=v;dono[k]=z;}});
+  // sombra de contato: o que está por cima projeta sombra para baixo e para a direita
   const g2={...grid};
-  for(const k in grid){const [x,y]=k.split(",").map(Number);const up=x+","+(y-1);const c=C[dono[k]];
-    if(dono[up]!==undefined&&dono[up]>dono[k]&&c.ramp&&!c.extra[k]&&C[dono[up]].px.size)g2[k]=grid[k]===c.ramp[2]?c.ramp[3]:c.ramp[2];}
+  const acima=(q,z)=>dono[q]!==undefined&&dono[q]>z&&C[dono[q]].px.size;
+  for(const k in grid){const [x,y]=k.split(",").map(Number);const z=dono[k],c=C[z];if(!c.ramp||c.extra[k])continue;const r=c.ramp;
+    if(acima(x+","+(y-1),z))g2[k]=grid[k]===r[2]?r[3]:r[2];
+}
+  // olhos: pálpebra, pupila e brilho
+  C.forEach((c,z)=>{if(!c.olhos)return;const oc=c.oc;
+    const lid=mix(c.ramp[3],"#140c14",.45);
+    c.olhos.forEach(k=>{const [x,y]=k.split(",").map(Number);const u=x+","+(y-1);if((g2[k]==="#fff"||g2[k]===oc)&&!c.olhos.has(u)&&dono[u]===z)g2[u]=lid});
+    const vis=new Set();
+    c.olhos.forEach(k=>{if(vis.has(k)||g2[k]!==oc)return;const st=[k],b=[];vis.add(k);
+      while(st.length){const q=st.pop();b.push(q);const [x,y]=q.split(",").map(Number);[[1,0],[-1,0],[0,1],[0,-1]].forEach(([dx,dy])=>{const n=(x+dx)+","+(y+dy);if(!vis.has(n)&&g2[n]===oc&&c.olhos.has(n)){vis.add(n);st.push(n)}})}
+      if(b.length<4)return;const xs=b.map(q=>+q.split(",")[0]),ys=b.map(q=>+q.split(",")[1]);const x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
+      if(c.raca==="gua"){b.forEach(q=>g2[q]=mix(oc,"#ffffff",.35));}
+      const cx=Math.round((x0+x1)/2);for(let y=y1;y>=Math.max(y0+1,y1-1);y--)if(c.olhos.has(cx+","+y))g2[cx+","+y]=c.raca==="gua"?mix(oc,"#ffffff",.85):mix(oc,"#000000",.6);
+      g2[x0+","+y0]="#ffffff"; if(c.raca==="gua"&&x1>x0)g2[x1+","+y0]="#ffffff";});
+  });
+  // boca e nariz finos
+  C.forEach((c,z)=>{if(!c.rostoF)return;const F=c.rostoF;
+    const pinta=(spr,cores,x0,y0)=>spr.forEach((row,j)=>[...row].forEach((ch,i)=>{if(ch!=="."&&cores[ch])g2[(x0+i)+","+(y0+j)]=cores[ch]}));
+    if(F.nariz){const [ax,,yb]=c.ancF["16,13"];const fundo=yb+3;pinta(F.nariz,F.cn,ax-3,fundo-F.nariz.length+1);}
+    if(F.boca){const [ax,ay]=c.ancF["16,16"];pinta(F.boca.slice(1),F.cb,ax-5,ay-1+F.boca[0]);}
+  });
+  // peças pequenas desenhadas na escala fina (fivela, insígnia), respeitando o que está na frente
+  C.forEach((c,z)=>{if(!c.sprites)return;c.sprites.forEach(s=>{if(s.fx===undefined)return;s.rows.forEach((row,j)=>[...row].forEach((ch,i)=>{if(ch==="."||!s.cores[ch])return;const k=(s.fx+s.ox+i)+","+(s.fy+s.oy+j);if(dono[k]===undefined||dono[k]<=z){g2[k]=s.cores[ch];dono[k]=z}}))})});
+  // cílios: no máximo 2 pixels de espessura
+  C.forEach((c,z)=>{if(!c.olhos)return;const col={};c.olhos.forEach(k=>{if(g2[k]!=="#241a1a")return;const [x,y]=k.split(",").map(Number);(col[x]=col[x]||[]).push(y)});
+    for(const x in col){const ys=col[x].sort((p,q)=>q-p);const run=[ys[0]];for(let i=1;i<ys.length;i++){if(ys[i]===run[run.length-1]-1)run.push(ys[i]);else break}
+      run.slice(2).forEach(y=>g2[x+","+y]=c.ramp[1]);}});
+  // óculos
+  C.forEach((c,z)=>{if(!c.oculos)return;const tipo=OCULOS[c.oculos];
+    let pts=[...c.olhos].filter(k=>g2[k]==="#fff"||g2[k]==="#ffffff"||g2[k]===c.oc||(g2[k]&&g2[k].length===7&&hex2hsl(g2[k])[2]>.6));if(pts.length<4)pts=[...c.olhos];
+    const P=pts.map(k=>k.split(",").map(Number));const lado=f=>{const q=P.filter(f);return q.length?[Math.min(...q.map(v=>v[0])),Math.max(...q.map(v=>v[0])),Math.min(...q.map(v=>v[1])),Math.max(...q.map(v=>v[1]))]:null};
+    const E=lado(v=>v[0]<EIXO),Dd=lado(v=>v[0]>=EIXO);if(!E||!Dd)return;
+    const ESC_={Redondos:[OURO[1],OURO[3]],Quadrados:["#4a3a4a","#140e18"],Escuros:["#3a3040","#100a14"],"Meia-lua":["#c8d0dc","#3a4250"],"Monóculo":[OURO[1],OURO[3]]}[tipo];
+    const [cf,co]=ESC_;
+    const put=(x,y,cc)=>{g2[x+","+y]=cc;dono[x+","+y]=z};
+    const aro=([x0,x1,y0,y1],redondo,meia)=>{const a=x0-2,b=x1+2,t=y0-2,u=y1+2;
+      const borda=(x,y)=>x===a||x===b||y===t||y===u;const canto=(x,y)=>redondo&&(x===a||x===b)&&(y===t||y===u);
+      for(let y=t;y<=u;y++)for(let x=a;x<=b;x++){if(canto(x,y))continue;
+        if(borda(x,y)){if(meia&&y<y0)continue;put(x,y,(y===t||(meia&&y===y0&&(x===a||x===b)))?cf:co);if(!meia&&y===t+0&&x>a&&x<b)put(x,y,co);}
+        else{const k=x+","+y;const v=g2[k]||c.ramp[1];
+          if(tipo==="Escuros")put(x,y,(x-a+y-t===3||x-a+y-t===4)&&y<u-1?"#7a7a9a":"#1c1a28");
+          else put(x,y,mix(v,"#cfeaff",.28));}}
+      if(!meia){for(let x=a+1;x<b;x++)put(x,t,co);put(a,t+1,co);put(b,t+1,co);for(let x=a+1;x<b;x++)put(x,u,co);
+        for(let y=t+1;y<u;y++){put(a,y,co);put(b,y,co)}for(let x=a+2;x<b-1;x++)if(!redondo||true)put(x,t,cf);}
+      else{for(let x=a;x<=b;x++)put(x,u,co);for(let y=y0;y<u;y++){put(a,y,co);put(b,y,co)}}
+      if(tipo!=="Escuros"){put(a+1,t+1,"#ffffff");put(a+2,t+1,"#ffffff");put(a+1,t+2,"#ffffff");}
+      return [a,b,t,u]};
+    if(tipo==="Monóculo"){const [a,b,tt,u]=aro(Dd,true,false);for(let i=1;i<=9;i++)put(b+Math.floor(i/3),u+i,i%2?OURO[1]:OURO[2]);return}
+    const A=aro(E,tipo==="Redondos",tipo==="Meia-lua"),B=aro(Dd,tipo==="Redondos",tipo==="Meia-lua");
+    const yb=tipo==="Meia-lua"?A[3]-1:A[2]+1;for(let x=A[1]+1;x<B[0];x++){put(x,yb,co);put(x,yb-1,cf)}
+    for(let i=1;i<=4;i++){put(A[0]-i,A[2]+1,co);put(B[1]+i,B[2]+1,co)}});
+  // sobrancelhas finas: no máximo 2 pixels de espessura
+  C.forEach((c,z)=>{if(c.nome!=="sobrancelha")return;const col={};c.px.forEach(k=>{const [x,y]=k.split(",").map(Number);(col[x]=col[x]||[]).push(y)});
+    for(const x in col){const ys=col[x].sort((p,q)=>q-p);ys.slice(2).forEach(y=>{const k=x+","+y;if(dono[k]===z){const cz=C.findIndex(q=>q.nome==="cabeça");if(cz>=0&&C[cz].px.has(k))g2[k]=C[cz].ramp[1];else delete g2[k];}})}});
   const out={};
   for(const k in g2){const [x,y]=k.split(",").map(Number);for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const n=(x+dx)+","+(y+dy);if(!g2[n]&&!out[n]){const r=C[dono[k]].ramp;out[n]=r?r[3]:"#2a1a20";}}}
   return {...out,...g2};
+
 }
 const CENARIO={
  "Preparação":{ceu:["#2a1a1e","#3a2228"],topo:["#8a6a5a","#6a4e42","#4e3830","#2a1c18"],pedra:["#7a6260","#5a4644","#40302e","#22181a"],
@@ -908,17 +1057,41 @@ function ilha(gu,et){const g={};const cen=CENARIO[ETAPAS[gu][et||0].nome],T0=cen
   Cc.forEach(k=>{const [x,y]=k.split(",").map(Number);g[k]=(x+y*3)%7===0?PE[0]:(x>24?PE[2]:PE[1]);if(!Cc.has(x+","+(y+1)))g[k]=PE[3]});
   const d={};cen.deco(d);for(const k in d){const [x,y]=k.split(",").map(Number);g[(x<18?x-2:x+8)+","+y]=d[k];}
   return g}
+function ilhaFina(gu,et){const il=ilha(gu,et),g={},cen=CENARIO[ETAPAS[gu][et||0].nome],T0=cen.topo,PE=cen.pedra;
+  const rg=i=>[Math.floor(i*ESC),Math.floor((i+1)*ESC)-1];
+  for(const k in il){const [x,y]=k.split(",").map(Number);const [x0,x1]=rg(x),[y0,y1]=rg(y+DY);for(let yy=y0;yy<=y1;yy++)for(let xx=x0;xx<=x1;xx++)g[xx+","+yy]=il[k];}
+  const hs=(x,y)=>(((x*73856093)^(y*19349663))>>>0);
+  // camadas de rocha: frestas curtas e lisas, sem pontilhado
+  for(const k in g){const [x,y]=k.split(",").map(Number);const c=g[k];if(c!==PE[1])continue;
+    const fx=(x+Math.floor(y/5)*7)%13;
+    if(y%5===0&&fx<5&&g[x+","+(y+1)]===PE[1])g[k]=PE[2];
+    else if(y%5===1&&fx>=1&&fx<4&&g[x+","+(y-1)]===PE[2])g[k]=PE[0];}
+  // tufos de grama, florzinhas e pedrinhas na borda de cima
+  const topo={};for(const k in g){const [x,y]=k.split(",").map(Number);if(g[k]===T0[0]&&(topo[x]===undefined||y<topo[x]))topo[x]=y;}
+  const xs=Object.keys(topo).map(Number).sort((p,q)=>p-q);
+  xs.forEach((x,i)=>{const y=topo[x];if(g[x+","+(y-1)])return;const h=hs(x,7)%11;
+    if(h<3){g[x+","+(y-1)]=T0[0];if(h===0&&!g[x+","+(y-2)])g[x+","+(y-2)]=T0[0];if(h===1&&!g[(x+1)+","+(y-1)])g[(x+1)+","+(y-1)]=T0[1];}
+    else if(h===5&&i%3===0){g[x+","+(y-2)]="#f6e8a0";g[x+","+(y-1)]=T0[1];g[(x-1)+","+(y-2)]="#f6e8a0";g[(x+1)+","+(y-2)]="#f6e8a0";g[x+","+(y-3)]="#f6e8a0";g[x+","+(y-2)]="#e07a5a";}
+    else if(h===8&&i%4===0){g[x+","+(y-1)]=PE[0];g[(x+1)+","+(y-1)]=PE[1];g[(x+1)+","+(y-2)]=PE[0];g[(x+2)+","+(y-1)]=PE[2];}});
+  // raízes penduradas embaixo
+  const base={};for(const k in g){const [x,y]=k.split(",").map(Number);if(base[x]===undefined||y>base[x])base[x]=y;}
+  for(const xk in base){const x=+xk,y=base[x];const h=hs(x,3)%13;if(h===0||h===6){const n=3+hs(x,9)%5;for(let i=1;i<=n;i++)g[(x+(i>3?1:0))+","+(y+i)]=i===n?PE[3]:"#5a3e2a";}}
+  return g}
 function svg(a,fundo=true){
-  const m=montar(a),mm={};for(const k in m){const [x,y]=k.split(",").map(Number);mm[(x+FX)+","+(y+FY)]=m[k];}const il=fundo?ilha(a.guilda,a.etapa):{},ii={};const R2=i=>[Math.floor(i*21/16),Math.floor((i+1)*21/16)-1];for(const k in il){const [x,y]=k.split(",").map(Number);const [x0,x1]=R2(x),[y0,y1]=R2(y+DY);for(let yy=y0;yy<=y1;yy++)for(let xx=x0;xx<=x1;xx++)ii[xx+","+yy]=il[k];}const g={...ii,...mm};const ceu=CENARIO[ETAPAS[a.guilda][a.etapa||0].nome].ceu;let r="";
-  if(fundo){r+=`<rect width="${W}" height="${H}" fill="${ceu[1]}"/><rect width="${W}" height="14" fill="${ceu[0]}"/>`;[[4,5],[50,8],[8,18],[54,26],[3,34],[52,40],[26,2],[47,14],[16,4],[30,10]].forEach(([x,y])=>r+=`<rect x="${x}" y="${y}" width="1" height="1" fill="#f0e0b0"/>`);}
-  for(const k in g){const [x,y]=k.split(",").map(Number);if(x<0||y<0||x>=W||y>=H)continue;r+=`<rect x="${x}" y="${y}" width="1.03" height="1.03" fill="${g[k]}"/>`}
+  const m=montar(a),g=fundo?ilhaFina(a.guilda,a.etapa):{};
+  for(const k in m){const [x,y]=k.split(",").map(Number);g[(x+FX)+","+(y+FY)]=m[k];}
+  const ceu=CENARIO[ETAPAS[a.guilda][a.etapa||0].nome].ceu;let r="";
+  if(fundo){r+=`<rect width="${W}" height="${H}" fill="${ceu[1]}"/><rect width="${W}" height="28" fill="${ceu[0]}"/>`;
+    for(let x=0;x<W;x+=2)r+=`<rect x="${x+((x/2)%2)}" y="28" width="1" height="1" fill="${ceu[0]}"/><rect x="${x+1-((x/2)%2)}" y="30" width="1" height="1" fill="${ceu[0]}"/>`;
+    [[4,5],[50,8],[8,18],[54,26],[3,34],[52,40],[26,2],[47,14],[16,4],[30,10]].forEach(([x,y],i)=>{x*=2;y*=2;r+=`<rect x="${x}" y="${y}" width="1" height="1" fill="#f0e0b0"/>`;if(i%3===0)r+=`<rect x="${x-1}" y="${y}" width="3" height="1" fill="#f0e0b0" opacity=".5"/><rect x="${x}" y="${y-1}" width="1" height="3" fill="#f0e0b0" opacity=".5"/>`;});}
+  for(let y=0;y<H;y++){let x=0;while(x<W){const c=g[x+","+y];if(!c){x++;continue}let e=x+1;while(e<W&&g[e+","+y]===c)e++;r+=`<rect x="${x}" y="${y}" width="${e-x+.04}" height="1.04" fill="${c}"/>`;x=e}}
   return `<svg viewBox="0 0 ${W} ${H}" shape-rendering="crispEdges" role="img" aria-label="Avatar em pixel art">${r}</svg>`}
 
 // ================= INTERFACE =================
 const PARTES=(gu,et,sx)=>{const T=TONS[ETAPAS[gu][et||0].nome].map(c=>c[4]),n=a=>SX(a,sx).map(c=>c.nome);return [
  ...(ETAPAS[gu][0].lider?[["Raça","raca",["Anão","Mago","Elfo"]]]:[]),["Corpo","corpo",TIPOS[sx||"m"].map(c=>c.nome)],["Pele","pele",PELE.map(c=>c[4])],["Cabeça","cabeca",n(CABECAS)],
  ["Orelhas","orelhas",ORELHAS.map(c=>c.nome)],["Olhos","olhos",n(OLHOS)],["Cor dos olhos","olhoCor",OLHO_COR.map(c=>c[1])],
- ["Nariz","nariz",NARIZES.map(c=>c.nome)],["Boca","boca",n(BOCAS)],
+ ["Nariz","nariz",NARIZES.map(c=>c.nome)],["Boca","boca",n(BOCAS)],["Óculos","oculos",OCULOS],
  ["Cabelo","cabelo",n(CABELOS)],["Cor do cabelo","cabCor",CAB.map(c=>c[4])],...(sx==="f"?[]:[["Barba","barba",BARBAS.map(c=>c.nome)]]),
  ["Chapéu","chapeu",G[gu].chapeus.map(c=>c.nome)],["Camisa","roupa",n(G[gu].roupas)],["Cor da roupa","pano",T],
  ["Calça","calca",n(CALCAS_F)],["Cor da calça","calcaCor",T],
@@ -940,7 +1113,8 @@ const PADRAO_N={
 };
 const PADRAO={};for(const gu in PADRAO_N){PADRAO[gu]={};for(const sx of ["m","f"]){const o={sexo:sx,ferr:0},ps=PARTES(gu,0,sx);for(const k in PADRAO_N[gu][sx]){const v=PADRAO_N[gu][sx][k];if(typeof v==="number"){o[k]=v;continue}const p=ps.find(p=>p[1]===k);const ix=p[2].indexOf(v);if(ix<0)console.error("PADRAO sem",gu,sx,k,v);o[k]=Math.max(0,ix);}if(sx==="f")o.barba=0;PADRAO[gu][sx]=o;}}
 
-function sorteio(seed,gu,et=0,sx="m"){let r=seed;const Rn=n=>{r=(r*9301+49297)%233280;return Math.floor(r/233280*n)};const o={guilda:gu,etapa:et,sexo:sx,barba:0};PARTES(gu,et,sx).forEach(([,k,ops])=>o[k]=Rn(ops.length));if(Rn(2)||sx==="f")o.barba=0;if(gu==="elf"){o.orelhas=8+Rn(2);if(Rn(3))o.barba=0;if(o.pele===7)o.pele=0;}return o}
+function sorteio(seed,gu,et=0,sx="m"){let r=seed;const Rn=n=>{r=(r*9301+49297)%233280;return Math.floor(r/233280*n)};const o={guilda:gu,etapa:et,sexo:sx,barba:0};PARTES(gu,et,sx).forEach(([,k,ops])=>o[k]=Rn(ops.length));if(Rn(2)||sx==="f")o.barba=0;if(Rn(4))o.oculos=0;if(gu==="elf"){o.orelhas=8+Rn(2);if(Rn(3))o.barba=0;if(o.pele===7)o.pele=0;}return o}
+const _svgC=new Map(),_svg0=svg;svg=function(a,f=true){const k=JSON.stringify(a)+f;let v=_svgC.get(k);if(!v){v=_svg0(a,f);if(_svgC.size>300)_svgC.clear();_svgC.set(k,v)}return v};
 
 // =====================================================================
 //                     APP  (dados de exemplo)
@@ -1649,12 +1823,14 @@ function tudo(){SFX.guilda(A.guilda);$("btnSom").innerHTML=SFX.icone(SFX.V.mudo.
 
 // ---- editor do herói (mesmas peças do criador) ----
 let rasc=null;
+const CORES_AV=[["da pele","pele",()=>PELE.map(c=>c[1]),"peleHex"],["do cabelo","cabCor",()=>CAB.map(c=>c[1]),"cabHex"],["dos olhos","olhoCor",()=>OLHO_COR.map(c=>c[0]),"olhoHex"]];
+document.addEventListener("input",e=>{const h=e.target.dataset&&e.target.dataset.hex;if(!h||!rasc)return;rasc[h]=e.target.value;const pl=document.querySelector(".ed .palco");if(pl)pl.innerHTML=svg(rasc)});
 function editor(){
-  const ps=PARTES(rasc.guilda,rasc.etapa,rasc.sexo);
+  const ps=PARTES(rasc.guilda,rasc.etapa,rasc.sexo).filter(p=>!["pele","cabCor","olhoCor"].includes(p[1]));
   $("folha").innerHTML=`<h3>${rasc._l?"Editar avatar":"Editar herói"}</h3>
    <div class="sexo">${[["m","Masculino"],["f","Feminino"]].map(([k,t])=>`<button data-sx="${k}" aria-pressed="${(rasc.sexo||"m")===k}">${t}</button>`).join("")}</div>
    <div class="ed"><div class="palco">${svg(rasc)}</div>
-   <div class="ctl">${ps.map(([rot,k,ops])=>`<div class="row"><span>${rot}</span><button data-k="${k}" data-d="-1" aria-label="${rot} anterior">‹</button><b>${ops[rasc[k]%ops.length]}</b><button data-k="${k}" data-d="1" aria-label="${rot} seguinte">›</button></div>`).join("")}</div></div>
+   <div class="ctl">${ps.map(([rot,k,ops])=>`<div class="row"><span>${rot}</span><button data-k="${k}" data-d="-1" aria-label="${rot} anterior">‹</button><b>${ops[(rasc[k]||0)%ops.length]}</b><button data-k="${k}" data-d="1" aria-label="${rot} seguinte">›</button></div>`).join("")}${CORES_AV.map(([t,k,lst,hx])=>{const l=lst();return `<div class="lblc">Cor ${t}</div><div class="cores">${l.map((c,i)=>`<button data-cav="${k}" data-i="${i}" aria-pressed="${!rasc[hx]&&(rasc[k]||0)%l.length===i}" style="background:${c}" aria-label="Cor ${t} ${i+1}"></button>`).join("")}<input type="color" data-hex="${hx}" value="${rasc[hx]||l[(rasc[k]||0)%l.length]}" aria-label="Cor ${t}: qualquer cor"></div>`}).join("")}</div></div>
    <p class="nota">${rasc._l?`Roupas, cores e item da classe ${CLASSES[rasc._l].nome}. Quanto mais alta a classe, mais longa a capa e mais nobre o metal: bronze, prata e ouro.`:`As cores da roupa ficam travadas na família da sua etapa (${et().nome}). A ferramenta é a da etapa.`}</p>
    <div class="botoes" style="margin-top:10px"><button class="btn neutro" data-ed="sortear">Sortear</button><button class="btn neutro" data-ed="cancelar">Cancelar</button><button class="btn ok" data-ed="salvar">Salvar</button></div>`;
 }
@@ -1760,6 +1936,7 @@ document.addEventListener("click",e=>{
   if(d.regras){const ev=eventos().find(x=>x.id===d.regras);$("folha").innerHTML=`<h3>${ev.nome}</h3><div class="sub">${ev.tipo} · ${ev.desc}</div><h2 style="font-size:16px">Regras</h2><ul class="regras">${ev.regras.map(r=>`<li>${r}</li>`).join("")}</ul><h2 style="font-size:16px">Recompensa da equipe</h2><div class="sub">${ev.premioEquipe}</div><h2 style="font-size:16px">Recompensas individuais</h2><ul class="regras">${ev.semanal?beneficios().map(([n,c,r])=>`<li><b>${n}</b>: ${c}. ${r}.</li>`).join(""):ev.ind?ev.ind.marcos.map(([v,p])=>`<li>${fmt(v)} ${ev.ind.u}: ${p}</li>`).join(""):"<li>Recebe o desconto do Reino como todos.</li>"}</ul><button class="btn neutro larga" style="margin-top:14px" data-ed="cancelar">Fechar</button>`;abrirModal();return}
   if(d.acao==="editar"){rasc={...A};editor();abrirModal();return}
   if(d.sx){const s=d.sx,l=rasc._l;rasc={guilda:rasc.guilda,etapa:rasc.etapa,...PADRAO[rasc.guilda][s],sexo:s};if(l)rasc._l=l;editor();return}
+  if(d.cav){rasc[d.cav]=+d.i;delete rasc[CORES_AV.find(c=>c[1]===d.cav)[3]];editor();return}
   if(d.k){const p=PARTES(rasc.guilda,rasc.etapa,rasc.sexo).find(p=>p[1]===d.k);rasc[d.k]=((rasc[d.k]||0)+ +d.d+p[2].length)%p[2].length;editor();return}
   if(d.ed==="sortear"){const l=rasc._l;rasc=sorteio(Math.random()*1e6|0,rasc.guilda,rasc.etapa,rasc.sexo||"m");if(l)rasc._l=l;editor();return}
   if(d.ed==="cancelar"){fecharModal();return}
