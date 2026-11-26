@@ -12,12 +12,13 @@
 <title>Reino das Relíquias</title>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <script>(function(){var w=Math.min(screen.width,screen.height);if(w>430){document.querySelector("meta[name=viewport]").setAttribute("content","width=430,viewport-fit=cover")}})()</script>
-<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#141019;--fundo:#1b1626;--card:#2a2236;--card2:#33293f;--bd:#4a3a52;--bd2:#6a5470;--tx:#f4e9d8;--mu:#bba99a;--au:#e8b04a;--ok:#7fc46a;--rui:#e06a5a;--etapa:#d0723c;--etapa2:#8e4420}
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--tx)}
-body{font-family:"Pixelify Sans",ui-monospace,monospace;min-height:100vh}
+body{font-family:Nunito,system-ui,sans-serif;font-weight:700;min-height:100vh}
+h1,h2,h3,.h3,header.topo .gnome b,.premios div b{font-family:"Pixelify Sans",ui-monospace,monospace;font-weight:600}
 .previa{max-width:430px;margin:0 auto;padding:10px 16px 0;display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-family:system-ui,sans-serif;font-size:13px;color:var(--mu)}
 .previa button{font:inherit;font-size:13px;padding:5px 10px;border:2px solid var(--bd2);background:var(--card);color:var(--tx);cursor:pointer}
 .previa button[aria-pressed=true]{background:var(--au);color:#2a1a10;border-color:#fff0b0}
@@ -74,7 +75,7 @@ h2 small{font-size:12px;color:var(--mu);font-family:system-ui,sans-serif;font-we
 .item .ic{width:64px;height:64px;flex:none;background:#1b1626;border:3px solid var(--bd);display:grid;place-items:center;position:relative}
 .item .ic svg{max-width:48px;max-height:48px}
 .item .meio{flex:1;min-width:0}
-.item .meio b{font-size:17px;display:block}
+.item .meio b{font-size:17px;display:block}.item .meio .sub b{font-size:inherit;display:inline}
 .item .preco{font-size:18px;color:#ffe08a;white-space:nowrap}
 .item .preco s{color:var(--mu);font-size:13px;margin-right:4px}
 .item .acao{max-width:42%;text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:6px}
@@ -1490,7 +1491,7 @@ function telaInicio(){
     <div class="caixa"><div class="rot">GC disponível</div><div class="linha"><span class="num">${fmt(J.gc)}</span>${icone("moeda",OUROc,22)}</div><div class="sub">+${J.pend} GC ${ON?"a caminho, pagos no fechamento da semana":"aguardando validação da supervisão"}</div></div>
     ${ON?`<div class="caixa"><div class="rot">XP</div><div class="linha"><span class="num">${fmt(J.xp)}</span></div><div class="sub">${SRV&&SRV.ultima_rodada?`Atualizado às ${String(SRV.ultima_rodada).slice(11,16)}. O jogo atualiza a cada 15 min.`:"O jogo atualiza a cada 15 min."}</div></div>`:`<div class="caixa"><div class="rot">Hoje</div><div class="linha"><span class="num">${fmt(feito)}</span><span class="sub">de ${fmt(meta)} ${un}</span></div><div class="sub">${pp>0?`${pp}% acima da meta: <b style="color:#9af0ff">+${pp} XP</b>`:"Bater a meta exata ainda não dá XP"}</div></div>`}
   </div>
-  ${(()=>{const r=receptaculo();return `<h2>${icone("moeda",OUROc,20)} Receptáculo <small>toque para ver encher</small></h2>
+  ${(()=>{const r=receptaculo();return `<h2>${icone("moeda",OUROc,20)} Receptáculo ${ON?"":"<small>toque para ver encher</small>"}</h2>
   <div class="caixa recep" data-fx="receptaculo">${frasco(r.pct,58)}<div class="meio"><div class="linha"><b style="font-size:17px">${r.preenchido} de ${r.capacidade} GC</b><span class="tag">${r.pct}%</span></div>${barra(r.preenchido,r.capacidade,"gc",14)}<div class="sub" style="margin-top:4px">O GC liberado enche o receptáculo. O pagamento sai no fechamento da semana, ou na hora se ele encher antes.</div>${J.aguarda?`<div class="sub" style="color:#c8b8a8">+${J.aguarda} GC de bônus esperando a etapa seguinte. Ainda não entram aqui.</div>`:""}<div class="sub">Capacidade do tier ${r.tier}: ${r.capacidade} GC. Cresce +50 a cada tier.</div></div></div>`})()}
   <h2>${icone("sino",OUROc,20)} Avisos <small>toque para abrir</small></h2>
   <div class="caixa" style="padding:4px 8px 8px">${AVISOS_J.length?"":`<div class="sub" style="padding:6px">Nenhum aviso por enquanto.</div>`}${AVISOS_J.map(a=>`<button class="aviso ${a.sob?"sobrio":""}" data-fx="${a.k}">${SFX.icone(a.ic,26,a.sob?null:undefined)}<span><b>${a.t}</b><span class="sub">${a.d}</span></span></button>`).join("")}</div>
@@ -2301,6 +2302,8 @@ function verNotificacao(id){const a=AVISOS_J.find(x=>x.k==="n:"+id);if(!a)return
 async function depois(msg,fx){await recarregar(true);if(msg)toast(msg);if(fx)fx()}
 function cliqueOnline(e){if(!ON)return;const b=e.target.closest("button,[data-fx]");if(!b)return;const d=b.dataset,para=()=>{e.stopImmediatePropagation();e.preventDefault()};
   if(d.fx&&d.fx.startsWith("n:")){para();SFX.iniciarAudio();verNotificacao(d.fx.slice(2));return}
+  if(d.fx&&d.fx!=="manual"){para();return} // efeitos de demonstração não rodam com dados reais
+  if("validar" in d){para();toast("A semana fecha pela aba de rodadas.");return}
   if(d.sair!==undefined){para();sairSessao();return}
   if(d.lg){const a=d.lg;if(a==="enviar"||a==="reenviar"){para();loginEnviar();return}if(a==="codigo"){para();loginCodigo();return}if(a==="tentar"){para();iniciarOnline();return}}
   if(d.ed==="salvar"&&rasc){const l=rasc._l;setTimeout(()=>salvarAvatarSrv(l?AL[l]:A),0);return}
