@@ -111,6 +111,27 @@ nav.baixo button[aria-current=page] svg{filter:drop-shadow(0 2px 0 #6a4a20)}
 .ed .palco{width:42%;flex:none;position:sticky;top:0;border:3px solid var(--bd)}
 .ed .palco svg{width:100%;display:block}
 .ctl{flex:1;display:grid;gap:4px}
+.orcl .barra2,.barra2{height:12px;background:#120e18;border:2px solid #0b080e;position:relative;overflow:hidden;margin:6px 0 4px}
+.barra2 span{position:absolute;top:0;bottom:0;left:0;background:#e8b04a}
+.semxp{background:#2a1e14;border:3px solid #8a6040;padding:8px 10px;margin-bottom:10px;font-family:system-ui,sans-serif;font-size:13px;line-height:1.4}
+.semxp b{color:#ffe08a}
+.evf .campo{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.evf .campo>label,.evf .lb{font-size:13px;color:var(--mu);font-family:system-ui,sans-serif}
+.op{display:flex;flex-wrap:wrap;gap:5px}
+.op button{font:inherit;font-size:14px;padding:6px 10px;border:3px solid var(--bd2);background:#241c2e;color:var(--mu);cursor:pointer;min-height:40px}
+.op button[aria-pressed=true]{background:var(--au);color:#2a1a10;border-color:#fff0b0}
+.trava{display:inline-flex;align-items:center;gap:6px;font-size:14px;padding:6px 10px;border:3px dashed var(--bd2);color:var(--tx);min-height:40px}
+.dois{display:grid;grid-template-columns:1fr 1fr;gap:8px}.dois>*{min-width:0}.dois .inp{width:100%;min-width:0}
+.custo{margin:4px 0 12px}.custo.alerta{border-color:#b05050;background:#3a1a1e}.custo.okc{border-color:#4a7a3a;background:#1e2e1a}
+.dec{display:flex;gap:10px;align-items:flex-start}.dec .rosto{width:46px;height:46px;flex:none;border:3px solid var(--bd);overflow:hidden;background:#000}
+.dec .rosto svg{width:330%!important;margin:-62% 0 0 -115%}
+.dec .meio{flex:1;min-width:0}.dec .meio b{display:block;font-size:15px;line-height:1.25}.dec .meta{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.prazo{font-size:11px;padding:1px 5px;border:2px solid #c09030;color:#ffe08a;font-family:system-ui,sans-serif}.prazo.curto{border-color:#b05050;color:#ffb0a0}
+.vetado{opacity:.75}.vetado .meio b{text-decoration:line-through;text-decoration-color:#e06a5a}
+.carimbo{display:inline-block;font-size:12px;padding:2px 6px;border:2px solid #b05050;color:#ffb0a0;background:#3a1a1e;font-family:system-ui,sans-serif;margin-top:6px}
+.chk{display:flex;gap:8px;align-items:center;font-size:15px;cursor:pointer}.chk input{width:22px;height:22px;accent-color:#e8b04a}
+.vform{margin-top:8px;display:grid;gap:6px}.vform textarea{min-height:60px;resize:vertical;width:100%}
+
 .mural-ins{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;text-align:center;padding:10px 6px}
 .mural-ins>div{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer}
 .mural-ins img,.mural-ins svg,.mural-ins canvas{width:48px;height:48px;image-rendering:pixelated}
@@ -236,6 +257,7 @@ nav.baixo:has(button:nth-child(6)) button{font-size:11px}
   <button data-papel="op" aria-pressed="true">Operador</button>
   <button data-papel="sup" aria-pressed="false">Supervisor</button>
   <button data-papel="coo" aria-pressed="false">Coordenador</button>
+  <button data-papel="chn" aria-pressed="false">Chanceler</button>
   <button data-papel="ger" aria-pressed="false">Gerente</button>
   <button data-verlogin style="border-style:dashed">Tela de login</button>
   <span style="flex-basis:100%;height:0"></span>
@@ -299,11 +321,13 @@ const TONS={
  "Conferência":[["#ffffff","#d8e0ea","#a0acbe","#4e586c","Prata"],["#f4f0ea","#d0c8bc","#a09684","#5a5246","Marfim"],["#e8f0ff","#b8c8e8","#8094bc","#3e4a66","Aço"],["#ffffff","#e8e8f0","#b8b8c8","#6a6a7a","Neve"],["#e0e4e8","#a8b0b8","#787f88","#3c4046","Chumbo"]],
  "Mestre da Guilda":[["#a8c080","#6a8a48","#465e30","#24321a","Musgo"],["#90b890","#4a7a5a","#30543c","#182c20","Floresta"],["#c8c080","#9a9450","#6a6434","#36321a","Oliva"],["#80b0a0","#3e7a6a","#285448","#122a24","Pinho"],["#b8b088","#8a8458","#5e5a3c","#302e1e","Líquen"]],
  "Conselheiro do Reino":[["#90b0f0","#3a5ac8","#24388a","#101c48","Azul real"],["#80a8e8","#2a64c0","#1a4084","#0c2044","Safira"],["#7a88c8","#3e4a96","#28306a","#121636","Noite"],["#9a90e0","#4a40b0","#2e287a","#16123e","Índigo"],["#a8c0e0","#6a88b8","#465e88","#222e48","Aço azul"]],
+ "Chanceler do Reino":[["#c8a0f0","#8a4ad0","#5a2a96","#2c1250","Ametista"],["#8a98d8","#3a48a0","#232c6a","#101438","Anil"],["#80d8b0","#20a070","#106a4a","#063624","Esmeralda"],["#c888b0","#8a3a6e","#5e2248","#300e24","Ameixa"],["#a8acb8","#5e6270","#3e404c","#1e2026","Grafite"]],
  "Regente do Reino":[["#f08a8a","#c02a3a","#86182a","#440a14","Carmim"],["#d07090","#962a52","#661a38","#340a1c","Vinho"],["#ff8090","#e02a4a","#9a1430","#4a0818","Rubi"],["#ff9a7a","#e0402a","#a0261a","#50100a","Escarlate"],["#c080d0","#8a2a9a","#5e1a6a","#300a36","Púrpura"]],
 };
 const PRATA=["#ffffff","#d8e0ea","#a0acbe","#4e586c"];
+const ELECTRO=["#fffbe6","#e8dca8","#b4a46c","#5c5232"],AMETISTA=["#f0d8ff","#a860f0","#6a2ab0","#300c5a"];
 const ARMINHO=["#ffffff","#f4f0ea","#d8d0c4","#8a8070"];
-const LIDER={"Mestre da Guilda":{metal:BRONZE,gema:"#3ac070",capa:1},"Conselheiro do Reino":{metal:PRATA,gema:"#4aa0ff",capa:2},"Regente do Reino":{metal:OURO,gema:"#ff3050",capa:3}};
+const LIDER={"Mestre da Guilda":{metal:BRONZE,gema:"#3ac070",capa:1},"Conselheiro do Reino":{metal:PRATA,gema:"#4aa0ff",capa:2},"Chanceler do Reino":{metal:ELECTRO,gema:"#a860f0",capa:4},"Regente do Reino":{metal:OURO,gema:"#ff3050",capa:3}};
 const tonsDe=(a)=>TONS[ETAPAS[a.guilda][a.etapa||0].nome];
 const ESC=42/16,W=114,H=140,DX=8,DY=6,FX=10,FY=16,WB=88,HB=108;
 const ETAPAS={
@@ -311,6 +335,7 @@ const ETAPAS={
  gua:[{nome:"Segregação",cor:["#e6b8ff","#a464e4","#6a3aa0","#341a58"],ferr:[0,2,3,6]},{nome:"Cadastro",cor:["#fff0a0","#f0b030","#b07818","#5a3a0a"],ferr:[1,4,5,7]}],
  sup:[{nome:"Mestre da Guilda",cor:["#f0c090","#c88a50","#946036","#583618"],lider:1}],
  coo:[{nome:"Conselheiro do Reino",cor:["#ffffff","#d8e0ea","#a0acbe","#4e586c"],lider:2}],
+ chn:[{nome:"Chanceler do Reino",cor:["#fffbe6","#e8dca8","#b4a46c","#5c5232"],lider:2.5}],
  ger:[{nome:"Regente do Reino",cor:["#fff0a0","#f0c040","#b8842a","#6a4418"],lider:3}],
  elf:[{nome:"Controle de qualidade",cor:["#a8f0c8","#2eb878","#1c7a4c","#0c3a24"],ferr:[2,1,0,5]},{nome:"Conferência",cor:["#ffffff","#d8e0ea","#a0acbe","#4e586c"],ferr:[3,6,7,4]}],
 };
@@ -666,6 +691,33 @@ const G={
    {nome:"Chapéu largo", f:(p)=>[L("copa",p,M({3:[[12,19]]},R(11,4,20,7))),L("fita",PRATA,{7:[[11,20]]},ex([[18,7]],"#4aa0ff")),L("aba",p,M({8:[[7,24]]},{9:[[6,25]]}))]},
   ],
  },
+ chn:{nome:"Chanceler do Reino",
+  roupas:[
+   {nome:"Farda de gala", f:(p)=>[L("jaqueta",p,M(R(9,18,22,30)),Object.assign(ex([[12,20],[12,22],[12,24],[12,26],[12,28],[19,20],[19,22],[19,24],[19,26],[19,28]],ELECTRO[0]),ex([[9,30],[10,30],[11,30],[12,30],[13,30],[14,30],[15,30],[16,30],[17,30],[18,30],[19,30],[20,30],[21,30],[22,30]],ELECTRO[2]))),L("mangas",p,M(R(5,19,9,25),R(22,19,26,25)),ex([[5,25],[6,25],[7,25],[8,25],[9,25],[22,25],[23,25],[24,25],[25,25],[26,25]],ELECTRO[1])),L("faixa",AMETISTA,linha(10,19,21,29,2)),L("gola",ELECTRO,M({18:[[11,20]]})),L("dragonas",ELECTRO,M(R(5,18,9,19),R(22,18,26,19),P([5,20],[7,20],[9,20],[22,20],[24,20],[26,20])),ex([[5,20],[7,20],[9,20],[22,20],[24,20],[26,20]],ELECTRO[2])),L("medalha",ELECTRO,M(R(17,21,18,22),P([17,20],[18,20])),Object.assign(ex([[17,20],[18,20]],"#c02a3a"),ex([[17,21]],"#ffffff"))),L("cinto",COURO,{29:[[9,22]]},ex([[15,29],[16,29]],ELECTRO[1]))]},
+   {nome:"Sobretudo do viajante", casual:1, f:(p)=>[L("sobretudo",p,M(R(8,18,23,30),R(8,31,13,37),R(18,31,23,37)),Object.assign(ex([[12,18],[13,19],[13,20],[14,21],[19,18],[18,19],[18,20],[17,21]],p[0]),ex([[8,37],[9,37],[10,37],[11,37],[12,37],[13,37],[18,37],[19,37],[20,37],[21,37],[22,37],[23,37]],p[2]))),L("camisa",["#fff8ec","#e8dcc8","#b8a890","#5a5040"],M(R(14,18,17,26)),ex([[15,20],[16,20],[15,21],[16,21]],AMETISTA[1])),L("mangas",p,M(R(4,19,8,25),R(23,19,27,25)),ex([[4,25],[5,25],[6,25],[7,25],[8,25],[23,25],[24,25],[25,25],[26,25],[27,25]],p[2])),L("gola",p,M({16:[[8,10],[21,23]]},{17:[[8,11],[20,23]]}),ex([[8,16],[23,16]],p[0])),L("alça",COURO,linha(21,18,11,28,1)),L("cinto",COURO,{29:[[8,23]]},ex([[15,29],[16,29]],ELECTRO[1])),L("bolsa",COURO,M(R(9,29,11,32),R(19,30,21,32)),ex([[9,29],[10,29],[11,29],[20,31]],ELECTRO[1]))]},
+   {nome:"Manto arcano do selo", f:(p)=>[L("manto",p,M(R(9,18,22,29),R(9,30,22,34),R(8,35,23,37)),ex([[8,37],[10,37],[12,37],[19,37],[21,37],[23,37]],ELECTRO[1])),L("barra",ELECTRO,M(R(15,23,16,37)),ex([[15,25],[16,28],[15,31],[16,34]],AMETISTA[1])),L("mangas",p,M(R(4,23,9,26),R(22,23,27,26)),ex([[4,26],[5,26],[6,26],[7,26],[8,26],[9,26],[22,26],[23,26],[24,26],[25,26],[26,26],[27,26]],ELECTRO[1])),L("ombros",AMETISTA,M({18:[[7,24]]},{19:[[6,25]]},R(6,20,25,21),{22:[[6,9],[22,25]]}),Object.assign(ex([[6,22],[7,22],[8,22],[9,22],[22,22],[23,22],[24,22],[25,22],[10,21],[21,21],[11,21],[20,21]],ELECTRO[1]),ex([[11,18],[20,18]],ELECTRO[0]))),L("broche",ELECTRO,M(R(14,19,17,20)),Object.assign(ex([[15,19],[16,19]],"#f0d8ff"),ex([[14,19],[17,20]],ELECTRO[0])))]},
+   {nome:"Colete e lenço", casual:1, f:(p)=>[L("camisa",["#fff8ec","#e8dcc8","#b8a890","#5a5040"],M(R(9,18,22,29)),{}),L("mangas",["#fff8ec","#e8dcc8","#b8a890","#5a5040"],M(R(5,19,9,23),R(22,19,26,23)),ex([[5,23],[6,23],[7,23],[8,23],[9,23],[22,23],[23,23],[24,23],[25,23],[26,23]],"#fff8ec")),L("ligas",AMETISTA,M(R(5,21,9,21),R(22,21,26,21))),L("colete",p,M(R(9,19,14,29),R(17,19,22,29),{30:[[9,13],[18,22]]}),Object.assign(ex([[14,21],[14,24],[14,27]],ELECTRO[0]),ex([[10,22],[11,22],[20,22],[21,22]],p[2]))),L("corrente",ELECTRO,P([10,25],[11,26],[12,26],[13,25]),ex([[10,25]],ELECTRO[0])),L("lenço",AMETISTA,M({18:[[13,18]]},{19:[[14,17]]},{20:[[14,17]]},{21:[[15,16]]},{22:[[15,16]]},{23:[[15,16]]}),Object.assign(ex([[15,19]],ELECTRO[0]),ex([[14,18],[18,18]],AMETISTA[2])))]},
+   {nome:"Jaqueta curta de couro", casual:1, f:(p)=>[L("camiseta",p,M(R(13,18,18,29)),ex([[15,21],[16,21],[15,22],[16,22]],ELECTRO[1])),L("jaqueta",COURO,M(R(8,18,12,27),R(19,18,23,27)),Object.assign(ex([[12,19],[12,21],[12,23],[19,19],[19,21],[19,23]],COURO[0]),ex([[10,24],[11,24],[20,24],[21,24]],ELECTRO[1]))),L("mangas",COURO,M(R(5,19,8,25),R(23,19,26,25)),ex([[5,25],[6,25],[7,25],[8,25],[23,25],[24,25],[25,25],[26,25]],COURO[2])),L("gola",COURO,M({17:[[8,11],[20,23]]}),ex([[8,17],[23,17]],COURO[0])),L("cinto",COURO,{29:[[9,22]]},ex([[15,29],[16,29]],ELECTRO[1]))]},
+   {nome:"Camisa solta com faixa", casual:1, f:(p)=>[L("camisa",["#f4ead0","#d8c8a0","#a89470","#54462e"],M(R(9,18,22,29),R(10,30,21,31)),Object.assign(ex([[14,18],[15,19],[16,19],[17,18],[15,20],[16,20]],"#e8b890"),ex([[12,22],[19,23],[11,26],[20,27]],["#f4ead0","#d8c8a0","#a89470","#54462e"][2]))),L("mangas",["#f4ead0","#d8c8a0","#a89470","#54462e"],M(R(5,19,9,24),R(22,19,26,24)),ex([[5,24],[6,24],[7,24],[8,24],[9,24],[22,24],[23,24],[24,24],[25,24],[26,24]],["#f4ead0","#d8c8a0","#a89470","#54462e"][0])),L("faixa",p,M(R(9,27,22,29),R(19,30,20,33)),ex([[9,28],[13,28],[17,28],[21,28],[19,33],[20,33]],p[0]))]},
+   {nome:"Capa de viagem com capuz", casual:1, f:(p)=>[L("tunica",["#f4ead0","#d8c8a0","#a89470","#54462e"],M(R(10,18,21,30)),ex([[15,20],[16,22],[15,24]],COURO[1])),L("capa",p,M(R(7,18,10,31),R(21,18,24,31),{17:[[8,23]]},{16:[[9,22]]}),Object.assign(ex([[7,31],[8,31],[9,31],[10,31],[21,31],[22,31],[23,31],[24,31]],p[2]),ex([[11,17],[20,17]],ELECTRO[1]))),L("cinto",COURO,{28:[[10,21]]},ex([[12,28],[13,28]],ELECTRO[1])),L("bolsa",COURO,M(R(17,28,19,31)),ex([[18,29]],ELECTRO[1]))]},
+   {nome:"Moletom do reino", casual:1, f:(p)=>[L("moletom",p,M(R(9,18,22,30)),Object.assign(ex([[9,30],[10,30],[11,30],[12,30],[13,30],[14,30],[15,30],[16,30],[17,30],[18,30],[19,30],[20,30],[21,30],[22,30]],p[2]),ex([[15,21],[16,21],[14,22],[17,22],[15,23],[16,23]],ELECTRO[1]),ex([[12,26],[13,26],[14,26],[15,26],[16,26],[17,26],[18,26],[19,26]],p[2]))),L("mangas",p,M(R(5,19,9,26),R(22,19,26,26)),ex([[5,26],[6,26],[7,26],[8,26],[9,26],[22,26],[23,26],[24,26],[25,26],[26,26]],p[2])),L("capuz",p,M({16:[[10,21]]},{17:[[9,22]]}),ex([[13,18],[18,18]],AMETISTA[1])),L("cordões",AMETISTA,P([13,19],[13,20],[18,19],[18,20]))]},
+   {nome:"Manto do chanceler", f:(p)=>[L("manto",p,M(R(9,18,22,29),R(9,30,22,34),R(8,35,23,36)),Object.assign(ex([[8,36],[9,36],[10,36],[11,36],[12,36],[13,36],[14,36],[15,36],[16,36],[17,36],[18,36],[19,36],[20,36],[21,36],[22,36],[23,36]],ELECTRO[1]),ex([[15,20],[16,20],[15,23],[16,23],[15,26],[16,26]],ELECTRO[0]))),L("faixa",AMETISTA,linha(10,18,21,29,2),ex([[15,23],[16,24]],ELECTRO[1])),L("cinto",ELECTRO,{29:[[9,22]]},ex([[15,29],[16,29]],AMETISTA[1]))]},
+   {nome:"Casaca do chanceler", f:(p)=>[L("casaca",p,M(R(8,18,23,29),R(9,30,13,35),R(18,30,22,35)),(()=>{const m={};for(let y=20;y<=27;y+=3)for(let x=11;x<=20;x++)if(x!==15&&x!==16)m[x+","+y]=ELECTRO[1];[9,10,11,12,13,18,19,20,21,22].forEach(x=>m[x+",35"]=ELECTRO[2]);[[15,20],[16,23],[15,26]].forEach(([x,y])=>m[x+","+y]=AMETISTA[1]);return m})()),L("dragonas",ELECTRO,M(R(5,18,9,19),R(22,18,26,19)),ex([[5,19],[7,19],[9,19],[22,19],[24,19],[26,19]],ELECTRO[2]))]},
+   {nome:"Gibão bordado", sx:"m", f:(p)=>[L("gibao",p,M({18:[[10,21]]},R(9,19,22,30)),Object.assign(ex([[12,20],[13,21],[12,22],[13,23],[12,24],[13,25],[18,20],[19,21],[18,22],[19,23],[18,24],[19,25]],ELECTRO[1]),ex([[15,21],[16,21],[15,24],[16,24],[15,27],[16,27]],AMETISTA[1]))),L("mangas",p,M(R(4,19,9,22),R(22,19,27,22)),ex([[5,21],[7,21],[24,21],[26,21]],ELECTRO[1])),L("cinto",ELECTRO,{28:[[9,22]]})]},
+   {nome:"Vestido da chanceler", sx:"f", f:(p)=>[L("vestido",p,M(R(10,18,21,19),R(9,20,22,23),R(10,24,21,28),R(9,29,22,31),R(8,32,23,34),R(7,35,24,36)),(()=>{const m={};for(let x=7;x<=24;x++)m[x+",36"]=ELECTRO[1];[[15,30],[16,32],[12,33],[19,33],[15,35]].forEach(([x,y])=>m[x+","+y]=ELECTRO[0]);return m})()),L("faixa",AMETISTA,linha(10,19,21,28,2)),L("corpete",ELECTRO,M({24:[[12,19]]},{25:[[13,18]]}),ex([[15,24],[16,24]],AMETISTA[1]))]},
+  ],
+  chapeus:[
+   {nome:"Nenhum", f:()=>[]},
+   {nome:"Chapéu de chanceler", f:(p)=>[L("copa",p,M(R(11,1,20,6))),L("faixa",ELECTRO,M(R(10,7,21,8)),Object.assign(ex([[15,7],[16,7],[15,8],[16,8]],AMETISTA[1]),ex([[10,7],[21,7]],ELECTRO[0]))),L("topo",ELECTRO,{0:[[12,19]]},ex([[15,0],[16,0]],ELECTRO[0]))]},
+   {nome:"Diadema de electro", f:()=>[L("diadema",ELECTRO,M({8:[[10,21]]},{7:[[11,12],[19,20]]}),ex([[11,7],[20,7]],ELECTRO[0])),L("gema",AMETISTA,M({5:[[15,16]]},{6:[[14,17]]},{7:[[14,17]]}),ex([[15,5]],"#ffffff"))]},
+   {nome:"Coroa de chanceler", f:()=>[L("coroa",ELECTRO,M({4:[[11,11],[15,16],[20,20]]},{5:[[11,12],[14,17],[19,20]]},R(11,6,20,7)),Object.assign(ex([[15,6],[16,6]],AMETISTA[1]),ex([[12,6],[19,6]],"#4aa0ff"),ex([[11,4],[20,4]],"#fffbe0")))]},
+   {nome:"Louros de electro", f:()=>[L("louros",ELECTRO,M({7:[[10,11],[20,21]]},{8:[[10,21]]},{6:[[11,12],[19,20]]}),Object.assign(ex([[11,6],[20,6],[10,7],[21,7]],ELECTRO[0]),ex([[15,8],[16,8]],AMETISTA[1])))]},
+   {nome:"Tricórnio", f:(p)=>[L("tricornio",p,M({4:[[12,19]]},R(11,5,20,7),{8:[[7,24]]},{7:[[7,9],[22,24]]},{6:[[7,8],[23,24]]}),ex([[7,6],[8,6],[23,6],[24,6],[7,8],[24,8]],ELECTRO[1])),L("roseta",AMETISTA,M(R(18,5,19,6)),ex([[18,5]],ELECTRO[0])),L("pluma",["#ffffff","#e8e0f0","#b8a8d0","#5a4a7a"],M({2:[[19,21]]},{3:[[18,20]]},{4:[[20,21]]}))]},
+   {nome:"Cartola com selo", f:(p)=>[L("cartola",p,M(R(11,0,20,6),{7:[[8,23]]})),L("fita",AMETISTA,M(R(11,4,20,5)),ex([[15,4],[16,4],[15,5],[16,5]],ELECTRO[1])),L("aba",ELECTRO,{8:[[8,23]]},ex([[8,8],[23,8]],ELECTRO[2]))]},
+   {nome:"Bandana", f:(p)=>[L("bandana",p,M({6:[[12,19]]},R(10,7,21,8)),ex([[12,7],[15,7],[18,7],[21,8]],p[0])),L("nó",p,M(R(22,7,23,8),P([23,9],[24,10],[22,9])))]},
+   {nome:"Gorro de lã", f:(p)=>[L("gorro",p,M({3:[[13,18]]},{4:[[11,20]]},R(10,5,21,7)),ex([[12,4],[14,5],[17,5],[19,4]],p[0])),L("barra",p,{8:[[10,21]]},ex([[10,8],[12,8],[14,8],[16,8],[18,8],[20,8]],p[2])),L("pompom",["#fff8ec","#e8dcc8","#b8a890","#5a5040"],M(R(15,1,16,2)))]},
+  ],
+ },
  ger:{nome:"Regente do Reino",
   roupas:[
    {nome:"Túnica real", f:(p)=>[L("tunica",p,M(R(9,18,22,29),R(10,30,21,33)),Object.assign(ex([[9,33],[10,33],[11,33],[12,33],[13,33],[14,33],[15,33],[16,33],[17,33],[18,33],[19,33],[20,33],[21,33],[22,33]],OURO[1]),ex([[15,19],[16,19],[15,20],[16,20],[15,21],[16,21],[15,22],[16,22],[15,23],[16,23],[15,24],[16,24],[15,25],[16,25],[15,26],[16,26],[15,27],[16,27],[15,28],[16,28],[15,29],[16,29],[15,30],[16,30],[15,31],[16,31],[15,32],[16,32]],OURO[1]))),L("cinto",OURO,{28:[[9,22]]},ex([[15,28],[16,28]],"#ff3050"))]},
@@ -806,6 +858,14 @@ function ferramentaAssinatura(nome){
       L("haste",PRATA,R(25,9,25,38),ex([[25,20],[25,30]],"#4aa0ff")),
       L("garra",PRATA,M({5:[[22,22],[29,29]]},{6:[[22,23],[28,29]]},{7:[[23,28]]},{8:[[24,27]]}),ex([[22,5],[29,5]],PRATA[0])),
       L("orbe",["#e8f6ff","#7ac0ff","#3a78d8","#163a7a"],orbe,e)];}
+  if(nome==="Chanceler do Reino"){ // bastão com o Grande Selo do reino
+    const selo={},e={};for(let y=0;y<=8;y++)for(let x=21;x<=30;x++){const d=Math.hypot(x-25.5,y-4);if(d<=4.4){(selo[y]=selo[y]||[]).push([x,x]);e[x+","+y]=d>3.5?(x+y<29?ELECTRO[0]:ELECTRO[2]):d>2.4?ELECTRO[1]:(d<1.2?"#f0d8ff":AMETISTA[1]);}}
+    [[25,2],[26,2],[25,6],[26,6],[23,4],[28,4]].forEach(([x,y])=>e[x+","+y]=ELECTRO[0]);e["24,3"]="#ffffff";
+    return [L("brilho",["#e8d0ff","#e8d0ff","#c8a0f0","#6a2ab0"],P([20,1],[31,2],[19,6],[32,7],[21,10])),
+      L("haste",ELECTRO,M(R(25,10,26,36)),Object.assign(ex([[25,14],[25,20],[25,26],[25,32]],ELECTRO[0]),ex([[25,17],[26,17],[25,29],[26,29]],AMETISTA[1]))),
+      L("pomo",ELECTRO,R(24,36,27,37),ex([[24,36]],ELECTRO[0])),
+      L("asas",ELECTRO,M({8:[[21,22],[29,30]]},{9:[[22,24],[27,29]]}),ex([[21,8],[30,8]],ELECTRO[0])),
+      L("selo",ELECTRO,selo,e)];}
   if(nome==="Regente do Reino"){ // cetro real
     return [L("brilho",["#fff6a0","#fff6a0","#f0d060","#a08020"],P([21,1],[30,3],[20,7],[31,8],[22,11])),
       L("haste",OURO,M(R(25,10,26,31)),ex([[25,14],[25,18],[25,22]],OURO[0])),
@@ -828,9 +888,10 @@ function montar(a){
   const C=[];
   // pernas e pés
   if(LD){ // capa de fundo: mais longa conforme a classe
-    const fundo=[null,M(R(7,19,24,25),R(6,26,25,31)),M(R(7,19,24,25),R(6,26,25,31),R(5,32,26,35)),M(R(7,19,24,25),R(6,26,25,31),R(5,32,26,37),R(4,38,27,39))][LD.capa];
+    const fundo=[null,M(R(7,19,24,25),R(6,26,25,31)),M(R(7,19,24,25),R(6,26,25,31),R(5,32,26,35)),M(R(7,19,24,25),R(6,26,25,31),R(5,32,26,37),R(4,38,27,39)),M(R(7,19,24,25),R(6,26,25,31),R(5,32,26,35),R(4,36,27,38))][LD.capa];
     const forro=tonsDe(a)[(a.pano+1)%5]; const e={};
     if(LD.capa===3){for(let x=4;x<=27;x++){e[x+",39"]=ARMINHO[1];if(x%3===0)e[x+",38"]=ARMINHO[1];}[[5,39],[9,39],[13,39],[18,39],[22,39],[26,39]].forEach(([x,y])=>e[x+","+y]="#2a1a20");}
+    else if(LD.capa===4){for(let x=4;x<=27;x++){e[x+",38"]=LD.metal[1];if(x>=5&&x<=26&&x%2===0)e[x+",36"]=LD.metal[2];}[[6,38],[11,38],[16,38],[20,38],[25,38]].forEach(([x,y])=>e[x+","+y]=AMETISTA[1]);}
     else { const yb=LD.capa===1?31:35; for(let x=4;x<=27;x++)if(fundo[yb]&&fundo[yb].some(([p,q])=>x>=p&&x<=q))e[x+","+yb]=LD.metal[1]; }
     C.push(L("capa-fundo",[forro[1],forro[2],forro[3],escurece(forro[3],.6)],fundo,e));
   }
@@ -875,6 +936,7 @@ function montar(a){
   if(LD){ // corrente do ofício, com gema da classe
     C.push(L("corrente",LD.metal,M({18:[[11,11],[20,20]]},{19:[[12,12],[19,19]]},{20:[[13,13],[18,18]]},{21:[[14,17]]},R(14,22,17,24)),Object.assign(ex([[15,23],[16,23]],LD.gema),ex([[14,22]],LD.metal[0]))));
     if(LD.capa===3) C.push(L("gola-arminho",ARMINHO,M({18:[[9,22]]},{19:[[8,11],[20,23]]},{20:[[8,9],[22,23]]}),ex([[10,18],[14,18],[18,18],[21,18],[9,19],[22,19]],"#2a1a20")));
+    else if(LD.capa===4&&!roupa.casual) C.push(L("gola",LD.metal,M({16:[[8,9],[22,23]]},{17:[[8,10],[21,23]]},{18:[[9,11],[20,22]]}),Object.assign(ex([[8,16],[23,16]],LD.metal[0]),ex([[10,18],[21,18]],AMETISTA[1]))));
     else C.push(L("fecho",LD.metal,M(R(9,18,10,19),R(21,18,22,19))));
   } else {
   C.push(L("braçadeira",et.cor,fem?{21:[[7,8]],22:[[6,7]]}:R(5,22,8,23)));
@@ -1066,6 +1128,13 @@ const CENARIO={
      for(let y=31;y<=39;y++){g["4,"+y]="#e8eef6";g["5,"+y]="#c0cada";g["6,"+y]="#a0acbe";}for(let x=3;x<=7;x++){g[x+",30"]="#ffffff";g[x+",29"]="#d8e0ea";}
      for(let y=35;y<=39;y++)g["29,"+y]=MADEIRA[1];[[27,34],[28,34],[29,34],[30,34],[31,34],[27,33],[28,33],[30,33],[31,33]].forEach(([x,y])=>g[x+","+y]=y===34?MADEIRA[2]:"#fff8e6");g["29,33"]="#c8b48a";[[28,32],[30,32]].forEach(([x,y])=>g[x+","+y]="#4aa0ff");
      for(let x=8;x<=30;x+=4)g[x+",41"]="#d8e0ea";}},
+ "Chanceler do Reino":{ceu:["#140e26","#1c1432"],topo:["#c4b4e4","#9484c4","#6a5a9a","#342856"],pedra:["#8a84a0","#686280","#4a4660","#242232"],
+   deco:(g)=>{ // sala dos mapas: globo do reino e mesa com o selo
+     for(let y=33;y<=39;y++)g["6,"+y]=ELECTRO[2];[[4,39],[5,39],[7,39],[8,39]].forEach(([x,y])=>g[x+","+y]=ELECTRO[1]);
+     for(let y=26;y<=33;y++)for(let x=2;x<=10;x++){const d=Math.hypot(x-6,y-29.5);if(d<=4)g[x+","+y]=d>3.3?ELECTRO[1]:"#3a6ab8";}[[4,28],[5,28],[4,29],[5,29],[6,29],[7,31],[8,31],[8,30]].forEach(([x,y])=>g[x+","+y]="#5cc08c");g["5,27"]="#a8d8ff";
+     for(let x=26;x<=32;x++)g[x+",34"]=MADEIRA[2];[[27,35],[27,36],[27,37],[27,38],[27,39],[31,35],[31,36],[31,37],[31,38],[31,39]].forEach(([x,y])=>g[x+","+y]=MADEIRA[1]);
+     [[26,33],[27,33],[28,33],[29,33],[30,33],[31,33],[32,33]].forEach(([x,y],i)=>g[x+","+y]=i%3===1?"#c8b48a":"#fff1d6");[[29,32],[30,32]].forEach(([x,y])=>g[x+","+y]=AMETISTA[1]);g["29,31"]=ELECTRO[0];
+     for(let x=9;x<=30;x+=5)g[x+",41"]=ELECTRO[1];[[12,31],[22,29],[16,28]].forEach(([x,y])=>g[x+","+y]="#e8d0ff");}},
  "Regente do Reino":{ceu:["#1e0e18","#2a1220"],topo:["#e05a6a","#b02a3a","#7a1a2a","#3e0a14"],pedra:["#8a7a70","#6a5a52","#4a3e38","#261e1a"],
    deco:(g)=>{ // salão do trono: tapete, candelabro e estandarte real
      for(let x=6;x<=33;x++){g[x+",40"]=x%2?"#f0c040":"#c02a3a";}
@@ -1124,6 +1193,8 @@ const PADRAO_N={
       f:{raca:0,corpo:2,pele:4,cabeca:"Oval",orelhas:6,olhos:"Atenta",olhoCor:2,nariz:4,boca:"Natural",cabelo:"Trança lateral",cabCor:1,chapeu:1,roupa:"Vestido de mestra",pano:1,calca:"Justa",calcaCor:4,bota:"Bota alta",botaCor:4}},
  coo:{m:{raca:1,corpo:1,pele:2,cabeca:"Oval",orelhas:0,olhos:"Sonolento",olhoCor:1,nariz:2,boca:"Séria",cabelo:"Médio",cabCor:3,barba:5,chapeu:1,roupa:"Toga do conselho",pano:0,calca:"Reta",calcaCor:2,bota:"Bota alta",botaCor:2},
       f:{raca:1,corpo:1,pele:5,cabeca:"Coração",orelhas:7,olhos:"Delineado",olhoCor:4,nariz:2,boca:"Batom vinho",cabelo:"Coque alto",cabCor:2,chapeu:2,roupa:"Vestido do conselho",pano:3,calca:"Justa",calcaCor:2,bota:"Sapatilha",botaCor:2}},
+ chn:{m:{raca:2,corpo:2,pele:1,cabeca:"Oval",orelhas:0,olhos:"Atento",olhoCor:4,nariz:2,boca:"Séria",cabelo:"Curto",cabCor:3,barba:5,chapeu:3,roupa:"Manto do chanceler",pano:0,calca:"Reta",calcaCor:4,bota:"Bota alta",botaCor:4},
+      f:{raca:2,corpo:1,pele:3,cabeca:"Oval",orelhas:6,olhos:"Delineado",olhoCor:1,nariz:2,boca:"Batom vinho",cabelo:"Coque alto",cabCor:4,chapeu:2,roupa:"Vestido da chanceler",pano:0,calca:"Justa",calcaCor:4,bota:"Sapatilha",botaCor:4}},
  ger:{m:{raca:1,corpo:2,pele:3,cabeca:"Quadrada",orelhas:0,olhos:"Atento",olhoCor:0,nariz:3,boca:"Séria",cabelo:"Curto",cabCor:5,barba:9,chapeu:0,roupa:"Túnica real",pano:0,calca:"Reta",calcaCor:1,bota:"Bota alta",botaCor:1},
       f:{raca:1,corpo:2,pele:1,cabeca:"Oval",orelhas:6,olhos:"Cílios",olhoCor:2,nariz:4,boca:"Batom vermelho",cabelo:"Longo solto",cabCor:4,chapeu:2,roupa:"Vestido real",pano:0,calca:"Justa",calcaCor:1,bota:"Sapatilha",botaCor:1}},
  elf:{m:{corpo:1,pele:0,cabeca:"Oval",orelhas:8,olhos:"Atento",olhoCor:2,nariz:2,boca:"Séria",cabelo:"Comprido",cabCor:5,barba:0,chapeu:1,roupa:"Armadura de folhas",pano:4,calca:"Reta",calcaCor:3,bota:"Bota alta",botaCor:0},
@@ -1637,12 +1708,12 @@ setInterval(()=>{if(aba!=="eventos"&&aba!=="inicio")return;document.querySelecto
 // =====================================================================
 //              LIDERANÇA: classes, aprovações em cascata e controle
 // =====================================================================
-const CLASSES={sup:{nome:"Mestre da Guilda",cargo:"Supervisão",cor:"#c88a50"},coo:{nome:"Conselheiro do Reino",cargo:"Coordenação",cor:"#d8e0ea"},ger:{nome:"Regente do Reino",cargo:"Gerência",cor:"#f0c040"}};
-const ORDEM=["sup","coo","ger"];
-let AL={sup:{guilda:"sup",etapa:0,...PADRAO.sup.m},coo:{guilda:"coo",etapa:0,...PADRAO.coo.f},ger:{guilda:"ger",etapa:0,...PADRAO.ger.m}};
+const CLASSES={sup:{nome:"Mestre da Guilda",cargo:"Supervisão",cor:"#c88a50"},coo:{nome:"Conselheiro do Reino",cargo:"Coordenação",cor:"#d8e0ea"},chn:{nome:"Chanceler do Reino",cargo:"Coordenação de projeto",cor:"#e8dca8"},ger:{nome:"Regente do Reino",cargo:"Gerência",cor:"#f0c040"}};
+const ORDEM=["sup","coo","chn","ger"];
+let AL={sup:{guilda:"sup",etapa:0,...PADRAO.sup.m},coo:{guilda:"coo",etapa:0,...PADRAO.coo.f},chn:{guilda:"chn",etapa:0,...PADRAO.chn.m},ger:{guilda:"ger",etapa:0,...PADRAO.ger.m}};
 try{const s=JSON.parse(localStorage.getItem("reinoLider1")||"null");if(s&&s.sup)AL=s}catch(e){}
 const guardarL=()=>{try{localStorage.setItem("reinoLider1",JSON.stringify(AL))}catch(e){}};
-const NOMEL={sup:"Mestre Ferrugem",coo:"Conselheira Safira",ger:"Regente Áureo"};
+const NOMEL={sup:"Mestre Ferrugem",coo:"Conselheira Safira",chn:"Chanceler",ger:"Regente Áureo"};
 const SUPS=[{nome:"Mestre Ferrugem",turno:"Turno da manhã",a:()=>AL.sup},{nome:"Mestra Brasa",turno:"Turno da tarde",a:()=>({guilda:"sup",etapa:0,...PADRAO.sup.f,pano:3,raca:0})}];
 const selo=(c,t)=>`<span class="tag" style="color:${CLASSES[c].cor};border-color:${CLASSES[c].cor}">${t||CLASSES[c].cargo}</span>`;
 // regras da cascata (doc de regras: Aprovações em cascata)
@@ -1745,7 +1816,7 @@ function alertasHtml(){return ERROS.length?ERROS.map(e=>`<div class="caixa alert
 
 function telaResgL(){const c=papel;
   let h=`<h2 style="margin-top:4px">${icone("presente",{a:"#f6d28a",b:"#c88a50",c:"#946036",r:"#d04a3a"},20)} Resgates</h2>
-  <div class="abinhas" role="tablist">${[["novos",`A entregar (${RESG.length})`],["entregues",`Entregues (${RESG_E.length})`],...(c==="coo"?[["estoque","Estoque"]]:[])].map(([k,t])=>`<button role="tab" data-sub="${k}" aria-selected="${sub===k}">${t}</button>`).join("")}</div>`;
+  <div class="abinhas" role="tablist">${[["novos",`A entregar (${RESG.length})`],["entregues",`Entregues (${RESG_E.length})`],...(c==="coo"||c==="chn"?[["estoque","Estoque"]]:[])].map(([k,t])=>`<button role="tab" data-sub="${k}" aria-selected="${sub===k}">${t}</button>`).join("")}</div>`;
   if(sub==="novos")h+=RESG.length?RESG.map(r=>`<div class="caixa item"><div class="ic" style="width:52px;height:52px">${iconeItem(CATALOGO.find(x=>x.nome===r.item)||{nome:r.item,desc:""},36)}</div><div class="meio"><b>${r.item}</b><div class="sub">${r.quem} · ${r.quando}</div><div class="sub">Debitado na hora. Falta entregar.</div></div><div class="acao"><button class="btn ok" data-entregue="${r.id}">Entregue</button><button class="btn neutro" data-pedirest="${r.id}" style="font-size:12px">Pedir estorno</button></div></div>`).join(""):`<div class="caixa sub">Tudo entregue.</div>`;
   if(sub==="entregues")h+=RESG_E.map(r=>`<div class="caixa item"><div class="ic" style="width:52px;height:52px">${iconeItem(CATALOGO.find(x=>x.nome===r.item)||{nome:r.item,desc:""},36)}</div><div class="meio"><b>${r.item}</b><div class="sub">${r.quem} · ${r.quando}</div><div class="sub">Entregue por ${r.por}</div></div>${icone("estrela",OUROc,18)}</div>`).join("");
   if(sub==="estoque")h+=`<p class="nota" style="margin-bottom:8px">A quantidade volta ao valor liberado no dia 1. Item novo de tier 8 ou mais precisa da Gerência.</p>`+CATALOGO.map(it=>{const r=it.qtd-it.usados;return `<div class="caixa item"><div class="ic" style="width:52px;height:52px">${iconeItem(it,36)}</div><div class="meio"><b>${it.nome}</b><div class="sub">Tier ${it.tier} · ${it.gc} GC · ${r} de ${it.qtd} no mês</div>${barra(r,it.qtd,r?"gc":"",10)}</div><div class="acao"><button class="btn neutro" data-repor="${it.id}">Repor +10</button></div></div>`}).join("")+`<button class="btn ok larga" data-novoitem>Novo item no catálogo</button>`;
@@ -1779,7 +1850,9 @@ function telaAvisos(){const c=papel;const l=AVISOS.filter(a=>a.para.includes(c))
    <p class="nota">Todo pedido e toda decisão geram aviso para quem pediu e para o próximo da cascata.</p>`}
 
 function telaLider(){const el=$("t-lider");
-  if(aba==="linicio")el.innerHTML=`${perfilLider()}<h3 class="h3">Últimos avisos</h3><div class="caixa mural">${AVISOS.filter(a=>a.para.includes(papel)).length?"":`<div class="sub">Nenhum aviso por enquanto.</div>`}${AVISOS.filter(a=>a.para.includes(papel)).slice(0,3).map(a=>`<div>${icone(...AV_IC[a.t],18)}<span>${a.txt}<em class="q">${a.q}</em></span></div>`).join("")}</div>`;
+  if(aba==="leven"){el.innerHTML=telaEventosL();return}
+  if(aba==="veto"){el.innerHTML=telaVeto();return}
+  if(aba==="linicio")el.innerHTML=`${perfilLider()}${orcamentoHtml()}<h3 class="h3">Últimos avisos</h3><div class="caixa mural">${AVISOS.filter(a=>a.para.includes(papel)).length?"":`<div class="sub">Nenhum aviso por enquanto.</div>`}${AVISOS.filter(a=>a.para.includes(papel)).slice(0,3).map(a=>`<div>${icone(...AV_IC[a.t],18)}<span>${a.txt}<em class="q">${a.q}</em></span></div>`).join("")}</div>`;
   else if(aba==="aprov")el.innerHTML=telaAprov();
   else if(aba==="resg")el.innerHTML=telaResgL();
   else if(aba==="gctl")el.innerHTML=telaGuildaL();
@@ -1836,7 +1909,8 @@ function telaPainel(){
 
 function navegar(){
   const itens=papel==="op"?[["inicio","Início","casa"],["eventos","Eventos","chama"],["loja","Loja","moeda"],["heroi","Herói","estrela"],["guilda","Guilda","escudo"]]:
-    [["linicio","Início","casa"],["aprov","Aprovações","balanca"],...(papel==="ger"?[]:[["resg","Resgates","presente"]]),...(papel==="sup"?[]:[["itens","Itens","presente"]]),["gctl",papel==="ger"?"Reino":papel==="coo"?"Guildas":"Guilda","escudo"],["avisos","Avisos","sino"]];
+    [["linicio","Início","casa"],["aprov","Aprovações","balanca"],...(papel==="ger"?[]:[["resg","Resgates","presente"]]),...(papel==="sup"?[]:[["itens","Itens","presente"]]),["gctl",papel==="ger"||papel==="chn"?"Reino":papel==="coo"?"Guildas":"Guilda","escudo"],...(papel==="ger"?[["veto","Veto","balanca"]]:[["leven","Eventos","chama"]]),["avisos","Avisos","sino"]];
+  if(itens.length>6)itens.splice(itens.findIndex(x=>x[0]==="avisos"),1);
   $("nav").innerHTML=itens.map(([k,t,ic])=>`<button data-aba="${k}" ${aba===k?'aria-current="page"':""}>${icone(ic,aba===k?{a:"#fff0a0",b:"#f0c040",c:"#b8842a",r:"#d04a3a"}:CINZAc,22)}${t}</button>`).join("");
   for(const k of ["inicio","eventos","loja","heroi","guilda","painel"])$("t-"+k).hidden=papel!=="op"||k!==aba;
   $("t-lider").hidden=papel==="op";
@@ -1936,7 +2010,7 @@ document.addEventListener("click",e=>{
     if(a==="criar"){rasc={guilda:A.guilda,etapa:A.etapa||0,...PADRAO[A.guilda].m,sexo:"m"};editor();abrirModal();return}
   }
   const d=b.dataset;
-  if(d.papel){if(!logado){logado=true;document.querySelector(".cel").classList.remove("entrando");$("t-login").hidden=true}papel=d.papel;document.querySelectorAll("[data-papel]").forEach(x=>x.setAttribute("aria-pressed",x.dataset.papel===papel));aba=papel==="op"?"inicio":"linicio";sub="novos";$("selEtapa").disabled=papel!=="op";tudo();window.scrollTo(0,0);return}
+  if(d.papel){if(!logado){logado=true;document.querySelector(".cel").classList.remove("entrando");$("t-login").hidden=true}papel=d.papel;EVL=null;EVL_F=null;VETO=null;VETO_ABRE=null;document.querySelectorAll("[data-papel]").forEach(x=>x.setAttribute("aria-pressed",x.dataset.papel===papel));aba=papel==="op"?"inicio":"linicio";sub="novos";$("selEtapa").disabled=papel!=="op";tudo();window.scrollTo(0,0);return}
   if(d.sub){sub=d.sub;telaLider();return}
   if(d.pedok){const p=PED.find(x=>x.id==d.pedok);const m=aprovar(p,papel);if(p.tipo==="usoItem"&&p.status==="aprovado"){const u=USOS.find(x=>x.u===p.uso&&x.st==="pedido");if(u){u.st="aprovado";u.quem=NOMEL[papel]}INV=INV.filter(x=>x.u!==p.uso)}tudo();toast(m);SFX.som("plim");return}
   if(d.pedrec&&PED.find(x=>x.id==d.pedrec)?.tipo==="usoItem"){const p=PED.find(x=>x.id==d.pedrec);PED=PED.filter(x=>x!==p);const u=USOS.find(x=>x.u===p.uso&&x.st==="pedido");if(u){u.st="recusado";u.quem=NOMEL[papel];u.motivo="Equipe reduzida no dia escolhido."}const un=INV.find(x=>x.u===p.uso);if(un)un.res=0;tudo();toast("Não aprovado. O item voltou para o inventário de quem pediu, com o motivo.");return}
@@ -1988,7 +2062,7 @@ $("selEtapa").addEventListener("change",e=>{const [g,i]=e.target.value.split("|"
 const RARS=["Comum","Incomum","Rara","Épica","Lendária"];
 const GLORIA={Comum:5,Incomum:10,Rara:25,Épica:50,Lendária:100};
 const rarDe=p=>p>=50?"Comum":p>=20?"Incomum":p>=5?"Rara":p>=1?"Épica":"Lendária";
-const GRAU=["Bronze","Prata","Ouro"],GRAU_COR=["#d08a50","#c8ccd8","#f0c040"],GRAU_GC=[20,50,150];
+const GRAU=["Bronze","Prata","Ouro","Platina","Diamante"],GRAU_COR=["#d08a50","#c8ccd8","#f0c040","#7ee0cc","#b8a0ff"],GRAU_GC=[20,50,150,300,600];
 const fmtPct=p=>p===0?"ninguém ainda":p<1?String(p).replace(".",",")+"%":Math.round(p)+"%";
 // [id, nome, categoria, unidade, graus, recompensa visual, guilda (null = todas), secreta, meu valor, % de ativos por grau, pioneiro]
 const CQ=[
@@ -2130,13 +2204,14 @@ return {desenhar,FAM,GRAU,GNOME,GUILDA};
 
 const INS_GC={bronze:"#e0985a",prata:"#d8e0ea",ouro:"#f0c040",platina:"#7ee0cc",diamante:"#b8a0ff"};
 const INS_GN={bronze:"Bronze",prata:"Prata",ouro:"Ouro",platina:"Platina",diamante:"Diamante"};
+const ultPasso=t=>(t.passos&&t.passos.length?t.passos[t.passos.length-1]:{}),dataIns=t=>ultPasso(t).data||t.data,rotIns=t=>t.rotulo||ultPasso(t).rotulo||"";
 function iconeIns(t){const s=((t.id||"")+" "+(t.nome||"")).normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase(),f=t.familia;
   if(f==="origem")return /fundador/.test(s)?"estrela":/caixa/.test(s)?"caixa":"castelo";
   if(f==="passagem")return {min:"picareta",gua:"ampulheta",elf:"folha"}[t.guilda]||(/mina/.test(s)?"picareta":/tempo/.test(s)?"ampulheta":"folha");
   if(f==="apoio")return "troca";
   if(f==="oficio")return /prepar/.test(s)?"picareta":/digital/.test(s)?"cristal":/segreg/.test(s)?"ampulheta":/cadastr/.test(s)?"pena":/inspet|qualid/.test(s)?"lupa":"selo";
   if(f==="ascensao")return "subida";
-  if(f==="casa"){const m=s.match(/(\d+)/);return m?("n"+({"3":"3","6":"6","1":"1","2":"2","5":"5"}[m[1]]||"1")):"n1"}
+  if(f==="casa"){const m=(ultPasso(t).rotulo||s).match(/(\d+)/);return m?("n"+({"3":"3","6":"6","1":"1","2":"2","5":"5"}[m[1]]||"1")):"n1"}
   if(f==="jornada")return "bandeira";
   if(f==="reconhecimento")return /festival/.test(s)?"coroa":/gratid|padrinho/.test(s)?"coracao":"estrela";
   if(f==="formacao")return "pergaminho";if(f==="comando")return "coroa";return "retorno"}
@@ -2150,28 +2225,27 @@ function trajDemo(){const g=A.guilda in INS.GUILDA?A.guilda:"min",out=g==="min"?
   {id:"DESTAQUE_2027_03",familia:"reconhecimento",nome:"Destaque do Mês",grau:"ouro",guilda:g,data:"2027-03-31",detalhe:"Maior % acima da meta da guilda em março."},
   {id:"OFICIO_"+et().nome,familia:"oficio",nome:{"Preparação":"Preparador","Digitalização":"Digitalizador","Segregação":"Segregador","Cadastro":"Cadastrador","Controle de qualidade":"Inspetor de Qualidade","Conferência":"Conferente"}[et().nome]||"Ofício",grau:"ouro",rotulo:"Mestre",data:"2027-09-14",detalhe:"150 dias de meta batida na etapa.",passos:[{grau:"bronze",rotulo:"Aprendiz",data:"2027-01-10"},{grau:"prata",rotulo:"Oficial",data:"2027-04-22"},{grau:"ouro",rotulo:"Mestre",data:"2027-09-14"}]},
   {id:"APOIO_"+out,familia:"apoio",nome:"Apoio "+(out==="gua"?"ao Tempo":"à Mina"),grau:"prata",guilda:out,data:"2027-10-20",detalhe:"10 dias ajudando em outra guilda."},
-  {id:"CASA_1",familia:"casa",nome:"1 ano de Reino",grau:"ouro",data:"2027-11-26",detalhe:"Aniversário de entrada."},
   {id:"PASSAGEM_"+g,familia:"passagem",nome:"Passagem pela "+gn[g],grau:"ouro",guilda:g,data:"2027-11-26",detalhe:"12 meses servindo na guilda.",passos:[{grau:"bronze",rotulo:"1 mês",data:"2026-12-26"},{grau:"prata",rotulo:"6 meses",data:"2027-05-26"},{grau:"ouro",rotulo:"12 meses",data:"2027-11-26"}]},
   {id:"FORMACAO_1",familia:"formacao",nome:"Pergaminho de Saber",data:"2028-01-18",detalhe:"Treinamento concluído."},
   {id:"JORNADA_500",familia:"jornada",nome:"500º dia de trabalho",data:"2028-10-09",detalhe:"Quinhentos dias com produção."},
-  {id:"CASA_2",familia:"casa",nome:"2 anos de Reino",grau:"platina",data:"2028-11-26",detalhe:"Aniversário de entrada."}]}
+  {id:"TEMPO_DE_CASA",familia:"casa",nome:"Tempo de Casa",grau:"platina",data:"2027-02-26",detalhe:"Aniversário de entrada.",passos:[{grau:"bronze",rotulo:"3 meses",data:"2027-02-26"},{grau:"prata",rotulo:"6 meses",data:"2027-05-26"},{grau:"ouro",rotulo:"1 ano",data:"2027-11-26"},{grau:"platina",rotulo:"2 anos",data:"2028-11-26"}]}]}
 let MURAL_INS=null;
-function trajetoria(){if(ON)return (SRV&&(SRV.trajetoria||(SRV.perfil&&SRV.perfil.trajetoria)||(SRV.jogador&&SRV.jogador.trajetoria)))||[];return trajDemo()}
+function trajetoria(){if(ON)return TRAJ_SRV||(SRV&&SRV.trajetoria)||[];return trajDemo()}
 function muralIns(){const T=trajetoria();if(MURAL_INS)return MURAL_INS.map(id=>T.find(t=>t.id===id)).filter(Boolean);
-  const srv=ON&&SRV&&(SRV.mural||(SRV.perfil&&SRV.perfil.mural));if(srv&&srv.length)return srv.map(id=>T.find(t=>t.id===id)).filter(Boolean);
+  const srv=ON&&SRV&&((SRV.jogador&&SRV.jogador.mural)||SRV.mural);if(srv&&srv.length)return srv.map(id=>T.find(t=>t.id===id)).filter(Boolean);
   const peso={diamante:5,platina:4,ouro:3,prata:2,bronze:1};return T.slice().sort((a,b)=>(peso[b.grau]||0)-(peso[a.grau]||0)).slice(0,5)}
 const dataLonga=d=>{if(!d)return "";const [y,m,dd]=String(d).slice(0,10).split("-");return `${+dd} ${["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"][+m-1]} ${y}`};
 function muralHtml(edita){const M=muralIns();if(!M.length)return "";
   return `<h2>Mural de insígnias ${edita?`<small>toque para trocar</small>`:""}</h2><div class="caixa mural-ins">${M.map((t,i)=>`<div ${edita?`data-mural="${i}"`:""}>${desenhoIns(t)}<span>${t.nome}</span></div>`).join("")}</div>`}
-function telaTrajetoria(){const T=trajetoria().slice().sort((a,b)=>String(b.data).localeCompare(String(a.data)));
+function telaTrajetoria(){const T=trajetoria().slice().sort((a,b)=>String(dataIns(b)).localeCompare(String(dataIns(a))));
   if(!T.length)return `<div class="caixa"><div class="sub" style="padding:6px">Sua trajetória começa no primeiro dia de trabalho no Reino. As insígnias aparecem aqui, da chegada até hoje.</div></div>`;
-  return `${ON?"":`<p class="nota" style="margin:0 0 8px">Exemplo de como fica a trajetória depois de 2 anos de Reino.</p>`}<div class="hoje">▼ Hoje</div><div class="traj">${T.map(t=>`<div class="ev">${desenhoIns(t)}<div class="t"><b>${t.nome}</b>${t.grau?`<span class="gr" style="color:${INS_GC[t.grau]}">${t.rotulo?t.rotulo+" · ":""}${INS_GN[t.grau]}</span> · `:""}<span class="dt">${dataLonga(t.data)}</span><div class="det">${(INS.FAM[t.familia]||{}).nome||""}. ${t.detalhe||""}</div>${t.passos&&t.passos.length>1?`<div class="passos">${t.passos.map(p=>`<span style="border-color:${INS_GC[p.grau]};color:${INS_GC[p.grau]}">${p.rotulo} · ${dataLonga(p.data).replace(/^\d+ /,"")}</span>`).join("")}</div>`:""}</div></div>`).join("")}</div>
+  return `${ON?"":`<p class="nota" style="margin:0 0 8px">Exemplo de como fica a trajetória depois de 2 anos de Reino.</p>`}<div class="hoje">▼ Hoje</div><div class="traj">${T.map(t=>`<div class="ev">${desenhoIns(t)}<div class="t"><b>${t.nome}</b>${t.grau?`<span class="gr" style="color:${INS_GC[t.grau]}">${rotIns(t)?rotIns(t)+" · ":""}${INS_GN[t.grau]}</span> · `:""}<span class="dt">${dataLonga(dataIns(t))}</span><div class="det">${[(INS.FAM[t.familia]||{}).nome,t.detalhe].filter(Boolean).join(". ")}</div>${t.passos&&t.passos.length>1?`<div class="passos">${t.passos.map(p=>`<span style="border-color:${INS_GC[p.grau]};color:${INS_GC[p.grau]}">${p.rotulo} · ${dataLonga(p.data).replace(/^\d+ /,"")}</span>`).join("")}</div>`:""}</div></div>`).join("")}</div>
   <p class="nota">As insígnias contam a sua história e não dão GC. Quando o grau sobe, ela troca de cor e ganha a nova data. Erros e punições nunca aparecem aqui.</p>`}
 function trocarMural(i){const T=trajetoria();
-  $("folha").innerHTML=`<h3>Trocar a ${i+1}ª do mural</h3><div style="display:grid;gap:6px">${T.map(t=>`<button class="aviso" data-msel="${i}|${t.id}"><span style="width:34px;flex:none">${desenhoIns(t)}</span><span><b>${t.nome}</b><span class="sub">${t.grau?INS_GN[t.grau]+" · ":""}${dataLonga(t.data)}</span></span></button>`).join("")}</div><button class="btn neutro larga" data-ed="cancelar" style="margin-top:10px">Cancelar</button>`;abrirModal()}
+  $("folha").innerHTML=`<h3>Trocar a ${i+1}ª do mural</h3><div style="display:grid;gap:6px">${T.map(t=>`<button class="aviso" data-msel="${i}|${t.id}"><span style="width:34px;flex:none">${desenhoIns(t)}</span><span><b>${t.nome}</b><span class="sub">${t.grau?INS_GN[t.grau]+" · ":""}${dataLonga(dataIns(t))}</span></span></button>`).join("")}</div><button class="btn neutro larga" data-ed="cancelar" style="margin-top:10px">Cancelar</button>`;abrirModal()}
 document.addEventListener("click",e=>{const m=e.target.closest("[data-mural]");if(m){trocarMural(+m.dataset.mural);return}
   const s=e.target.closest("[data-msel]");if(s){const [i,id]=s.dataset.msel.split("|");const ids=muralIns().map(t=>t.id),j=ids.indexOf(id);if(j>=0)ids[j]=ids[+i];ids[+i]=id;MURAL_INS=ids.slice(0,5);fecharModal();telaHeroi();toast("Mural atualizado.");
-    if(ON)api("mural",{ids:MURAL_INS}).catch(()=>{})}});
+    if(ON)api("mural",{ids:MURAL_INS}).then(r=>{if(r&&r.mural&&SRV.jogador)SRV.jogador.mural=r.mural}).catch(err=>toast(err.message))}});
 
 function telaPerfil(){const n=nivelDe(J.xp),tier=Math.floor(n/10),g=GUILDA[A.guilda],mc=minhasCQ(),feitas=mc.filter(c=>grauDe(c)),pio=mc.filter(c=>c.pio&&grauDe(c));
   const vit=VITRINE.map(id=>CQ.find(c=>c.id===id)).filter(Boolean);
@@ -2301,16 +2375,164 @@ function confirmarDar(modo){const q=$("diJ").value,it=ITEM($("diI").value),m=$("
 
 $("selFx").innerHTML=`<option value="">Escolha…</option>`+[["grande","Grande"],["media","Média"],["pequena","Pequena"],["sobria","Sóbria"]].map(([k,t])=>`<optgroup label="${t}">${SFX.MOM[k].map((m,i)=>`<option value="${k}|${i}">${m[0]}</option>`).join("")}</optgroup>`).join("");
 $("selFx").addEventListener("change",e=>{const v=e.target.value;if(!v)return;SFX.iniciarAudio();const [k,i]=v.split("|");SFX.MOM[k][i][3]();e.target.value=""});
+// ===== Liderança v0.15: orçamento, eventos criados pela liderança e veto da Regente =====
+let ORC_SRV=null,EVL=null,EVL_F=null,VETO=null,VETO_F="todas",VETO_ABRE=null,EVL_OCUP=false;
+const CLASSE_K={SUPERVISOR:"sup",COORDENADOR:"coo",CHANCELER:"chn",GERENTE:"ger"};
+const GU_NOME={GRAMPOMINAS:"Mineradores",CRONOMINAS:"Guardiões do Tempo",ELFOS:"Sentinelas",REINO:"O reino todo"};
+const MET_EV={CAIXAS:["caixas por pessoa","Caixas"],SEM_ERRO_MG:["semana sem erro médio ou grave","Zero erro"],ACHADOS:["erros achados por pessoa","Caça aos erros"],META_GUILDA:["dia de meta batida pela guilda","% da meta"],GRAMAS:["gramas de grampos","Gramas"]};
+const TIPO_EV={RELAMPAGO:"Relâmpago",SEMANAL:"Semanal",ESPECIAL:"Especial",MENSAL:"Principal do mês"};
+const ACAO_TXT={EVENTO_CRIAR:"Criou um evento",EVENTO_ENCERRAR:"Encerrou um evento",AJUSTE_GC:"Ajuste de GC",AJUSTE_XP:"Correção de XP",AJUSTE_PEDIDO:"Ajuste pedido",ESTORNO:"Estorno de resgate",ERRO_GRAVE:"Marcou erro grave",TROCA_GUILDA:"Troca de guilda",ITEM_CONCEDER:"Deu um item",ITEM_RETIRAR:"Retirou um item",ITEM_NOVO:"Criou um item na loja",ITEM_ALTERADO:"Mudou um item da loja",ITEM_PODER_EDITAR:"Mudou um poder",NOMEAR:"Nomeação"};
+const acaoTxt=a=>ACAO_TXT[a]||(/^USO_/.test(a)?"Aprovou uso de poder":/^CONTESTACAO_/.test(a)?"Decidiu contestação":String(a||"").toLowerCase().replace(/_/g," ").replace(/^./,c=>c.toUpperCase()));
+const hojeISO=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`};
+const diasAte=iso=>Math.round((new Date(iso+"T12:00:00")-new Date(hojeISO()+"T12:00:00"))/864e5);
+const dataCurta=iso=>{const m=String(iso||"").match(/(\d{4})-(\d{2})-(\d{2})/);return m?`${+m[3]}/${m[2]}`:""};
+const rostoL=(k,sx)=>{const a={guilda:k,etapa:0,...PADRAO[k][sx||"m"]};return svg(a).replace("<svg ",'<svg style="width:100%;height:auto;display:block" ')};
+
+// ---- orçamento ----
+function orcamentoAtual(){if(ON)return ORC_SRV||(SRV&&SRV.orcamento)||null;
+  return {sup:{mes:"2026-11",saldo:600,total:1000},coo:{mes:"2026-11",saldo:3100,total:5000},chn:{mes:"2026-11",saldo:8800,total:15000},ger:{mes:"2026-11",saldo:null,total:null}}[papel]}
+function orcamentoHtml(){const o=orcamentoAtual();if(!o)return "";
+  if(o.saldo==null)return `<div class="caixa orcl"><div class="linha"><span class="rot">Orçamento de GC</span><b>sem limite</b></div><div class="sub">A Regente define os orçamentos das classes e pode vetar decisões em até 7 dias.</div></div>`;
+  const usado=o.total-o.saldo,pc=o.total?usado/o.total*100:0;
+  return `<div class="caixa orcl"><div class="linha"><span class="rot">Orçamento de ${mesNome(o.mes)}</span><b class="num" style="font-size:18px">${fmt(o.saldo)} <small class="sub">de ${fmt(o.total)} GC livres</small></b></div>
+    <div class="barra2"><span style="width:${Math.min(100,pc)}%"></span></div>
+    <div class="sub">Eventos, ajustes e estornos que você decide saem daqui. Se passar do saldo, o pedido sobe para ${papel==="sup"?"o Conselheiro":papel==="coo"?"o Chanceler":"a Regente"}.</div></div>`}
+const mesNome=m=>{const i=+String(m||"").slice(5,7);return ["","janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"][i]||"este mês"};
+
+// ---- eventos da liderança ----
+const EVL_DEMO=()=>{const reino=papel==="chn";return {modelos:[{id:"RELAMPAGO_CAIXAS",nome:"Relâmpago de caixas",metrica:"CAIXAS",modo:"INDIVIDUAL",alvo:30,recompensa_gc:20,tipo:"RELAMPAGO",dias:1},{id:"SEMANA_SEM_ERRO",nome:"Semana sem erro médio",metrica:"SEM_ERRO_MG",modo:"INDIVIDUAL",alvo:1,recompensa_gc:30,tipo:"SEMANAL",dias:7},{id:"CACA_AOS_ERROS",nome:"Caça aos erros",metrica:"ACHADOS",modo:"INDIVIDUAL",alvo:3,recompensa_gc:20,tipo:"RELAMPAGO",dias:3},{id:"META_EM_EQUIPE",nome:"Meta do dia em equipe",metrica:"META_GUILDA",modo:"COLETIVO",alvo:1,recompensa_gc:15,tipo:"RELAMPAGO",dias:1}],
+  alcances:reino?["REINO","GRAMPOMINAS","CRONOMINAS","ELFOS"]:papel==="coo"?["GRAMPOMINAS","CRONOMINAS"]:["GRAMPOMINAS"],pode_mensal:reino,max_relampagos:2,saldo:orcamentoAtual().saldo,
+  pessoas:{REINO:34,GRAMPOMINAS:14,CRONOMINAS:11,ELFOS:9},desconto_max:30,conquistas_de_evento:[{id:"RELAMPAGO_DA_GUILDA",nome:"Relâmpago da Guilda"},{id:"SEMANA_IMPECAVEL",nome:"Semana Impecável"},{id:"FESTA_DO_SELO",nome:"Festa do Selo"}],meus_modelos:[{id:"MOD-DEMO-1",nome:"Sexta limpa",modelo:"RELAMPAGO_CAIXAS",tipo:"RELAMPAGO",escopo:"GRAMPOMINAS",alvo:40,recompensa_gc:20,dias:1}],meus:[{id:"EV-DEMO-1",nome:"Sexta das Caixas Limpas",tipo:"RELAMPAGO",escopo:"GRAMPOMINAS",inicio:"2026-11-27",fim:"2026-11-27",ativo:true,custo_previsto:280,modelo:"RELAMPAGO_CAIXAS",recompensa_gc:20,alvo:40}]}};
+async function carregarEvl(){if(!ON){EVL=EVL_DEMO();return}
+  try{EVL=await api("modelosEvento");ORC_SRV=ORC_SRV||SRV.orcamento}catch(e){EVL={erro:e.message,modelos:[],alcances:[],pessoas:{},meus:[]}}}
+function novoForm(){const m=EVL.modelos[0]||{};const h=hojeISO();return {modelo:m.id,nome:"",tipo:m.tipo||"RELAMPAGO",escopo:EVL.alcances[0],inicio:h,fim:h,alvo:m.alvo||1,rec:"gc",gc:m.recompensa_gc||10,item:"",desc:10,descDias:7,conq:"",salvar:false,nomeModelo:""}}
+const recTxt=e=>[+e.recompensa_gc?`${fmt(+e.recompensa_gc)} GC por pessoa`:"",e.item?`item ${(ITEM(e.item)||{nome:RAR_MAP[e.item]?"sorteio "+RAR_MAP[e.item].toLowerCase():e.item}).nome}`:"",+e.desconto_pct?`${e.desconto_pct}% na loja por ${e.desconto_dias||7} dias`:"",e.conquista?`conquista ${((EVL.conquistas_de_evento||[]).find(c=>c.id===e.conquista)||{nome:e.conquista}).nome}`:""].filter(Boolean).join(" + ")||"sem recompensa";
+function telaEventosL(){if(!EVL){carregarEvl().then(()=>{if(aba==="leven")telaLider()});return `<h2 style="margin-top:4px">${icone("chama",FOGOc,20)} Eventos</h2><div class="caixa sub">Carregando os modelos de evento…</div>`}
+  if(EVL.erro)return `<h2 style="margin-top:4px">${icone("chama",FOGOc,20)} Eventos</h2><div class="caixa sub">${EVL.erro}</div>`;
+  if(!EVL_F)EVL_F=novoForm();const F=EVL_F,m=EVL.modelos.find(x=>x.id===F.modelo)||EVL.modelos[0]||{},pes=EVL.pessoas[F.escopo]||0,custo=custoEvl(),saldo=EVL.saldo,passa=saldo!=null&&custo>saldo;
+  const tipos=["RELAMPAGO","SEMANAL","ESPECIAL",...(EVL.pode_mensal?["MENSAL"]:[])];
+  const alc=EVL.alcances.length>1?`<div class="op">${EVL.alcances.map(a=>`<button type="button" data-evesc="${a}" aria-pressed="${F.escopo===a}">${GU_NOME[a]||a} · ${EVL.pessoas[a]||0}</button>`).join("")}</div>`:`<span class="trava">🔒 ${GU_NOME[F.escopo]||F.escopo} · ${pes} ${pes===1?"pessoa":"pessoas"}</span>`;
+  const un=(MET_EV[m.metrica]||["por pessoa"])[0];
+  const meus=(EVL.meus||[]).slice().reverse();
+  return `<h2 style="margin-top:4px">${icone("chama",FOGOc,20)} Eventos <small>${papel==="sup"?"da sua guilda":papel==="coo"?"das suas guildas":"do reino"}</small></h2>
+  ${orcamentoHtml()}
+  <div class="semxp"><b>Evento não dá XP.</b> O XP continua vindo só da meta do dia. O evento paga a recompensa em GC no fechamento da semana.</div>
+  <form class="caixa evf" id="evlForm" novalidate>
+   <div class="campo"><span class="lb">Modelo (a regra do evento)</span><div class="op">${EVL.modelos.map(x=>`<button type="button" data-evmod="${x.id}" aria-pressed="${F.modelo===x.id}">${x.nome}</button>`).join("")}</div>
+     ${(EVL.meus_modelos||[]).length?`<span class="lb" style="margin-top:4px">Seus modelos</span><div class="op">${EVL.meus_modelos.map(x=>`<button type="button" data-evmeu="${x.id}">${x.nome}</button>`).join("")}</div>`:""}
+     <span class="nota">${m.modo==="COLETIVO"?"A equipe junta: se a guilda bater, todos ganham.":"Cada pessoa: ganha quem bater o alvo sozinho."}</span></div>
+   <div class="campo"><label for="evlNome">Nome do evento</label><input class="inp" id="evlNome" value="${(F.nome||"").replace(/"/g,"&quot;")}" placeholder="${m.nome||""}" maxlength="60"></div>
+   <div class="campo"><span class="lb">Tipo</span><div class="op">${tipos.map(t=>`<button type="button" data-evtipo="${t}" aria-pressed="${F.tipo===t}">${TIPO_EV[t]}</button>`).join("")}</div>
+     <span class="nota">${F.tipo==="RELAMPAGO"?`No máximo ${EVL.max_relampagos||2} relâmpagos ativos por guilda ao mesmo tempo.`:F.tipo==="MENSAL"?"Evento principal do mês. Só o Chanceler mexe nele.":F.tipo==="SEMANAL"?"Fecha junto com a semana.":"Para datas especiais e campanhas."}</span></div>
+   <div class="campo"><span class="lb">Alcance</span>${alc}</div>
+   <div class="dois"><div class="campo"><label for="evlIni">Começa</label><input class="inp" type="date" id="evlIni" value="${F.inicio}" min="${hojeISO()}"></div><div class="campo"><label for="evlFim">Termina</label><input class="inp" type="date" id="evlFim" value="${F.fim}" min="${F.inicio}"></div></div>
+   <div class="campo"><label for="evlAlvo">Alvo</label><div class="dois"><input class="inp" type="number" id="evlAlvo" min="1" value="${F.alvo}"><span class="sub" style="align-self:center">${un}</span></div></div>
+   <div class="campo"><span class="lb">Recompensa</span><div class="op">${[["gc","GC"],["item","Item"],["desc","Desconto"],["conq","Conquista"]].map(([k,t])=>`<button type="button" data-evrec="${k}" aria-pressed="${F.rec===k}">${t}</button>`).join("")}</div>
+     ${F.rec==="gc"?`<div class="dois"><input class="inp" type="number" id="evlGc" min="1" value="${F.gc}" aria-label="GC por pessoa"><span class="sub" style="align-self:center">GC por pessoa</span></div>`:
+       F.rec==="item"?`<select class="inp" id="evlItem" aria-label="Item">${itensPermitidos().map(i=>`<option value="${i.id}" ${F.item===i.id?"selected":""}>${i.nome} · ${i.rar}</option>`).join("")}</select><span class="nota">${papel==="sup"?"Mestre da Guilda dá itens comuns e incomuns.":papel==="coo"?"Conselheiro dá até item épico. Lendário é com o Chanceler.":"Chanceler pode dar até item lendário."} Um item por ganhador.</span>`:
+       F.rec==="desc"?`<div class="dois"><input class="inp" type="number" id="evlDesc" min="1" max="${EVL.desconto_max||30}" value="${F.desc}" aria-label="Desconto em %"><span class="sub" style="align-self:center">% na loja (até ${EVL.desconto_max||30}%)</span></div><div class="dois" style="margin-top:6px"><input class="inp" type="number" id="evlDescD" min="1" max="14" value="${F.descDias}" aria-label="Dias de desconto"><span class="sub" style="align-self:center">dias de desconto (até 14)</span></div>`:
+       `<select class="inp" id="evlConq" aria-label="Conquista">${(EVL.conquistas_de_evento||[]).map(c=>`<option value="${c.id}" ${F.conq===c.id?"selected":""}>${c.nome}</option>`).join("")}</select><span class="nota">Conquista do livro do Reino, com grau único.</span>`}</div>
+   <div class="caixa custo ${passa?"alerta":"okc"}" id="evlCusto"><div class="linha"><span class="rot">Custo máximo previsto</span><b class="num" style="font-size:20px">${fmt(custo)} GC</b></div>
+     <div class="sub">${contaEvl()}</div>
+     <div class="sub" style="margin-top:4px">${passa?`Passa do seu saldo em ${fmt(custo-saldo)} GC. O evento vira pedido para ${papel==="sup"?"o Conselheiro":papel==="coo"?"o Chanceler":"a Regente"} e começa quando for aprovado.`:saldo==null?"Sem limite de orçamento.":"Fica reservado no seu orçamento. O que não for pago volta quando o evento fechar."}</div></div>
+   <label class="chk" for="evlSalvar"><input type="checkbox" id="evlSalvar" ${F.salvar?"checked":""}> Salvar como modelo para usar de novo</label>
+   ${F.salvar?`<input class="inp" id="evlNomeMod" style="width:100%;margin-top:6px" placeholder="Nome do modelo" value="${(F.nomeModelo||"").replace(/"/g,"&quot;")}" maxlength="40">`:""}
+   <button class="btn ok larga" type="submit" style="margin-top:12px" ${EVL_OCUP?"disabled":""}>${EVL_OCUP?"Enviando…":passa?"Enviar pedido":"Criar evento"}</button>
+  </form>
+  <h3 class="h3">Eventos que você criou <small>${meus.length}</small></h3>
+  ${meus.length?meus.map(e=>{const fut=e.inicio>hojeISO(),acabou=e.fim<hojeISO();const st=!e.ativo?(e.encerrado?"encerrado":"aguardando aprovação"):acabou?"terminou":fut?`começa ${dataCurta(e.inicio)}`:"em andamento";
+    return `<div class="caixa item"><div class="meio"><b>${e.nome}</b><div class="sub">${TIPO_EV[e.tipo]||e.tipo} · ${GU_NOME[e.escopo]||e.escopo} · ${dataCurta(e.inicio)} a ${dataCurta(e.fim)}</div><div class="sub">${recTxt(e)}${+e.custo_previsto?` · reserva ${fmt(e.custo_previsto)} GC`:""}</div></div>
+     <div class="acao"><span class="tag">${st}</span>${e.ativo&&!acabou?`<button class="btn neutro" data-evenc="${e.id}">${fut?"Cancelar":"Encerrar hoje"}</button>`:""}</div></div>`}).join(""):`<div class="caixa sub">Nenhum evento criado por você ainda.</div>`}
+  <p class="nota">Encerrar hoje paga o que já foi conquistado no fechamento da semana. O que sobrar da reserva volta ao orçamento.</p>`}
+const RAR_MAX={sup:2,coo:4,chn:5,ger:5},RAR_ORD=["Comum","Incomum","Rara","Épica","Lendária"];
+const itensPermitidos=()=>ITENS.filter(i=>RAR_ORD.indexOf(i.rar)<(RAR_MAX[papel]||2));
+function custoEvl(){const F=EVL_F;return F.rec==="gc"?F.gc*(EVL.pessoas[F.escopo]||0):0}
+function contaEvl(){const F=EVL_F,pes=EVL.pessoas[F.escopo]||0,pp=`${pes} ${pes===1?"pessoa":"pessoas"}`;
+  if(F.rec==="gc")return `${F.gc} GC × ${pp}, se todas baterem.`;
+  if(F.rec==="item"){const it=ITEM(F.item);return `${it?it.nome:"Item"} para cada ganhador (até ${pp}). Item não sai do orçamento de GC.`}
+  if(F.rec==="desc")return `${F.desc}% na loja por ${F.descDias} dias para ${GU_NOME[F.escopo]||F.escopo}, se alguém bater. Desconto não sai do orçamento de GC.`;
+  const c=(EVL.conquistas_de_evento||[]).find(x=>x.id===F.conq);return `Conquista ${c?c.nome:""} para quem bater. Não sai do orçamento de GC.`}
+function lerEvlForm(){const F=EVL_F;if(!F||!$("evlNome"))return;F.nome=$("evlNome").value;F.inicio=$("evlIni").value||F.inicio;F.fim=$("evlFim").value||F.fim;if(F.fim<F.inicio)F.fim=F.inicio;F.alvo=Math.max(1,+$("evlAlvo").value||1);if($("evlGc"))F.gc=Math.max(1,+$("evlGc").value||1);if($("evlItem"))F.item=$("evlItem").value;if($("evlDesc"))F.desc=Math.min(EVL.desconto_max||30,Math.max(1,+$("evlDesc").value||1));if($("evlDescD"))F.descDias=Math.min(14,Math.max(1,+$("evlDescD").value||7));if($("evlConq"))F.conq=$("evlConq").value;F.salvar=$("evlSalvar").checked;if($("evlNomeMod"))F.nomeModelo=$("evlNomeMod").value}
+function atualizarCustoEvl(){const F=EVL_F,custo=custoEvl(),saldo=EVL.saldo,passa=saldo!=null&&custo>saldo,el=$("evlCusto");if(!el)return;
+  el.className="caixa custo "+(passa?"alerta":"okc");el.querySelector(".num").textContent=fmt(custo)+" GC";el.querySelectorAll(".sub")[0].textContent=contaEvl();
+  el.querySelectorAll(".sub")[1].textContent=passa?`Passa do seu saldo em ${fmt(custo-saldo)} GC. O evento vira pedido para ${papel==="sup"?"o Conselheiro":papel==="coo"?"o Chanceler":"a Regente"} e começa quando for aprovado.`:saldo==null?"Sem limite de orçamento.":"Fica reservado no seu orçamento. O que não for pago volta quando o evento fechar.";
+  $("evlForm").querySelector("[type=submit]").textContent=passa?"Enviar pedido":"Criar evento"}
+async function enviarEvl(){lerEvlForm();const F=EVL_F,m=EVL.modelos.find(x=>x.id===F.modelo)||{};
+  if(F.fim<F.inicio){toast("A data de término vem depois do começo.");return}
+  if(F.rec==="item"&&!F.item){toast("Escolha o item.");return}if(F.rec==="conq"&&!F.conq){toast("Escolha a conquista.");return}
+  if(!ON){const custo=custoEvl(),passa=custo>EVL.saldo;EVL.meus.push({id:"EV-DEMO-"+Date.now(),nome:F.nome||m.nome,tipo:F.tipo,escopo:F.escopo,inicio:F.inicio,fim:F.fim,ativo:!passa,custo_previsto:custo,recompensa_gc:F.rec==="gc"?F.gc:0,alvo:F.alvo,item:F.rec==="item"?F.item:"",desconto_pct:F.rec==="desc"?F.desc:0,conquista:F.rec==="conq"?F.conq:""});if(F.salvar)EVL.meus_modelos.push({id:"MOD-DEMO-"+Date.now(),nome:F.nomeModelo||F.nome||m.nome,modelo:F.modelo,tipo:F.tipo,escopo:F.escopo,alvo:F.alvo,recompensa_gc:F.gc,dias:1});if(!passa)EVL.saldo-=custo;
+    toast(passa?"O custo passa do seu saldo: o pedido foi para a classe de cima (prévia).":`Evento criado. ${fmt(custo)} GC reservados (prévia).`);EVL_F=null;telaLider();return}
+  EVL_OCUP=true;telaLider();
+  try{const r=await api("criarEvento",{modelo:F.modelo,escopo:F.escopo,inicio:F.inicio,fim:F.fim,alvo:F.alvo,nome:F.nome.trim()||undefined,tipo:F.tipo,recompensa_gc:F.rec==="gc"?F.gc:0,
+      ...(F.rec==="item"?{item:F.item}:F.rec==="desc"?{desconto_pct:F.desc,desconto_dias:F.descDias}:F.rec==="conq"?{conquista:F.conq}:{}),...(F.salvar?{salvar_modelo:true,nome_modelo:F.nomeModelo.trim()||undefined}:{})});
+    toast(r.mensagem||"Evento criado.");EVL_F=null;try{const p=await api("orcamento");const o=(p.orcamentos||[])[0];if(o)ORC_SRV={mes:p.mes,saldo:o.saldo,total:o.total}}catch(e){}await carregarEvl()}
+  catch(e){toast(e.message)}finally{EVL_OCUP=false;if(aba==="leven")telaLider()}}
+async function encerrarEvl(id){const e=EVL.meus.find(x=>x.id===id);if(!e)return;
+  if(!ON){e.ativo=false;e.encerrado=true;toast("Evento encerrado (prévia).");telaLider();return}
+  try{const r=await api("encerrarEvento",{id});toast(r.mensagem||"Evento encerrado.");await carregarEvl();telaLider()}catch(err){toast(err.message)}}
+
+// ---- veto da Regente ----
+const VETO_DEMO=()=>{const d=n=>{const x=new Date();x.setDate(x.getDate()+n);return x.toISOString().slice(0,10)};return {de:d(-7),ate:d(-1),
+  orcamentos:[{dono:"GUILDA:GRAMPOMINAS",classe:"SUPERVISOR",nome:"Guilda Mineradores",total:1000,usado:400,saldo:600},{dono:"GUILDA:CRONOMINAS",classe:"SUPERVISOR",nome:"Guilda Guardiões do Tempo",total:1000,usado:220,saldo:780},{dono:"GUILDA:ELFOS",classe:"SUPERVISOR",nome:"Guilda Sentinelas",total:1000,usado:90,saldo:910},{dono:"coo",classe:"COORDENADOR",nome:"Conselheira Safira",total:5000,usado:1900,saldo:3100},{dono:"chn",classe:"CHANCELER",nome:"Chanceler",total:15000,usado:6200,saldo:8800}],
+  vetaveis:[{id:"V1",acao:"EVENTO_CRIAR",motivo:"Festival de Dezembro, o reino todo",valor:1700,decidido_por:"Chanceler",classe:"CHANCELER",quando:d(-1),veto_ate:d(6)},
+   {id:"V2",acao:"TROCA_GUILDA",motivo:"Diego Alves: Mineradores para Guardiões do Tempo",valor:0,decidido_por:"Conselheira Safira",classe:"COORDENADOR",quando:d(-2),veto_ate:d(5)},
+   {id:"V3",acao:"EVENTO_CRIAR",motivo:"Sexta das Caixas Limpas, Mineradores",valor:280,decidido_por:"Mestre Ferrugem",classe:"SUPERVISOR",quando:d(-3),veto_ate:d(4)},
+   {id:"V4",acao:"AJUSTE_XP",motivo:"Lucas Prado, −60 XP por infração verificada",valor:0,decidido_por:"Chanceler",classe:"CHANCELER",quando:d(-4),veto_ate:d(3)},
+   {id:"V5",acao:"ESTORNO",motivo:"Resgate de Marina Costa, cantina fechada",valor:450,decidido_por:"Conselheira Safira",classe:"COORDENADOR",quando:d(-5),veto_ate:d(2)},
+   {id:"V6",acao:"ITEM_CONCEDER",motivo:"Lanterna Élfica (incomum) para Thiago Reis",valor:40,decidido_por:"Mestra Aurora",classe:"SUPERVISOR",quando:d(-6),veto_ate:d(1)}]}};
+async function carregarVeto(){if(!ON){VETO=VETO_DEMO();return}
+  try{const [r,o]=await Promise.all([api("resumoSemanal"),api("orcamento").catch(()=>null)]);const nomes={};((o&&o.orcamentos)||[]).forEach(x=>nomes[x.dono]=x.nome);
+    VETO={...r,orcamentos:(r.orcamentos||[]).map(x=>({...x,nome:nomes[x.dono]||x.dono}))}}catch(e){VETO={erro:e.message}}}
+function telaVeto(){const cab=`<h2 style="margin-top:4px">${icone("balanca",OUROc,20)} Veto <small>últimos 7 dias</small></h2>`;
+  if(!VETO){carregarVeto().then(()=>{if(aba==="veto")telaLider()});return cab+`<div class="caixa sub">Carregando o resumo…</div>`}
+  if(VETO.erro)return cab+`<div class="caixa sub">${VETO.erro}</div>`;
+  const V=VETO.vetaveis||[],vivos=V.filter(x=>!x.vetada),gc=vivos.reduce((s,x)=>s+Math.abs(+x.valor||0),0),vence=vivos.filter(x=>diasAte(x.veto_ate)<=2).length;
+  const filt=[["todas","Todas"],["SUPERVISOR","Mestres"],["COORDENADOR","Conselheiros"],["CHANCELER","Chanceler"]];
+  const lista=V.filter(x=>VETO_F==="todas"||x.classe===VETO_F);
+  const porClasse={};(VETO.orcamentos||[]).forEach(o=>(porClasse[o.classe]=porClasse[o.classe]||[]).push(o));
+  return cab+`<div class="sub" style="margin:-4px 0 8px">Decisões de ${dataCurta(VETO.de)} a ${dataCurta(VETO.ate)}. O mesmo resumo chega toda segunda às 7h.</div>
+  <div class="grade3"><div class="caixa kpi"><span class="num">${V.length}</span><span class="rot">decisões</span></div><div class="caixa kpi"><span class="num">${fmt(gc)}</span><span class="rot">GC liberados</span></div><div class="caixa kpi ${vence?"alerta-k":""}"><span class="num">${vence}</span><span class="rot">veto vence em até 2 dias</span></div></div>
+  <h3 class="h3">Orçamentos de ${mesNome(hojeISO())}</h3>
+  <div class="caixa tabela">${["SUPERVISOR","COORDENADOR","CHANCELER"].filter(k=>porClasse[k]).map(k=>porClasse[k].map(o=>`<div class="lm" style="flex-direction:column;align-items:stretch;gap:4px"><div class="linha"><span><b style="font-size:14px">${o.nome}</b> <span class="sub">· ${CLASSES[CLASSE_K[k]].nome}</span></span><span class="num" style="font-size:14px">${fmt(o.usado)} / ${fmt(o.total)}</span></div><div class="barra2"><span style="width:${Math.min(100,o.total?o.usado/o.total*100:0)}%;background:${CLASSES[CLASSE_K[k]].cor}"></span></div></div>`).join("")).join("")||`<div class="sub">Nenhum orçamento registrado neste mês.</div>`}</div>
+  <h3 class="h3">Decisões <small>pode vetar por 7 dias</small></h3>
+  <div class="abinhas" role="tablist">${filt.map(([k,t])=>`<button role="tab" data-vfil="${k}" aria-selected="${VETO_F===k}">${t}</button>`).join("")}</div>
+  ${lista.length?lista.map(x=>{const k=CLASSE_K[x.classe]||"sup",dd=diasAte(x.veto_ate);return `<div class="caixa dec ${x.vetada?"vetado":""}"><div class="rosto">${rostoL(k)}</div><div class="meio">
+    <span class="sub">${x.decidido_por} · ${CLASSES[k].nome} · ${dataCurta(x.quando)}</span><b>${acaoTxt(x.acao)}</b><div class="sub" style="color:var(--tx)">${x.motivo||""}</div>
+    <div class="meta">${+x.valor?`<span class="tag">${fmt(Math.abs(+x.valor))} GC</span>`:""}${x.vetada?"":`<span class="prazo ${dd<=2?"curto":""}">veto até ${dd<=0?"hoje":dd===1?"amanhã":dataCurta(x.veto_ate)}</span>`}</div>
+    ${x.vetada?`<span class="carimbo">Vetada por você · ${x.motivo_veto}</span>`:VETO_ABRE===x.id?`<div class="vform"><label class="rot" for="vmot">Motivo do veto. Quem decidiu e quem foi afetado recebem este texto.</label><textarea class="inp" id="vmot" maxlength="300"></textarea><div class="botoes"><button class="btn rui" data-vconf="${x.id}">Vetar</button><button class="btn neutro" data-vcanc>Cancelar</button></div></div>`:`<div class="botoes" style="margin-top:6px"><button class="btn neutro" data-vabre="${x.id}">Vetar…</button></div>`}
+  </div></div>`}).join(""):`<div class="caixa sub">Nenhuma decisão para vetar${VETO_F==="todas"?" nos últimos 7 dias":" desta classe"}.</div>`}
+  <p class="nota">Ao vetar, a decisão volta atrás e o orçamento volta para quem decidiu. Se o GC já tinha sido pago, ele sai do saldo do jogador até zerar e o resto sai dos próximos ganhos. O saldo nunca fica negativo.</p>`}
+async function vetarConf(id){const m=($("vmot")||{}).value||"";if(!m.trim()){toast("Escreva o motivo do veto.");$("vmot")&&$("vmot").focus();return}
+  const x=VETO.vetaveis.find(v=>v.id===id);
+  if(!ON){x.vetada=true;x.motivo_veto=m.trim();VETO_ABRE=null;toast("Decisão vetada. Quem decidiu e quem foi afetado foram avisados (prévia).");telaLider();return}
+  try{const r=await api("vetar",{id,motivo:m.trim()});x.vetada=true;x.motivo_veto=m.trim();VETO_ABRE=null;toast(r.mensagem||"Decisão vetada.");telaLider()}catch(e){toast(e.message)}}
+
+document.addEventListener("click",e=>{const b=e.target.closest("button");if(!b||b.disabled)return;const d=b.dataset;
+  if(d.evmod){lerEvlForm();const m=EVL.modelos.find(x=>x.id===d.evmod);Object.assign(EVL_F,{modelo:m.id,tipo:EVL.pode_mensal||m.tipo!=="MENSAL"?m.tipo:"RELAMPAGO",alvo:m.alvo,gc:m.recompensa_gc});const f=new Date(EVL_F.inicio+"T12:00:00");f.setDate(f.getDate()+(m.dias||1)-1);EVL_F.fim=f.toISOString().slice(0,10);telaLider()}
+  else if(d.evrec){lerEvlForm();EVL_F.rec=d.evrec;if(d.evrec==="item"&&!EVL_F.item)EVL_F.item=(itensPermitidos()[0]||{}).id||"";if(d.evrec==="conq"&&!EVL_F.conq)EVL_F.conq=((EVL.conquistas_de_evento||[])[0]||{}).id||"";telaLider()}
+  else if(d.evmeu){const x=EVL.meus_modelos.find(q=>q.id===d.evmeu);lerEvlForm();Object.assign(EVL_F,{modelo:x.modelo,tipo:x.tipo||EVL_F.tipo,escopo:EVL.alcances.includes(x.escopo)?x.escopo:EVL_F.escopo,alvo:x.alvo||EVL_F.alvo,nome:x.nome,
+      rec:x.item?"item":+x.desconto_pct?"desc":x.conquista?"conq":"gc",gc:+x.recompensa_gc||EVL_F.gc,item:x.item||"",desc:+x.desconto_pct||10,descDias:+x.desconto_dias||7,conq:x.conquista||""});const f=new Date(EVL_F.inicio+"T12:00:00");f.setDate(f.getDate()+(x.dias||1)-1);EVL_F.fim=f.toISOString().slice(0,10);telaLider()}
+  else if(d.evtipo){lerEvlForm();EVL_F.tipo=d.evtipo;telaLider()}
+  else if(d.evesc){lerEvlForm();EVL_F.escopo=d.evesc;telaLider()}
+  else if(d.evenc)encerrarEvl(d.evenc);
+  else if(d.vfil){VETO_F=d.vfil;telaLider()}
+  else if(d.vabre){VETO_ABRE=d.vabre;telaLider();$("vmot")&&$("vmot").focus()}
+  else if("vcanc" in d){VETO_ABRE=null;telaLider()}
+  else if(d.vconf)vetarConf(d.vconf)});
+document.addEventListener("input",e=>{if(["evlGc","evlAlvo","evlNome","evlIni","evlFim","evlDesc","evlDescD","evlNomeMod"].includes(e.target.id)){lerEvlForm();atualizarCustoEvl()}});
+document.addEventListener("change",e=>{if(["evlItem","evlConq"].includes(e.target.id)){lerEvlForm();atualizarCustoEvl()}if(e.target.id==="evlSalvar"){lerEvlForm();telaLider();$("evlNomeMod")&&$("evlNomeMod").focus()}});
+document.addEventListener("submit",e=>{if(e.target.id==="evlForm"){e.preventDefault();enviarEvl()}});
+
 // =====================================================================
 //   CONEXÃO COM A API (Apps Script "Reino API"). Sem URL, o app roda na prévia.
 // =====================================================================
 const API_PADRAO="https://script.google.com/macros/s/AKfycbzfZp22dONNOxecyskVJwesEriFNcqhoUvYM7YACDQGSI0a9dNmVJi0UZMlzGi8v3NB/exec"; // na publicação: a URL /exec da implantação "Reino API"
 const ON=(()=>{let u="";try{const q=new URLSearchParams(location.search).get("api");if(q)localStorage.setItem("reinoApi",q);u=q||localStorage.getItem("reinoApi")||""}catch(e){}return u||API_PADRAO})();
 let TOKEN=null;try{TOKEN=localStorage.getItem("reinoToken")}catch(e){}
-let SRV=null,RECEP_SRV=null,EV_SRV=null,LOJA_SRV=null,RODADAS_SRV=[],MEMBROS_SRV=null,CQ_ONLINE=false,ocupado=false;
-const GU_MAP={GRAMPOMINAS:"min",CRONOMINAS:"gua",ELFOS:"elf"},PAPEL_MAP={OPERADOR:"op",SUPERVISOR:"sup",COORDENADOR:"coo",GERENTE:"ger"};
+let TRAJ_SRV=null,INS_CAT=[],SRV=null,RECEP_SRV=null,EV_SRV=null,LOJA_SRV=null,RODADAS_SRV=[],MEMBROS_SRV=null,CQ_ONLINE=false,ocupado=false;
+const GU_MAP={GRAMPOMINAS:"min",CRONOMINAS:"gua",ELFOS:"elf"},PAPEL_MAP={OPERADOR:"op",SUPERVISOR:"sup",COORDENADOR:"coo",CHANCELER:"chn",GERENTE:"ger"};
 const RAR_MAP={COMUM:"Comum",INCOMUM:"Incomum",RARA:"Rara",EPICA:"Épica",LENDARIA:"Lendária"},RAR_PCT={Comum:60,Incomum:30,Rara:10,Épica:3,Lendária:0.5};
-const GRAU_IDX={UNICO:1,BRONZE:1,PRATA:2,OURO:3};
+const GRAU_IDX={UNICO:1,BRONZE:1,PRATA:2,OURO:3,PLATINA:4,DIAMANTE:5};
 const ACENTO={"Ampulheta do Almoco":"Ampulheta do Almoço","Pocao da Calmaria":"Poção da Calmaria","Brasao personalizado":"Brasão personalizado","Equipamento lendario 3D":"Equipamento lendário 3D","Constancia":"Constância","Mao firme":"Mão firme","Destaque do mes":"Destaque do mês","Meta da guilda":"Meta da guilda"};
 const ac=s=>ACENTO[s]||s;
 const dataBR=iso=>{const m=String(iso||"").match(/(\d{4})-(\d{2})-(\d{2})/);return m?`${m[3]}/${m[2]}`:String(iso||"")};
@@ -2324,7 +2546,7 @@ async function api(acao,dados={}){
 async function chamar(acao,dados,ok){if(ocupado)return;ocupado=true;try{const r=await api(acao,dados);await ok(r)}catch(e){toast(e.message)}finally{ocupado=false}}
 
 function avatarLocal(id){try{return JSON.parse(localStorage.getItem("reinoAv_"+id)||"null")}catch(e){return null}}
-function aplicarEstado(e){SRV=e;const j=e.jogador;papel=PAPEL_MAP[j.papel]||"op";aba=papel==="op"?(["inicio","eventos","loja","heroi","guilda"].includes(aba)?aba:"inicio"):(["linicio","aprov","resg","gctl","avisos","itens"].includes(aba)?aba:"linicio");
+function aplicarEstado(e){SRV=e;ORC_SRV=e.orcamento||null;EVL=null;VETO=null;const j=e.jogador;papel=PAPEL_MAP[j.papel]||"op";aba=papel==="op"?(["inicio","eventos","loja","heroi","guilda"].includes(aba)?aba:"inicio"):(["linicio","aprov","resg","gctl","avisos","itens"].includes(aba)?aba:"linicio");
   const g=GU_MAP[j.guilda]||"min",av=j.avatar||avatarLocal(j.id);
   if(papel==="op"){A=av&&av.guilda?{...av,guilda:g}:{guilda:g,etapa:0,...PADRAO[g][(A&&A.sexo)||"m"]};if(j.etapa!=null&&ETAPAS[g][j.etapa])A.etapa=j.etapa}
   else{if(av&&av.guilda)AL[papel]=av;NOMEL[papel]=j.nome}
@@ -2391,15 +2613,16 @@ function beneficiosSrv(){return (EV_SRV||[]).filter(e=>!e.coletivo&&e.tipo==="ME
   if(e.metrica==="SEM_ERRO_MG")return [ac(e.nome),d,r,e.atingido?1:0,1,e.atingido?"até agora":"não desta vez"];
   return [ac(e.nome),d,r,e.progresso||0,e.alvo||1,u]})}
 async function recarregar(silencioso){if(!ON||!TOKEN)return;try{const e=await api("estado");aplicarEstado(e);await carregarManual();if(papel!=="op")await recarregarLider();tudo();carregarGuilda()}catch(err){if(!silencioso)toast(err.message)}}
-async function recarregarLider(){const p=await api("pendentes");RODADAS_SRV=p.rodadas||[];
+async function recarregarLider(){const p=await api("pendentes");RODADAS_SRV=p.rodadas||[];if(p.orcamento)ORC_SRV=p.orcamento;
   PED=[...p.usos.map(u=>({id:u.id,tipo:"usoItem",alvo:u.nome,desc:`${ac(u.item_nome)} para ${dataBR(u.dia)}`,de:"op",quem:u.nome,horas:0,guilda:"",passou:[],status:"pendente",nivel:papel,ate:papel,srv:"uso",rh:u.precisa_rh})),
-    ...p.aprovacoes.map(a=>{const tp=ACAO_MAP[a.acao]||a.acao;if(!TIPOS_PEDIDO[tp])TIPOS_PEDIDO[tp]={t:a.acao.toLowerCase().replace(/_/g," ").replace(/^./,c=>c.toUpperCase()),ate:papel};
-      return {id:a.id,tipo:tp,alvo:a.alvo,v:Math.abs(+a.valor)||undefined,desc:a.motivo||"",de:"sup",quem:a.solicitante,horas:0,guilda:"",passou:[],status:"pendente",nivel:papel,ate:papel,srv:"aprovacao"}})];
+    ...p.aprovacoes.map(a=>{const tp=ACAO_MAP[a.acao]||a.acao;if(!TIPOS_PEDIDO[tp])TIPOS_PEDIDO[tp]={t:a.acao==="EVENTO_CRIAR"?"Evento acima do orçamento":acaoTxt(a.acao),ate:papel};
+      return {id:a.id,tipo:tp,alvo:a.alvo,v:Math.abs(+a.valor)||undefined,desc:(a.motivo||"")+(+a.custo_no_orcamento?` · custa ${fmt(+a.custo_no_orcamento)} GC do seu orçamento`:""),de:"sup",quem:a.solicitante,horas:0,guilda:"",passou:[],status:"pendente",nivel:papel,ate:papel,srv:"aprovacao"}})];
   RESG=p.resgates.map(r=>({id:r.id,quem:r.nome,item:ac(r.item_nome),quando:dataBR(r.data),preco:r.preco}))}
 const ACAO_MAP={ESTORNO:"estorno",AJUSTE_GC:"ajusteGC",AJUSTE_XP:"ajusteXP",ERRO_GRAVE:"grave"};
 let LIDER_SRV=null;
-const L_PAPEL={SUPERVISOR:"sup",COORDENADOR:"coo",GERENTE:"ger"};
-async function carregarGuilda(){try{const r=await api("guilda");MEMBROS_SRV=r.membros;LIDER_SRV=r.lideranca||[];
+const L_PAPEL={SUPERVISOR:"sup",COORDENADOR:"coo",CHANCELER:"chn",GERENTE:"ger"};
+async function carregarTrajetoria(){try{const r=await api("trajetoria");TRAJ_SRV=r.trajetoria||[];INS_CAT=r.insignias||[];if(logado&&aba==="heroi")telaHeroi()}catch(e){}}
+async function carregarGuilda(){carregarTrajetoria();try{const r=await api("guilda");MEMBROS_SRV=r.membros;LIDER_SRV=r.lideranca||[];
   MEMBROS.splice(0,MEMBROS.length,...r.membros.map(m=>[m.nome.split(" ")[0],(m.avatar&&m.avatar.sexo)||"m",(m.avatar&&m.avatar.etapa)||0,m.nivel,m.avatar||null,m]));
   if(papel==="op")SUPS.splice(0,SUPS.length,...LIDER_SRV.map(l=>{const k=L_PAPEL[l.papel]||"sup";return {nome:l.nome,turno:CLASSES[k].cargo,k,a:()=>l.avatar&&l.avatar.guilda?l.avatar:{guilda:k,etapa:0,...PADRAO[k].m}}}));
   if(logado)tudo()}catch(e){}}
@@ -2413,7 +2636,7 @@ let MSG_COD="";
 async function loginCodigo(){const c=[...document.querySelectorAll(".codigo input")].map(i=>i.value.trim()).join("");if(!/^\d{6}$/.test(c)){toast("Digite os 6 números do código.");return}
   await chamar("entrar",{email:emailLogin,codigo:c},async r=>{guardarTk(r.token);aplicarEstado(r);
     const temAv=r.jogador.avatar||avatarLocal(r.jogador.id);
-    if(papel==="op"&&!temAv){primeiro=true;passoLogin="bemvindo";telaLogin();SFX.som("jingle");return}
+    if(papel==="op"&&!temAv){primeiro=true;passoLogin="bemvindo";telaLogin();SFX.som("jingle");carregarGuilda();return}
     await carregarManual();if(papel!=="op")await recarregarLider();carregarGuilda();
     sairLogin();SFX.pequena({ico:"estrela",cor:"#e8b04a",tit:`Bem-vindo de volta, ${J.nome.split(" ")[0]}`,txt:papel==="op"?`Você está no nível ${nivelDe(J.xp)}.`:"Veja o que espera a sua decisão.",s:"plim"})})}
 function salvarAvatarSrv(av){if(!ON||!SRV)return;try{localStorage.setItem("reinoAv_"+SRV.jogador.id,JSON.stringify(av))}catch(e){}api("salvarAvatar",{avatar:av}).catch(()=>{})}
@@ -2508,6 +2731,10 @@ function guildaLOnline(){const ms=MEMBROS_SRV||[],ls=LIDER_SRV||[],g=GU_MAP[SRV.
 document.addEventListener("input",e=>{const i=e.target;if(!i.closest||!i.closest(".codigo"))return;const ins=[...document.querySelectorAll(".codigo input")],v=i.value.replace(/\D/g,"");
   if(v.length>1){v.split("").slice(0,6).forEach((c,k)=>{if(ins[k])ins[k].value=c});(ins[Math.min(5,v.length-1)]||i).focus();if(v.length>=6&&ON)loginCodigo();return}
   i.value=v;if(v){const n=ins[ins.indexOf(i)+1];if(n)n.focus();else if(ON&&ins.every(x=>x.value))loginCodigo()}});
+
+// pendência de GC deixada por um veto (o saldo nunca fica negativo)
+const _telaInicioBase=telaInicio;telaInicio=function(){_telaInicioBase();const pd=ON&&SRV&&SRV.saldo&&+SRV.saldo.pendencia;
+  if(pd>0){const el=$("t-inicio");const alvo=el.querySelector(".grade2");const h=`<div class="caixa" style="border-color:#b05050"><div class="linha"><span class="rot">Pendência</span><b class="num" style="font-size:18px">${fmt(pd)} GC</b></div><div class="sub">Uma decisão foi vetada pela Regente. Esse valor sai dos seus próximos ganhos. O saldo nunca fica negativo.</div></div>`;alvo?alvo.insertAdjacentHTML("afterend",h):el.insertAdjacentHTML("afterbegin",h)}};
 
 if(ON)iniciarOnline();else tudo();
 if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
