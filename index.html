@@ -111,6 +111,27 @@ nav.baixo button[aria-current=page] svg{filter:drop-shadow(0 2px 0 #6a4a20)}
 .ed .palco{width:42%;flex:none;position:sticky;top:0;border:3px solid var(--bd)}
 .ed .palco svg{width:100%;display:block}
 .ctl{flex:1;display:grid;gap:4px}
+.mural-ins{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;text-align:center;padding:10px 6px}
+.mural-ins>div{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer}
+.mural-ins img,.mural-ins svg,.mural-ins canvas{width:48px;height:48px;image-rendering:pixelated}
+.mural-ins span{font-size:10px;line-height:1.15;color:var(--mut,#b9b0d0)}
+.mural-ins .vazio{width:48px;height:48px;border:2px dashed #ffffff33;border-radius:10px}
+#t-heroi .abinhas>button{font-size:12px;padding:6px 1px;letter-spacing:-.2px}
+.msel{outline:3px solid #f0c040;border-radius:10px}
+.traj{position:relative;display:grid;gap:10px}
+.traj .ev{display:grid;grid-template-columns:52px 1fr;gap:10px;align-items:start;position:relative}
+.traj .ev:before{content:"";position:absolute;left:25px;top:52px;bottom:-12px;border-left:2px dashed #ffffff33}
+.traj .ev:last-child:before{display:none}
+.traj .ev .ic img,.traj .ev .ic svg,.traj .ev .ic canvas{width:52px;height:52px;image-rendering:pixelated}
+.traj .t{font-weight:800}
+.traj .t>b{display:block;font-size:16px}
+.traj .gr{font-size:12px;font-weight:800}
+.traj .dt{font-size:12px;opacity:.75}
+.traj .det{font-size:13px;opacity:.9}
+.traj .passos{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px;font-size:11px}
+.traj .passos span{padding:2px 6px;border-radius:8px;background:#ffffff14}
+.traj .hoje{font-size:12px;opacity:.75;text-align:center;margin-top:4px}
+
 .lblc{font-family:system-ui,sans-serif;font-size:12px;color:var(--mu);margin-top:4px}
 .cores{display:flex;flex-wrap:wrap;gap:3px;align-items:center}.cores button{width:22px;height:22px;border:2px solid #0c0812;padding:0;cursor:pointer}.cores button[aria-pressed=true]{outline:2px solid #fff0a0;outline-offset:1px}.cores input{width:30px;height:26px;border:0;padding:0;background:none}
 .ctl .row{display:flex;align-items:center;gap:4px;background:var(--card);border:2px solid var(--bd);padding:2px 4px}
@@ -2023,10 +2044,135 @@ let heroiSub="perfil",verColega=false,J_BAU=7;
 function abinhas(atual,ops,attr){return `<div class="abinhas" role="tablist">${ops.map(([k,t])=>`<button role="tab" ${attr}="${k}" aria-selected="${atual===k}">${t}</button>`).join("")}</div>`}
 function telaHeroi(){const el=$("t-heroi");
   const n=MANUAL.lido?"":` <span class="tag" style="color:#ffe08a;border-color:#a07a30">novo</span>`;
-  el.innerHTML=abinhas(heroiSub,[["perfil","Perfil"],["conq","Conquistas"],["inv","Inventário"],["manual","Manual"+(MANUAL.lido?"":" •")]],"data-hsub")+
-   (heroiSub==="perfil"?telaPerfil()+BOTAO_SAIR():heroiSub==="conq"?telaConquistas():heroiSub==="inv"?telaInventario():telaManual());
+  el.innerHTML=abinhas(heroiSub,[["perfil","Perfil"],["traj","Trajetória"],["conq","Conquistas"],["inv","Inventário"],["manual","Manual"+(MANUAL.lido?"":" •")]],"data-hsub")+
+   (heroiSub==="perfil"?telaPerfil()+BOTAO_SAIR():heroiSub==="traj"?telaTrajetoria():heroiSub==="conq"?telaConquistas():heroiSub==="inv"?telaInventario():telaManual());
 }
 // ---- perfil ----
+// ===== Insígnias de trajetória =====
+// ===== Insígnias de trajetória: desenho em pixel (grade 24×24) =====
+const INS=(()=>{
+const GRAU={bronze:["#f6c090","#c8803e","#8a4a22","#3a1a0c"],prata:["#ffffff","#cad2de","#8a94a8","#323848"],ouro:["#fff2a0","#f0c040","#b8842a","#4a2e0c"],platina:["#eafff8","#9ae6d4","#4aa49a","#16403e"],diamante:["#f4eeff","#bea6ff","#7a5ae6","#22145a"],
+  fixo:["#ffe0a8","#e8b04a","#a8742a","#3e260c"]};
+const GNOME={bronze:"Bronze",prata:"Prata",ouro:"Ouro",platina:"Platina",diamante:"Diamante"};
+const GUILDA={min:["#f6b080","#d0723c","#8e4420","#3a1a0c"],gua:["#e6b8ff","#a464e4","#6a3aa0","#2a1048"],elf:["#a8f0c8","#2eb878","#1c7a4c","#0a3020"]};
+const N=24,c=11.5;
+const FORMAS={
+ circulo:(x,y)=>Math.hypot(x-c,y-c)<=11.2,
+ escudo:(x,y)=>y>=1&&y<=22&&(y<13?x>=2&&x<=21:Math.abs(x-c)<=10-(y-13)*1.05),
+ octogono:(x,y)=>x>=1&&x<=22&&y>=1&&y<=22&&Math.abs(x-c)+Math.abs(y-c)<=15,
+ flamula:(x,y)=>x>=3&&x<=20&&y>=1&&y<=22&&!(y>15&&Math.abs(x-c)<(y-15)*1.3),
+ roseta:(x,y)=>{const a=Math.atan2(y-c,x-c),r=Math.hypot(x-c,y-c);return r<=10+1.2*Math.cos(a*8)},
+ losango:(x,y)=>Math.abs(x-c)+Math.abs(y-c)<=11.6,
+ hexagono:(x,y)=>Math.abs(y-c)<=9.6&&Math.abs(x-c)<=11.4-Math.abs(y-c)*0.55,
+ placa:(x,y)=>x>=1&&x<=22&&y>=4&&y<=19&&!((x<3||x>20)&&(y<6||y>17)),
+ arco:(x,y)=>x>=2&&x<=21&&y<=22&&(y>=10||Math.hypot(x-c,y-10)<=9.8),
+ brasao:(x,y)=>(y>=5&&y<=22&&(y<14?x>=2&&x<=21:Math.abs(x-c)<=10-(y-14)*1.15))||(y>=1&&y<5&&[4,8,11,12,15,19].some(p=>Math.abs(x-p)<=1)),
+};
+const ICONES={
+ picareta:["...bbbbbb...",".bbaaaaaabb.","bb...ab...bb","b....ab....b",".....ab.....",".....cb.....",".....cb.....",".....cb.....",".....cb.....",".....cb....."],
+ ampulheta:["bbbbbbbb",".aaaaaa.","..abba..","...ab...","...cb...","..cbbc..",".cbbbbc.","bbbbbbbb"],
+ folha:["......bb","....abbb","...abbbc","..abbbc.",".abbbc..",".abcc...","b.c.....","b......."],
+ estrela:["....a....","...aab...","aaaabbbbb",".abbbbbc.","..abbbc..",".abbcbbc.",".ac...cc."],
+ subida:["...ab...","..abbc..",".abbbbc.","abc..abc","...ab...","..abbc..",".abbbbc.","abc..abc"],
+ coroa:["b...b...b","bb.bbb.bb","babbbbbab","bbbbbbbbb","aaaaaaaaa","ccccccccc"],
+ pergaminho:[".aaaaaaa.","abbbbbbbc",".abccccb.",".abbbbbb.",".abccccb.",".abbbbbb.","abbbbbbbc",".ccccccc."],
+ retorno:["..bbbb..",".b....b.","b......b","b..a...b","b.aaaa.b","b..a...b","b......b","bbbbbbbb"],
+ bandeira:["b.......","baaaa...","babbbb..","bbbbbbb.","bcccc...","b.......","b.......","bb......"],
+ cristal:["...a...","..aab..",".aabbc.","aabbbcc",".abbcc.","..bcc..","...c..."],
+ lupa:[".bbbb....","b.aa.b...","b.a..b...","b....b...",".bbbbc...",".....cc..","......cc.",".......cc"],
+ pena:["......aab",".....aabb","....aabbc","...aabbc.","..aabbc..","..abbc...",".bcc.....","bc......."],
+ selo:["..bbb..","..bbb..","...b...",".abbbc.","abbbbbc","ccccccc"],
+ troca:["....a...","aaaaaa..","....a...","........","...c....","..cccccc","...c...."],
+ castelo:["a.a.aa.a.a","aaaaaaaaaa","abbbbbbbbc","abbbccbbbc","abbc..cbbc","abbc..cbbc","cccc..cccc"],
+ caixa:["aaaaaaaaaa","abbbbbbbbc","cccccccccc","abbbbbbbbc","abbbaabbbc","abbbbbbbbc","abbbbbbbbc","cccccccccc"],
+ coracao:[".bb.bb.","baabbbc","babbbbc",".bbbbc.","..bbc..","...c..."],
+ n1:[".ab.","aab.",".ab.",".ab.",".ab.",".ab.","abbc"],
+ n2:[".aab.","a..bc","...bc","..bc.",".bc..","bc...","bbbbc"],
+ n3:["aaab.","...bc","..ab.","...bc","...bc","b..bc",".bbc."],
+ n5:["aaaab","a....","aaab.","....b","....b","b...b",".bbb."],
+ n6:[".aab.","a....","aaab.","a...b","a...b","a...b",".bbb."],
+};
+const mix=(a,b,t)=>{const p=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));const A=p(a),B=p(b);return "#"+A.map((v,i)=>Math.round(v+(B[i]-v)*t).toString(16).padStart(2,"0")).join("")};
+function desenhar({forma,icone,grau="fixo",fita=null,brilho=false}){
+  const R=GRAU[grau],f=FORMAS[forma],g={};
+  const dentro=(x,y)=>x>=0&&y>=0&&x<N&&y<N&&f(x,y);
+  const dist={};const fila=[];
+  for(let y=0;y<N;y++)for(let x=0;x<N;x++)if(dentro(x,y)){const borda=[[1,0],[-1,0],[0,1],[0,-1]].some(([dx,dy])=>!dentro(x+dx,y+dy));if(borda){dist[x+","+y]=1;fila.push([x,y])}}
+  while(fila.length){const [x,y]=fila.shift(),d=dist[x+","+y];[[1,0],[-1,0],[0,1],[0,-1]].forEach(([dx,dy])=>{const k=(x+dx)+","+(y+dy);if(dentro(x+dx,y+dy)&&dist[k]===undefined){dist[k]=d+1;fila.push([x+dx,y+dy])}})}
+  // fitas atrás (passagem, apoio, reconhecimento)
+  if(fita){const F=fita;for(let y=15;y<24;y++)for(const x0 of [5,14]){for(let x=x0;x<x0+5;x++){if(y===23&&x===x0+2)continue;g[x+","+y]=x===x0?F[3]:x===x0+4?F[3]:y>=22?F[2]:F[1]}}}
+  const placa=mix(R[2],"#140c1c",.62),placa2=mix(R[2],"#140c1c",.5);
+  for(let y=0;y<N;y++)for(let x=0;x<N;x++){if(!dentro(x,y))continue;const d=dist[x+","+y],k=x+","+y;
+    let cor;
+    if(d===1)cor=R[3];
+    else if(d<=3){const luz=(x+y)<(N-1)*0.95;cor=d===2?(luz?R[0]:R[2]):(luz?R[1]:mix(R[1],R[2],.5));}
+    else if(d===4)cor=R[3];
+    else cor=(x+y)%2&&false?placa2:placa;
+    g[k]=cor;}
+  // contorno externo escuro
+  const out={};for(const k in g){const [x,y]=k.split(",").map(Number);[[1,0],[-1,0],[0,1],[0,-1]].forEach(([dx,dy])=>{const n=(x+dx)+","+(y+dy);if(!g[n]&&x+dx>=-1&&y+dy>=-1&&x+dx<=N&&y+dy<=N)out[n]="#0c0812"})}
+  Object.assign(g,out);
+  // ícone no centro, com contorno
+  const ic=ICONES[icone];if(ic){const h=ic.length,w=Math.max(...ic.map(r=>r.length));const ox=Math.round(c-w/2+.5),oy=Math.round(c-h/2+.5)+(forma==="flamula"||forma==="brasao"?1:0);
+    const pal={a:R[0],b:R[1],c:R[2]};const pts={};ic.forEach((row,j)=>[...row].forEach((ch,i)=>{if(pal[ch])pts[(ox+i)+","+(oy+j)]=pal[ch]}));
+    for(const k in pts){const [x,y]=k.split(",").map(Number);[[1,0],[-1,0],[0,1],[0,-1],[1,1]].forEach(([dx,dy])=>{const n=(x+dx)+","+(y+dy);if(!pts[n])g[n]=R[3]})}
+    Object.assign(g,pts);}
+  if(brilho||grau==="diamante"){[[4,3],[19,4],[20,18]].forEach(([x,y])=>{g[x+","+y]="#ffffff";g[(x-1)+","+y]=g[(x-1)+","+y]&&"#e8e0ff";g[x+","+(y-1)]="#e8e0ff"})}
+  let r="";for(let y=-1;y<=N;y++){let x=-1;while(x<=N){const v=g[x+","+y];if(!v){x++;continue}let e=x+1;while(e<=N&&g[e+","+y]===v)e++;r+=`<rect x="${x+1}" y="${y+1}" width="${e-x+.04}" height="1.04" fill="${v}"/>`;x=e}}
+  return `<svg viewBox="0 0 ${N+2} ${N+2}" shape-rendering="crispEdges" aria-hidden="true">${r}</svg>`;
+}
+const FAM={
+ origem:{forma:"circulo",nome:"Origem"},passagem:{forma:"escudo",nome:"Passagem"},apoio:{forma:"losango",nome:"Apoio"},oficio:{forma:"octogono",nome:"Ofício"},
+ ascensao:{forma:"flamula",nome:"Ascensão"},casa:{forma:"roseta",nome:"Tempo de casa"},jornada:{forma:"hexagono",nome:"Jornada"},reconhecimento:{forma:"circulo",nome:"Reconhecimento"},
+ formacao:{forma:"placa",nome:"Formação"},comando:{forma:"brasao",nome:"Comando"},retorno:{forma:"arco",nome:"Retorno"}};
+return {desenhar,FAM,GRAU,GNOME,GUILDA};
+})();
+
+const INS_GC={bronze:"#e0985a",prata:"#d8e0ea",ouro:"#f0c040",platina:"#7ee0cc",diamante:"#b8a0ff"};
+const INS_GN={bronze:"Bronze",prata:"Prata",ouro:"Ouro",platina:"Platina",diamante:"Diamante"};
+function iconeIns(t){const s=((t.id||"")+" "+(t.nome||"")).normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase(),f=t.familia;
+  if(f==="origem")return /fundador/.test(s)?"estrela":/caixa/.test(s)?"caixa":"castelo";
+  if(f==="passagem")return {min:"picareta",gua:"ampulheta",elf:"folha"}[t.guilda]||(/mina/.test(s)?"picareta":/tempo/.test(s)?"ampulheta":"folha");
+  if(f==="apoio")return "troca";
+  if(f==="oficio")return /prepar/.test(s)?"picareta":/digital/.test(s)?"cristal":/segreg/.test(s)?"ampulheta":/cadastr/.test(s)?"pena":/inspet|qualid/.test(s)?"lupa":"selo";
+  if(f==="ascensao")return "subida";
+  if(f==="casa"){const m=s.match(/(\d+)/);return m?("n"+({"3":"3","6":"6","1":"1","2":"2","5":"5"}[m[1]]||"1")):"n1"}
+  if(f==="jornada")return "bandeira";
+  if(f==="reconhecimento")return /festival/.test(s)?"coroa":/gratid|padrinho/.test(s)?"coracao":"estrela";
+  if(f==="formacao")return "pergaminho";if(f==="comando")return "coroa";return "retorno"}
+function desenhoIns(t){const fam=INS.FAM[t.familia]||INS.FAM.origem;return INS.desenhar({forma:fam.forma,icone:iconeIns(t),grau:t.grau||"fixo",fita:(t.familia==="passagem"||t.familia==="apoio"||t.familia==="reconhecimento")&&INS.GUILDA[t.guilda]||null,brilho:/fundador/i.test(t.nome||"")})}
+// exemplo da prévia: começa na guilda atual
+function trajDemo(){const g=A.guilda in INS.GUILDA?A.guilda:"min",out=g==="min"?"gua":"min",gn={min:"Mina",gua:"Tempo",elf:"Floresta"};
+  return [
+  {id:"CHEGADA",familia:"origem",nome:"Chegada ao Reino",data:"2026-11-26",detalhe:`Entrou pela guilda ${GUILDA[g].nome}.`},
+  {id:"FUNDADOR",familia:"origem",nome:"Fundador",grau:"ouro",data:"2026-11-26",detalhe:"Jogou o piloto do Reino. Essa não volta mais."},
+  {id:"PRIMEIRA_CAIXA",familia:"origem",nome:"Primeira Caixa",data:"2026-11-27",detalhe:"Primeira produção finalizada."},
+  {id:"DESTAQUE_2027_03",familia:"reconhecimento",nome:"Destaque do Mês",grau:"ouro",guilda:g,data:"2027-03-31",detalhe:"Maior % acima da meta da guilda em março."},
+  {id:"OFICIO_"+et().nome,familia:"oficio",nome:{"Preparação":"Preparador","Digitalização":"Digitalizador","Segregação":"Segregador","Cadastro":"Cadastrador","Controle de qualidade":"Inspetor de Qualidade","Conferência":"Conferente"}[et().nome]||"Ofício",grau:"ouro",rotulo:"Mestre",data:"2027-09-14",detalhe:"150 dias de meta batida na etapa.",passos:[{grau:"bronze",rotulo:"Aprendiz",data:"2027-01-10"},{grau:"prata",rotulo:"Oficial",data:"2027-04-22"},{grau:"ouro",rotulo:"Mestre",data:"2027-09-14"}]},
+  {id:"APOIO_"+out,familia:"apoio",nome:"Apoio "+(out==="gua"?"ao Tempo":"à Mina"),grau:"prata",guilda:out,data:"2027-10-20",detalhe:"10 dias ajudando em outra guilda."},
+  {id:"CASA_1",familia:"casa",nome:"1 ano de Reino",grau:"ouro",data:"2027-11-26",detalhe:"Aniversário de entrada."},
+  {id:"PASSAGEM_"+g,familia:"passagem",nome:"Passagem pela "+gn[g],grau:"ouro",guilda:g,data:"2027-11-26",detalhe:"12 meses servindo na guilda.",passos:[{grau:"bronze",rotulo:"1 mês",data:"2026-12-26"},{grau:"prata",rotulo:"6 meses",data:"2027-05-26"},{grau:"ouro",rotulo:"12 meses",data:"2027-11-26"}]},
+  {id:"FORMACAO_1",familia:"formacao",nome:"Pergaminho de Saber",data:"2028-01-18",detalhe:"Treinamento concluído."},
+  {id:"JORNADA_500",familia:"jornada",nome:"500º dia de trabalho",data:"2028-10-09",detalhe:"Quinhentos dias com produção."},
+  {id:"CASA_2",familia:"casa",nome:"2 anos de Reino",grau:"platina",data:"2028-11-26",detalhe:"Aniversário de entrada."}]}
+let MURAL_INS=null;
+function trajetoria(){if(ON)return (SRV&&(SRV.trajetoria||(SRV.perfil&&SRV.perfil.trajetoria)||(SRV.jogador&&SRV.jogador.trajetoria)))||[];return trajDemo()}
+function muralIns(){const T=trajetoria();if(MURAL_INS)return MURAL_INS.map(id=>T.find(t=>t.id===id)).filter(Boolean);
+  const srv=ON&&SRV&&(SRV.mural||(SRV.perfil&&SRV.perfil.mural));if(srv&&srv.length)return srv.map(id=>T.find(t=>t.id===id)).filter(Boolean);
+  const peso={diamante:5,platina:4,ouro:3,prata:2,bronze:1};return T.slice().sort((a,b)=>(peso[b.grau]||0)-(peso[a.grau]||0)).slice(0,5)}
+const dataLonga=d=>{if(!d)return "";const [y,m,dd]=String(d).slice(0,10).split("-");return `${+dd} ${["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"][+m-1]} ${y}`};
+function muralHtml(edita){const M=muralIns();if(!M.length)return "";
+  return `<h2>Mural de insígnias ${edita?`<small>toque para trocar</small>`:""}</h2><div class="caixa mural-ins">${M.map((t,i)=>`<div ${edita?`data-mural="${i}"`:""}>${desenhoIns(t)}<span>${t.nome}</span></div>`).join("")}</div>`}
+function telaTrajetoria(){const T=trajetoria().slice().sort((a,b)=>String(b.data).localeCompare(String(a.data)));
+  if(!T.length)return `<div class="caixa"><div class="sub" style="padding:6px">Sua trajetória começa no primeiro dia de trabalho no Reino. As insígnias aparecem aqui, da chegada até hoje.</div></div>`;
+  return `${ON?"":`<p class="nota" style="margin:0 0 8px">Exemplo de como fica a trajetória depois de 2 anos de Reino.</p>`}<div class="hoje">▼ Hoje</div><div class="traj">${T.map(t=>`<div class="ev">${desenhoIns(t)}<div class="t"><b>${t.nome}</b>${t.grau?`<span class="gr" style="color:${INS_GC[t.grau]}">${t.rotulo?t.rotulo+" · ":""}${INS_GN[t.grau]}</span> · `:""}<span class="dt">${dataLonga(t.data)}</span><div class="det">${(INS.FAM[t.familia]||{}).nome||""}. ${t.detalhe||""}</div>${t.passos&&t.passos.length>1?`<div class="passos">${t.passos.map(p=>`<span style="border-color:${INS_GC[p.grau]};color:${INS_GC[p.grau]}">${p.rotulo} · ${dataLonga(p.data).replace(/^\d+ /,"")}</span>`).join("")}</div>`:""}</div></div>`).join("")}</div>
+  <p class="nota">As insígnias contam a sua história e não dão GC. Quando o grau sobe, ela troca de cor e ganha a nova data. Erros e punições nunca aparecem aqui.</p>`}
+function trocarMural(i){const T=trajetoria();
+  $("folha").innerHTML=`<h3>Trocar a ${i+1}ª do mural</h3><div style="display:grid;gap:6px">${T.map(t=>`<button class="aviso" data-msel="${i}|${t.id}"><span style="width:34px;flex:none">${desenhoIns(t)}</span><span><b>${t.nome}</b><span class="sub">${t.grau?INS_GN[t.grau]+" · ":""}${dataLonga(t.data)}</span></span></button>`).join("")}</div><button class="btn neutro larga" data-ed="cancelar" style="margin-top:10px">Cancelar</button>`;abrirModal()}
+document.addEventListener("click",e=>{const m=e.target.closest("[data-mural]");if(m){trocarMural(+m.dataset.mural);return}
+  const s=e.target.closest("[data-msel]");if(s){const [i,id]=s.dataset.msel.split("|");const ids=muralIns().map(t=>t.id),j=ids.indexOf(id);if(j>=0)ids[j]=ids[+i];ids[+i]=id;MURAL_INS=ids.slice(0,5);fecharModal();telaHeroi();toast("Mural atualizado.");
+    if(ON)api("mural",{ids:MURAL_INS}).catch(()=>{})}});
+
 function telaPerfil(){const n=nivelDe(J.xp),tier=Math.floor(n/10),g=GUILDA[A.guilda],mc=minhasCQ(),feitas=mc.filter(c=>grauDe(c)),pio=mc.filter(c=>c.pio&&grauDe(c));
   const vit=VITRINE.map(id=>CQ.find(c=>c.id===id)).filter(Boolean);
   return `<div class="abinhas" style="margin-top:-4px"><button data-colega="0" aria-selected="${!verColega}">Como eu vejo</button><button data-colega="1" aria-selected="${verColega}">Como os colegas veem</button></div>
@@ -2039,7 +2185,8 @@ function telaPerfil(){const n=nivelDe(J.xp),tier=Math.floor(n/10),g=GUILDA[A.gui
   </div>
   <h2>Vitrine ${verColega?"":`<small>toque para trocar</small>`}</h2>
   <div class="conq" style="grid-template-columns:repeat(3,1fr)">${vit.map((c,i)=>{const gr=grauDe(c),r=rarDe(c.pct[gr-1]);return `<div ${verColega?"":`data-vit="${i}"`} style="border-color:${SFX.RAR[r]}">${seloCQ(c,30)}${c.nome}<em style="color:${GRAU_COR[gr-1]}">${c.graus.length>1?GRAU[gr-1]:"Única"}</em><em style="color:${SFX.RAR[r]}">${r}${c.pio?" · Pioneiro":""}</em></div>`}).join("")}</div>
-  ${verColega?`<p class="nota">É só isto que os colegas veem: personagem, nível, faixa, guilda, conquistas e vitrine. GC, XP exato, erros e inventário ficam com você e com a liderança.</p><button class="btn neutro larga" data-hsub="conq" style="margin-top:8px">Ver conquistas</button>`:
+  ${muralHtml(!verColega)}
+  ${verColega?`<p class="nota">É só isto que os colegas veem: personagem, nível, faixa, guilda, conquistas, vitrine e insígnias. GC, XP exato, erros e inventário ficam com você e com a liderança.</p><button class="btn neutro larga" data-hsub="conq" style="margin-top:8px">Ver conquistas</button>`:
   `<h2>${SFX.icone("perg",18)} Só você e a liderança veem</h2>
   <div class="caixa"><div class="grade2" style="gap:8px">
     <div><div class="rot">GC</div><div class="num">${fmt(J.gc)}</div></div>
