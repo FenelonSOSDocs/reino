@@ -8,9 +8,10 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Reino">
-<style>.previa{display:none!important}</style>
+<style>.previa{display:none!important}.cel{margin:0 auto!important;border:0!important;min-height:100vh!important}</style>
 <title>Reino das Relíquias</title>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<script>(function(){var w=Math.min(screen.width,screen.height);if(w>430){document.querySelector("meta[name=viewport]").setAttribute("content","width=430,viewport-fit=cover")}})()</script>
 <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#141019;--fundo:#1b1626;--card:#2a2236;--card2:#33293f;--bd:#4a3a52;--bd2:#6a5470;--tx:#f4e9d8;--mu:#bba99a;--au:#e8b04a;--ok:#7fc46a;--rui:#e06a5a;--etapa:#d0723c;--etapa2:#8e4420}
@@ -1582,7 +1583,7 @@ function telaAvisos(){const c=papel;const l=AVISOS.filter(a=>a.para.includes(c))
    <p class="nota">Todo pedido e toda decisão geram aviso para quem pediu e para o próximo da cascata.</p>`}
 
 function telaLider(){const el=$("t-lider");
-  if(aba==="linicio")el.innerHTML=`${perfilLider()}<h3 class="h3">Últimos avisos</h3><div class="caixa mural">${AVISOS.filter(a=>a.para.includes(papel)).slice(0,3).map(a=>`<div>${icone(...AV_IC[a.t],18)}<span>${a.txt}<em class="q">${a.q}</em></span></div>`).join("")}</div>`;
+  if(aba==="linicio")el.innerHTML=`${perfilLider()}<h3 class="h3">Últimos avisos</h3><div class="caixa mural">${AVISOS.filter(a=>a.para.includes(papel)).length?"":`<div class="sub">Nenhum aviso por enquanto.</div>`}${AVISOS.filter(a=>a.para.includes(papel)).slice(0,3).map(a=>`<div>${icone(...AV_IC[a.t],18)}<span>${a.txt}<em class="q">${a.q}</em></span></div>`).join("")}</div>`;
   else if(aba==="aprov")el.innerHTML=telaAprov();
   else if(aba==="resg")el.innerHTML=telaResgL();
   else if(aba==="gctl")el.innerHTML=telaGuildaL();
