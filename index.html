@@ -138,6 +138,27 @@ nav.baixo button[aria-current=page] svg{filter:drop-shadow(0 2px 0 #6a4a20)}
 .recf{display:flex;gap:12px;align-items:center}.pote{width:74px;flex:none}
 .lista-p{display:grid;gap:6px}.lp{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;font-family:system-ui,sans-serif;font-size:13px}.lp b{color:#ffe08a;font-variant-numeric:tabular-nums}
 
+.mic{width:14px;height:14px;flex:none;vertical-align:-2px}.copo{width:20px;height:24px;flex:none}
+.mcores{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}.mcor{margin:0;padding:10px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.mcor .t{display:flex;align-items:center;gap:6px;font-size:14px}.mcor .n{font-size:28px;font-variant-numeric:tabular-nums;color:#ffe08a;line-height:1}.mcor .cop{display:flex;flex-wrap:wrap;gap:2px;align-items:flex-end;min-height:26px}.mcor .sub{font-size:12px}
+.barra2 i{position:absolute;top:-2px;bottom:-2px;width:2px;background:#fff0b0}
+.mpes{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start}.mpes.pago{opacity:.62}.mpes .meio{min-width:0}.mpes b.nm{font-size:16px;display:block}
+.mpes .rosto{width:52px;height:52px;border:3px solid var(--bd);overflow:hidden;background:#000}.mpes .rosto svg{width:330%!important;max-width:none;margin:-62% 0 0 -115%}
+.lin{display:grid;grid-template-columns:1fr auto;gap:2px 8px;font-family:system-ui,sans-serif;font-size:13px;margin-top:4px;font-variant-numeric:tabular-nums}.lin span:nth-child(2n){text-align:right;white-space:nowrap}
+.tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}.tg{font-size:11px;padding:1px 6px;border:2px solid var(--bd2);font-family:system-ui,sans-serif;color:var(--tx)}
+.tg.ok{border-color:#6aa05a;background:#1e2e1a;color:#c8f0b8}.tg.no{color:var(--mu)}.tg.pend{border-color:#c09030;color:#ffe08a;background:#2a2010}
+.mpes .tot{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;border-top:2px dashed var(--bd2);padding-top:8px;margin-top:2px}
+.mpes .tot .c{display:flex;align-items:center;gap:4px;font-size:15px}.mpes .tot .c small{font-family:system-ui,sans-serif;font-size:11px;color:var(--mu);font-weight:600}.mpes .tot .btn{margin-left:auto}
+.feito{font-size:12px;color:#c8f0b8;font-family:system-ui,sans-serif;margin-left:auto}
+.regra summary{cursor:pointer;font-weight:800;min-height:32px;display:flex;align-items:center}
+.rampa{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;margin:6px 0 8px;font-size:13px;font-family:system-ui,sans-serif}.rampa th,.rampa td{border:1px solid var(--bd2);padding:4px;text-align:center}.rampa th{color:var(--mu);font-weight:700}.rampa td{color:#ffe08a;font-weight:800}.rampa td:first-child{color:var(--tx);font-weight:600;text-align:left}
+.mhoje{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:8px}.mhoje .c{border:2px solid var(--bd2);padding:8px;display:flex;flex-direction:column;gap:2px;min-width:0}.mhoje .c b{font-size:24px;color:#ffe08a;font-variant-numeric:tabular-nums}
+.falta{font-family:system-ui,sans-serif;font-size:13px;padding:8px;border:2px solid #c09030;background:#2a2010;margin-top:8px}.falta.ok{border-color:#6aa05a;background:#1e2e1a}
+.mcfg .t{display:flex;align-items:center;gap:8px;margin-bottom:6px}.mcfg .t .sub{margin-left:auto}
+.g4{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:6px}.g4 label{display:flex;flex-direction:column;gap:4px;font-family:system-ui,sans-serif;font-size:12px;color:var(--mu);min-width:0}.g4 .inp{width:100%;min-width:0}
+.corl{display:flex;gap:6px;align-items:center}.corl input[type=color]{width:44px;height:40px;border:3px solid var(--bd2);background:#120e18;padding:0;flex:none}
+.item.esgotado{border-color:#7a3030;background:#2a1a1e}.item.esgotado .meio b{text-decoration:line-through;text-decoration-color:#e06a5a}.esg{display:inline-block;font-size:11px;padding:1px 6px;border:2px solid #b05050;background:#3a1a1e;color:#ffb0a0;font-family:system-ui,sans-serif;margin-top:4px}
+
 .orcl .barra2,.barra2{height:12px;background:#120e18;border:2px solid #0b080e;position:relative;overflow:hidden;margin:6px 0 4px}
 .barra2 span{position:absolute;top:0;bottom:0;left:0;background:#e8b04a}
 .semxp{background:#2a1e14;border:3px solid #8a6040;padding:8px 10px;margin-bottom:10px;font-family:system-ui,sans-serif;font-size:13px;line-height:1.4}
@@ -1641,14 +1662,14 @@ function telaLoja(){
   <p class="nota" style="margin-bottom:10px">Cada 10 níveis abrem um tier. O tier 0 já vem aberto.</p>
   ${LOJA_SRV&&!LOJA_SRV.aberta?`<div class="caixa" style="border-color:#a07a30"><b>A loja abre ${LOJA_SRV.abre_em?"em "+dataBR(LOJA_SRV.abre_em):"em breve"}</b><div class="sub">Até lá, o GC vai se juntando no seu saldo.</div></div>`:""}${DESCONTO.pct>0?`<div class="faixa">${icone("bandeira",{a:"#fff6c0",b:"#f0c040"},22)}<div><b>${DESCONTO.pct}% em todos os itens</b><div class="sub" style="color:#e6f6d8">${DESCONTO.motivo}${ON?"":`. Vale até ${DESCONTO.ate}`}.</div></div></div>`:""}
   ${CATALOGO.map(it=>{const resta=it.qtd-it.usados,lib=it.liberado!=null?it.liberado:it.tier<=tier,p=it.preco!=null?it.preco:precoFinal(it.gc),fechada=LOJA_SRV&&!LOJA_SRV.aberta;
-    const cls=!lib?"trancado":resta<=0?"esgotado":"";
+    const cls=resta<=0?"esgotado":!lib?"trancado":"";
     let acao;
     if(!lib)acao=`<span class="tag">${icone("cadeado",CINZAc,12)} libera no nível ${it.nivel||it.tier*10}</span>`;
     else if(fechada)acao=`<button class="btn" disabled>Em breve</button>`;
     else if(resta<=0)acao=`<button class="btn" disabled>Esgotado</button>`;
     else acao=`<button class="btn ok" data-comprar="${it.id}" ${J.gc<p?"disabled":""}>Resgatar</button>`;
     return `<div class="caixa item ${cls}"><div class="ic">${iconeItem(it)}</div>
-      <div class="meio"><b>${it.nome}</b><div class="sub">${it.desc}</div><div class="sub">Tier ${it.tier} · ${lib?(resta>0?`restam ${resta} este mês`:"volta no dia 1"):`${it.qtd} por mês`}</div></div>
+      <div class="meio"><b>${it.nome}</b><div class="sub">${it.desc}</div><div class="sub">Tier ${it.tier} · ${lib?(resta>0?`restam ${resta} este mês`:"volta no dia 1"):`${it.qtd} por mês`}</div>${resta<=0?`<span class="esg">Esgotado este mês</span>`:""}</div>
       <div class="acao"><span class="preco">${p<it.gc?`<s>${it.gc}</s>`:""}${p} GC</span>${acao}</div></div>`}).join("")}
   ${LOJA_SRV&&LOJA_SRV.meus_resgates.length?`<h2>Meus resgates</h2><div class="caixa tabela">${LOJA_SRV.meus_resgates.map(r=>`<div class="lm"><span class="lm-n"><b>${ac(r.nome)}</b><em>${dataBR(r.data)} · ${r.preco} GC</em></span><span class="lm-v"><span class="tag">${{SOLICITADO:"a entregar",ENTREGUE:"entregue",ESTORNADO:"estornado"}[r.status]||String(r.status).toLowerCase()}</span></span></div>`).join("")}</div>`:""}
   <p class="nota">Os ícones são gerados pelo próprio app a partir do nome e da descrição do item no catálogo. A coordenação só cadastra a linha na tabela.</p>`;
@@ -2038,7 +2059,7 @@ document.addEventListener("click",e=>{
     if(a==="criar"){rasc={guilda:A.guilda,etapa:A.etapa||0,...PADRAO[A.guilda].m,sexo:"m"};editor();abrirModal();return}
   }
   const d=b.dataset;
-  if(d.papel){if(!logado){logado=true;document.querySelector(".cel").classList.remove("entrando");$("t-login").hidden=true}papel=d.papel;PES=null;PES_SEL=null;PES_GU=null;PES_BR="";PES_CF=null;EVL=null;EVL_F=null;VETO=null;VETO_ABRE=null;document.querySelectorAll("[data-papel]").forEach(x=>x.setAttribute("aria-pressed",x.dataset.papel===papel));aba=papel==="op"?"inicio":"linicio";sub="novos";$("selEtapa").disabled=papel!=="op";tudo();window.scrollTo(0,0);return}
+  if(d.papel){if(!logado){logado=true;document.querySelector(".cel").classList.remove("entrando");$("t-login").hidden=true}papel=d.papel;MIC=null;MIC_CFG=null;PES=null;PES_SEL=null;PES_GU=null;PES_BR="";PES_CF=null;EVL=null;EVL_F=null;VETO=null;VETO_ABRE=null;document.querySelectorAll("[data-papel]").forEach(x=>x.setAttribute("aria-pressed",x.dataset.papel===papel));aba=papel==="op"?"inicio":"linicio";sub="novos";$("selEtapa").disabled=papel!=="op";tudo();window.scrollTo(0,0);return}
   if(d.sub){sub=d.sub;telaLider();return}
   if(d.pedok){const p=PED.find(x=>x.id==d.pedok);const m=aprovar(p,papel);if(p.tipo==="usoItem"&&p.status==="aprovado"){const u=USOS.find(x=>x.u===p.uso&&x.st==="pedido");if(u){u.st="aprovado";u.quem=NOMEL[papel]}INV=INV.filter(x=>x.u!==p.uso)}tudo();toast(m);SFX.som("plim");return}
   if(d.pedrec&&PED.find(x=>x.id==d.pedrec)?.tipo==="usoItem"){const p=PED.find(x=>x.id==d.pedrec);PED=PED.filter(x=>x!==p);const u=USOS.find(x=>x.u===p.uso&&x.st==="pedido");if(u){u.st="recusado";u.quem=NOMEL[papel];u.motivo="Equipe reduzida no dia escolhido."}const un=INV.find(x=>x.u===p.uso);if(un)un.res=0;tudo();toast("Não aprovado. O item voltou para o inventário de quem pediu, com o motivo.");return}
@@ -2554,8 +2575,8 @@ document.addEventListener("submit",e=>{if(e.target.id==="evlForm"){e.preventDefa
 // ===== Pesagem dos receptáculos (v0.16): o Mestre pesa e paga na hora; a bolsa de cotações é do Chanceler e da Regente =====
 let PES_CONF=null,PES_TARA="",PES=null,PES_SUB="pesar",PES_SEL=null,PES_FIL="todos",PES_GU=null,PES_OCUP=false,PES_BR="",PES_CF=null,MINHAS_PES=null;
 let RITMO_OP=null;
-const MAT_NOME={GRAMPO:"Grampos",MICANGA_AZUL:"Miçangas azuis",MICANGA_VERDE:"Miçangas verdes"};
-const MAT_COR={GRAMPO:["#9aa4b0","#d8e0ea","#e8eef6"],MICANGA_AZUL:["#3f6fc8","#7fa8f0","#c8dcff"],MICANGA_VERDE:["#3f9a54","#7fd08a","#d0f4c8"]};
+const MAT_NOME={GRAMPO:"Grampos",MICANGA_CRONOMINAS:"Miçangas dos Guardiões",MICANGA_ELFOS:"Miçangas das Sentinelas",MICANGA_AZUL:"Miçangas azuis",MICANGA_VERDE:"Miçangas verdes"};
+const MAT_COR={GRAMPO:["#9aa4b0","#d8e0ea","#e8eef6"],MICANGA_CRONOMINAS:["#3f6fc8","#a066e0","#c8dcff"],MICANGA_ELFOS:["#3f9a54","#e8c040","#d0f4c8"],MICANGA_AZUL:["#3f6fc8","#7fa8f0","#c8dcff"],MICANGA_VERDE:["#3f9a54","#7fd08a","#d0f4c8"]};
 const gcf=n=>(+n||0).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});
 const pesaPode=()=>papel!=="op";
 const bolsaEdita=()=>ON&&PES&&PES.pode_mudar!=null?PES.pode_mudar:papel==="chn"||papel==="ger";
@@ -2577,17 +2598,17 @@ const GU_DE_PAPEL=()=>papel==="sup"?["GRAMPOMINAS"]:papel==="coo"?["GRAMPOMINAS"
 
 // ---- carregar do servidor ----
 function normRec(r){const rc=r.recep||null,m=MEMBROS_SRV&&MEMBROS_SRV.find(x=>x.id===r.jogador);
-  return {jogador:r.jogador,nome:r.nome||r.jogador,guilda:r.guilda,avatar:m&&m.avatar||null,id:rc?rc.id:null,material:rc?rc.material:(r.material||""),tara:rc?+rc.tara_g||0:0,media_g:+r.media_g||0,ultima:r.ultima||null,ritmo_dias:+r.ritmo_dias||0,atrasado:!!r.atrasado,hoje:[]}}
+  return {jogador:r.jogador,nome:r.nome||r.jogador,guilda:r.guilda,avatar:m&&m.avatar||null,id:rc?rc.id:null,material:rc?rc.material:(r.material||""),tara:rc?+rc.tara_g||0:0,media_g:+r.media_g||0,esperado_g:+r.esperado_g||0,ultima:r.ultima||null,ritmo_dias:+r.ritmo_dias||0,atrasado:!!r.atrasado,hoje:[]}}
 function normCot(c){const v=c.vigente||{},h=(c.historico||[]);return {material:c.material,guilda:c.guilda,nome:c.nome,gc_por_g:+v.gc_por_g||0,ritmo_dias:+v.ritmo_dias||7,desde:v.desde,agendada:c.agendada||null,media_g:0,
   serie:h.length?h.map(x=>+x.gc_por_g).reverse():[+v.gc_por_g||0],hist:h}}
-async function carregarPes(){if(!ON){PES=PES_DEMO();PES.recs=PES.recs.filter(r=>GU_DE_PAPEL().includes(r.guilda));return}
-  try{const [c,r,p]=await Promise.all([api("cotacoes"),api("receptaculos"),api("pesagens",{desde:hojeISO()})]);
+async function carregarPes(){if(!ON){PES_ANALISE=papel==="sup"?[]:[{id:"PS-DEMO-A",nome:"Rita",data:hojeISO(),liquido:520,esperado_g:400,excesso_g:120,gc_extra:120}];PES=PES_DEMO();PES.recs=PES.recs.filter(r=>GU_DE_PAPEL().includes(r.guilda));return}
+  try{const [c,r,p,pd]=await Promise.all([api("cotacoes"),api("receptaculos"),api("pesagens",{desde:hojeISO()}),papel!=="sup"?api("pendentes").catch(()=>null):null]);PES_ANALISE=(pd&&pd.pesagens)||[];
     const cot=(c.cotacoes||[]).map(normCot),recs=(r.jogadores||[]).map(normRec);
     recs.forEach(x=>{if(!x.material){const g=cot.find(k=>k.guilda===x.guilda);x.material=g?g.material:""}});
     cot.forEach(k=>{const ms=recs.filter(x=>x.material===k.material&&x.media_g);k.media_g=ms.length?Math.round(ms.reduce((s,x)=>s+x.media_g,0)/ms.length):0});
     (p.pesagens||[]).filter(x=>String(x.data).slice(0,10)===hojeISO()).forEach(x=>{const rr=recs.find(q=>q.jogador===x.jogador);if(rr)rr.hoje.push({id:x.id,liquido:+x.liquido,gc:+x.gc,cancelada:!!x.cancelada,minha:!!x.pode_cancelar})});
     const hist=[];cot.forEach(k=>k.hist.forEach((h,i)=>hist.push({desde:h.desde,material:k.material,de:k.hist[i+1]?+k.hist[i+1].gc_por_g:null,para:+h.gc_por_g,quem:h.quem||"",motivo:h.motivo||""})));hist.sort((a,b)=>a.desde<b.desde?1:-1);
-    PES={cotacoes:cot,historico:hist,recs,pode_mudar:!!c.pode_mudar}}
+    PES={cotacoes:cot,historico:hist,recs,pode_mudar:!!c.pode_mudar};if(papel==="sup"&&!MIC)await carregarMic()}
   catch(e){PES={erro:e.message}}}
 const cotDe=mat=>(PES.cotacoes||[]).find(c=>c.material===mat)||{gc_por_g:1,ritmo_dias:7,material:mat};
 function encheDe(r){if(!r.ultima)return null;const c=cotDe(r.material);return Math.round(diasDesde(r.ultima.data)/(c.ritmo_dias||7)*100)}
@@ -2597,14 +2618,16 @@ const rostoRec=r=>{const g=GU_MAP[r.guilda]||"min",a=r.avatar&&r.avatar.guilda?{
 function telaPesagem(){const cab=`<h2 style="margin-top:4px">${icone("moeda",OUROc,20)} Pesagem <small>${papel==="sup"?"da sua guilda":papel==="coo"?"das suas guildas":"do reino"}</small></h2>`;
   if(!PES){carregarPes().then(()=>{if(aba==="pesa")telaLider()});return cab+`<div class="caixa sub">Carregando os receptáculos…</div>`}
   if(PES.erro)return cab+`<div class="caixa sub">${PES.erro}</div>`;
-  const abas=`<div class="abinhas" role="tablist">${[["pesar","Pesar e pagar"],["bolsa","Bolsa de valores"]].map(([k,t])=>`<button role="tab" data-pessub="${k}" aria-selected="${PES_SUB===k}">${t}</button>`).join("")}</div>`;
-  return cab+abas+(PES_SUB==="bolsa"?telaBolsa():telaPesar())}
+  const subs=[["pesar","Pesar e pagar"],...(micVisivel()?[["mic","Miçangas do turno"]]:[]),["bolsa","Bolsa de valores"],...(bolsaEdita()?[["micfg","Definição das miçangas"]]:[])];if(!subs.some(s=>s[0]===PES_SUB))PES_SUB="pesar";
+  const abas=`<div class="abinhas" role="tablist">${subs.map(([k,t])=>`<button role="tab" data-pessub="${k}" aria-selected="${PES_SUB===k}">${t}</button>`).join("")}</div>`;
+  return cab+abas+(PES_SUB==="bolsa"?telaBolsa():PES_SUB==="mic"?telaMic():PES_SUB==="micfg"?telaMicCfg():telaPesar())}
 
 function telaPesar(){const gus=[...new Set(PES.recs.map(r=>r.guilda))];if(PES_GU&&!gus.includes(PES_GU))PES_GU=null;const gu=PES_GU||gus[0];
   const recs=PES.recs.filter(r=>r.guilda===gu),hoje=PES.recs.flatMap(r=>r.hoje||[]).filter(p=>!p.cancelada);
   const c=cotDe((recs[0]||{}).material||"GRAMPO");
   const lista=recs.filter(r=>{const e=encheDe(r),pg=(r.hoje||[]).some(p=>!p.cancelada);return PES_FIL==="todos"||(PES_FIL==="cheios"?!pg&&(e==null||e>=80):pg)}).sort((a,b)=>(encheDe(b)??999)-(encheDe(a)??999));
-  return `<div class="grade3"><div class="caixa kpi"><span class="num">${hoje.length}</span><span class="rot">pesados hoje</span></div><div class="caixa kpi"><span class="num">${fmt(hoje.reduce((s,p)=>s+(+p.liquido||0),0))}</span><span class="rot">gramas hoje</span></div><div class="caixa kpi"><span class="num">${fmt(hoje.reduce((s,p)=>s+(+p.gc||0),0))}</span><span class="rot">GC pagos hoje</span></div></div>
+  const an=(papel!=="sup"&&PES_ANALISE.length)?`<h3 class="h3">Em análise <small>${PES_ANALISE.length}</small></h3>${PES_ANALISE.map(a=>`<div class="caixa item"><div class="meio"><b>${a.nome}</b><div class="sub">${dataCurta(a.data)} · líquido ${fmt(+a.liquido)} g, esperado ${fmt(+a.esperado_g)} g pelas miçangas pagas</div><div class="sub">Excesso de ${fmt(+a.excesso_g)} g = ${fmt(+a.gc_extra)} GC a mais. O esperado já foi pago.</div></div><div class="acao"><button class="btn ok" data-pesanal="${a.id}|1">Pagar</button><button class="btn neutro" data-pesanal="${a.id}|0">Não pagar</button></div></div>`).join("")}`:"";
+  return an+`<div class="grade3"><div class="caixa kpi"><span class="num">${hoje.length}</span><span class="rot">pesados hoje</span></div><div class="caixa kpi"><span class="num">${fmt(hoje.reduce((s,p)=>s+(+p.liquido||0),0))}</span><span class="rot">gramas hoje</span></div><div class="caixa kpi"><span class="num">${fmt(hoje.reduce((s,p)=>s+(+p.gc||0),0))}</span><span class="rot">GC pagos hoje</span></div></div>
   ${gus.length>1?`<div class="op" style="margin-bottom:8px">${gus.map(g=>`<button type="button" data-pesgu="${g}" aria-pressed="${g===gu}">${GU_NOME[g]||g}</button>`).join("")}</div>`:""}
   <div class="caixa linha" style="gap:8px"><span class="sub">Cotação de hoje · ${matNome(c)}</span><b style="color:#ffe08a;font-size:18px">${gcf(c.gc_por_g)} GC por grama</b></div>
   <h3 class="h3">Escolha o personagem <small>toque no receptáculo</small></h3>
@@ -2623,7 +2646,7 @@ function fichaPes(){const r=PES.recs.find(x=>x.jogador===PES_SEL);if(!r)return "
    <div class="balanca"><input class="inp" id="pTara" type="number" inputmode="numeric" min="1" placeholder="0" value="${PES_TARA}"><span style="font-size:20px">g</span></div>
    <div class="sub" style="margin-top:6px">Material: ${matNome(cotDe(r.material))}</div>
    <button class="btn ok larga" data-pescad="${r.jogador}" style="margin-top:8px" ${PES_OCUP?"disabled":""}>${PES_OCUP?"Salvando…":"Cadastrar receptáculo"}</button></div>`;const k=contaPes(r),pg=(r.hoje||[]).filter(p=>!p.cancelada);
-  return `<div class="caixa ficha" style="margin-top:10px"><div class="topo2"><div class="rosto">${rostoRec(r)}</div><div style="min-width:0"><b style="font-size:17px">${r.nome}</b><div class="sub">Receptáculo ${r.id} · ${matNome(k.c)} · tara ${fmt(r.tara)} g</div><div class="sub">${r.ultima?`Última pesagem ${dataCurta(r.ultima.data)}: ${fmt(r.ultima.liquido)} g`:"Primeira pesagem"}</div></div></div>
+  return `<div class="caixa ficha" style="margin-top:10px"><div class="topo2"><div class="rosto">${rostoRec(r)}</div><div style="min-width:0"><b style="font-size:17px">${r.nome}</b><div class="sub">Receptáculo ${r.id} · ${matNome(k.c)} · tara ${fmt(r.tara)} g</div><div class="sub">${r.ultima?`Última pesagem ${dataCurta(r.ultima.data)}: ${fmt(r.ultima.liquido)} g`:"Primeira pesagem"}</div>${+r.esperado_g?`<div class="sub">Esperado pelas miçangas pagas: ${fmt(+r.esperado_g)} g. Acima de 110%, o excesso vai para análise.</div>`:""}</div></div>
    ${pg.map(p=>`<div class="pagohj"><span>Pago hoje: ${fmt(p.liquido)} g · <b>+${fmt(p.gc)} GC</b></span>${p.minha?`<button class="btn neutro" data-pescanc="${p.id}">Desfazer</button>`:""}</div>`).join("")}
    <label class="rot" for="pBruto" style="display:block;margin-top:10px">Peso na balança, com o receptáculo</label>
    <div class="balanca"><input class="inp" id="pBruto" type="number" inputmode="numeric" min="0" placeholder="0" value="${PES_BR}"><span style="font-size:20px">g</span></div>
@@ -2639,6 +2662,8 @@ async function pagarPes(jog){const r=PES.recs.find(x=>x.jogador===jog),k=contaPe
   try{const x=await api("lancarPesagem",{jogador:jog,bruto_g:k.br,...(k.dobro||PES_CONF===jog?{confirmar:true}:{})});const p=x.pesagem||{};PES_CONF=null;
     r.hoje.push({id:p.id,liquido:+p.liquido||k.liq,gc:+p.gc||0,minha:true});r.ultima={data:hojeISO(),liquido:+p.liquido||k.liq,gc:+p.gc||0};PES_BR="";toast(x.mensagem||`${r.nome} recebeu ${fmt(+p.gc||0)} GC.`)}
   catch(e){if(e.codigo==="DOBRO"){PES_CONF=jog;toast("Mais que o dobro da última pesagem. Confira e toque em pagar de novo.")}else toast(e.message)}finally{PES_OCUP=false;if(aba==="pesa")telaLider()}}
+async function decidirAnalise(id,pagar){if(ON)try{const r=await api("decidirAnalisePesagem",{id,pagar});toast(r.mensagem||(pagar?`Excesso pago: +${fmt(+(r.pesagem||{}).gc_extra||0)} GC.`:"Excesso não pago."))}catch(e){toast(e.message);return}else toast(pagar?"Excesso pago (prévia).":"Excesso não pago (prévia).");
+  PES_ANALISE=PES_ANALISE.filter(a=>a.id!==id);telaLider()}
 async function cadastrarRec(jog){const r=PES.recs.find(x=>x.jogador===jog),tara=Math.round(+PES_TARA||0);if(!(tara>0)){toast("Digite a tara em gramas.");return}
   if(!ON){r.id="R-0"+(90+PES.recs.indexOf(r));r.tara=tara;PES_TARA="";toast(`Receptáculo de ${r.nome} cadastrado (prévia).`);telaLider();return}
   PES_OCUP=true;telaLider();
@@ -2707,10 +2732,141 @@ document.addEventListener("click",e=>{const b=e.target.closest("button");if(!b||
   else if(d.pespagar)pagarPes(d.pespagar);
   else if(d.pescanc)cancelarPes(d.pescanc);
   else if(d.pescad)cadastrarRec(d.pescad);
+  else if(d.pesanal){const [id,pg]=d.pesanal.split("|");decidirAnalise(id,pg==="1")}
   else if(d.pesrit){const [m,dd]=d.pesrit.split("|");mudarRitmo(m,+dd)}});
 document.addEventListener("input",e=>{if(e.target.id==="pBruto"){PES_BR=e.target.value;atualizarFicha()}if(e.target.id==="pTara")PES_TARA=e.target.value;if(["cVal","cMot","cDia"].includes(e.target.id)&&PES_CF){lerCot();const i=$("cImp");if(i)i.textContent=impactoCot()}});
 document.addEventListener("change",e=>{if(e.target.id==="cMat"&&PES_CF){lerCot();PES_CF.val="";telaLider()}});
 document.addEventListener("submit",e=>{if(e.target.id==="fCot"){e.preventDefault();salvarCot()}});
+
+// ===== Miçangas do turno (Guardiões e Sentinelas): o app calcula pela produção, o Mestre só entrega =====
+// Regra (Fenelon, 27/11): proporcional à meta, arredonda para baixo; bônus em rampa de rampa% a 100% (1x a mult), excedente paga normal.
+let PES_ANALISE=[],MIC_AMANHA=null,MIC_PODE=null,MIC=null,MIC_GU=null,MIC_OCUP=false,MIC_CFG=null,MIC_CFG_MSG="",MIC_OP=null;
+const MIC_ET0={SEGREGACAO:{guilda:"CRONOMINAS",nome:"Segregação",un:"caixas",u:"cx",cor:"#4a86e8",nome_cor:"azul",meta:25},
+  INVENTARIO_CADASTRO:{guilda:"CRONOMINAS",nome:"Cadastro",un:"documentos",u:"doc",cor:"#a066e0",nome_cor:"roxa",meta:15},
+  CONTROLE_QUALIDADE:{guilda:"ELFOS",nome:"Controle de qualidade",un:"imagens",u:"img",cor:"#4cb060",nome_cor:"verde",meta:150},
+  CONFERENCIA:{guilda:"ELFOS",nome:"Conferência",un:"caixas",u:"cx",cor:"#e8c040",nome_cor:"amarela",meta:22}};
+let MIC_ET=JSON.parse(JSON.stringify(MIC_ET0));Object.values(MIC_ET).forEach(e=>Object.assign(e,{por_meta:20,rampa:80,mult:2,desde:"2026-12-01"}));
+const MIC_GUS=["CRONOMINAS","ELFOS"];
+const micGuDoPapel=()=>{if(ON)return null;if(papel==="sup"){const g=Object.keys(GU_MAP).find(k=>GU_MAP[k]===A.guilda);return [MIC_GUS.includes(g)?g:"CRONOMINAS"]}return papel==="coo"?["CRONOMINAS"]:MIC_GUS};
+const horaDe=s=>{const m=String(s||"").match(/(\d{2}):(\d{2})/);return m?m[0]:String(s||"")};
+const micVisivel=()=>papel!=="op"&&(!ON||papel!=="sup"||!!(MIC&&MIC.jogadores&&MIC.jogadores.length));
+const clarear=(h,a)=>{const n=parseInt(String(h).slice(1),16)||0,f=c=>Math.max(0,Math.min(255,Math.round(c+(a>0?(255-c)*a:c*a))));return "#"+[n>>16,(n>>8)&255,n&255].map(f).map(v=>v.toString(16).padStart(2,"0")).join("")};
+function micSvg(et,s=14){const e=MIC_ET[et]||{cor:"#999"},c=e.cor,l=clarear(c,.6),d=clarear(c,-.4);return `<svg class="mic" style="width:${s}px;height:${s}px" viewBox="0 0 7 7" shape-rendering="crispEdges" aria-hidden="true"><rect x="2" y="0" width="3" height="7" fill="${d}"/><rect x="0" y="2" width="7" height="3" fill="${d}"/><rect x="1" y="1" width="5" height="5" fill="${d}"/><rect x="1" y="2" width="5" height="3" fill="${c}"/><rect x="2" y="1" width="3" height="5" fill="${c}"/><rect x="2" y="2" width="1" height="1" fill="${l}"/><rect x="3" y="3" width="1" height="1" fill="#120e18"/></svg>`}
+function copoSvg(et){const c=(MIC_ET[et]||{cor:"#999"}).cor,l=clarear(c,.6);return `<svg class="copo" viewBox="0 0 10 12" shape-rendering="crispEdges" aria-hidden="true"><rect x="0" y="1" width="10" height="1" fill="#d8e0ea"/><rect x="1" y="2" width="1" height="10" fill="#9aa4b0"/><rect x="8" y="2" width="1" height="10" fill="#9aa4b0"/><rect x="1" y="11" width="8" height="1" fill="#9aa4b0"/><rect x="2" y="4" width="6" height="7" fill="${c}"/><rect x="2" y="4" width="6" height="1" fill="${l}"/><rect x="3" y="6" width="1" height="1" fill="${l}"/><rect x="6" y="8" width="1" height="1" fill="${l}"/></svg>`}
+const copinhos=(et,n)=>{const c=Math.floor(n/10),a=n%10;return {html:copoSvg(et).repeat(Math.min(c,8))+(c>8?`<small>+${c-8}</small>`:"")+micSvg(et,12).repeat(a),txt:c?`${c} ${c===1?"copinho":"copinhos"} de 10${a?` + ${a} ${a===1?"avulsa":"avulsas"}`:""}`:`${a} ${a===1?"avulsa":"avulsas"}`}};
+const micMult=(et,F)=>{const e=MIC_ET[et];return F>=1?e.mult:F*100<=e.rampa?1:1+(e.mult-1)*(F*100-e.rampa)/(100-e.rampa)};
+const micPaga=(et,f)=>{const e=MIC_ET[et];return Math.floor(e.por_meta*f+(micMult(et,f)-1)*e.por_meta*Math.min(f,1)+1e-9)};
+const xTxt=m=>"x"+(Math.round(m*10)/10).toLocaleString("pt-BR");
+const etsDe=g=>Object.keys(MIC_ET).filter(k=>MIC_ET[k].guilda===g);
+// o mesmo cálculo do motor, usado na prévia sem servidor
+function micCalc(qtd,g){const ets=etsDe(g),F=ets.reduce((s,k)=>s+(qtd[k]||0)/MIC_ET[k].meta,0),esc=F>1?1/F:1;let princ=ets[0],mx=-1;
+  const etapas=ets.filter(k=>qtd[k]).map(k=>{const e=MIC_ET[k],fr=(qtd[k]||0)/e.meta;if(fr>mx){mx=fr;princ=k}const b=e.por_meta*fr,bn=(micMult(k,F)-1)*e.por_meta*fr*esc,base=Math.floor(b+1e-9);
+    return {etapa:k,qtd:qtd[k],meta:e.meta,pct:Math.floor(fr*100+1e-9),base,bonus:Math.floor(b+bn+1e-9)-base}});
+  return {etapas,pct:Math.floor(F*100+1e-9),mult:micMult(princ,F),principal:princ}}
+function MIC_DEMO(gus){const P={CRONOMINAS:[["Ana",{SEGREGACAO:28}],["Caio",{SEGREGACAO:10,INVENTARIO_CADASTRO:9},{INVENTARIO_CADASTRO:3},"NAO_PAGO"],["Lia",{INVENTARIO_CADASTRO:14}],["Otávio",{SEGREGACAO:22},{SEGREGACAO:4},"LANCADO_DEPOIS"],["Rita",{SEGREGACAO:31,INVENTARIO_CADASTRO:2}],["Davi",{INVENTARIO_CADASTRO:18}]],
+  ELFOS:[["Thiago",{CONTROLE_QUALIDADE:172}],["Nina",{CONFERENCIA:19},{CONFERENCIA:5},"NAO_PAGO"],["Paula",{CONTROLE_QUALIDADE:80,CONFERENCIA:11}],["Igor",{CONTROLE_QUALIDADE:158}],["Bia",{CONFERENCIA:27}],["Sérgio",{CONTROLE_QUALIDADE:96},{CONTROLE_QUALIDADE:30},"LANCADO_DEPOIS"]]};
+  const js=[];gus.forEach(g=>P[g].forEach(([n,q,pd,mot],i)=>{const c=micCalc(q,g);js.push({jogador:n.toLowerCase()+"@demo",nome:n,guilda:g,sexo:i%2?"m":"f",etapa:i%2,...c,qtd:q,pendente:pd?Object.entries(pd).map(([etapa,qtd])=>({etapa,qtd,motivo:mot})):[],pago:null})}));
+  return {data:hojeISO(),jogadores:js}}
+function micTotal(j){if(j.a_pagar)return j.a_pagar;const t={};(j.etapas||[]).forEach(e=>t[e.etapa]=(t[e.etapa]||0)+e.base+e.bonus);(j.pendente||[]).forEach(p=>t[p.etapa]=(t[p.etapa]||0)+(+p.qtd||0));return t}
+async function carregarMic(){if(!ON){MIC=MIC_DEMO(micGuDoPapel());return}
+  try{const r=await api("micangasDia");(r.cores||[]).forEach(c=>{MIC_ET[c.etapa]={...(MIC_ET[c.etapa]||{}),...c,nome:c.nome_etapa||(MIC_ET[c.etapa]||{}).nome,un:c.unidade||(MIC_ET[c.etapa]||{}).un}});
+    MIC={...r,jogadores:(r.jogadores||[]).map(j=>{const m=MEMBROS_SRV&&MEMBROS_SRV.find(x=>x.id===j.jogador);return {...j,avatar:m&&m.avatar||null}})}}
+  catch(e){MIC={erro:e.message}}}
+const rostoMic=j=>{const g=GU_MAP[j.guilda]||"gua",a=j.avatar&&j.avatar.guilda?{...j.avatar,guilda:g}:{guilda:g,etapa:j.etapa||0,...PADRAO[g][j.sexo||"m"]};return svg(a).replace("<svg ",'<svg style="width:100%;height:auto;display:block" ')};
+
+function telaMic(){if(!MIC){carregarMic().then(()=>{if(aba==="pesa"&&PES_SUB==="mic")telaLider()});return `<div class="caixa sub">Calculando as miçangas do turno…</div>`}
+  if(MIC.erro)return `<div class="caixa sub">${MIC.erro}</div>`;
+  const gus=[...new Set(MIC.jogadores.map(j=>j.guilda))];if(!gus.length)return `<div class="caixa sub">Nenhuma etapa com miçangas no seu alcance. As miçangas são dos Guardiões do Tempo e das Sentinelas.</div>`;
+  if(!gus.includes(MIC_GU))MIC_GU=gus[0];const ets=etsDe(MIC_GU),js=MIC.jogadores.filter(j=>j.guilda===MIC_GU);
+  const falta={};ets.forEach(k=>falta[k]=0);js.filter(j=>!j.pago).forEach(j=>{const t=micTotal(j);ets.forEach(k=>falta[k]+=t[k]||0)});const pg=js.filter(j=>j.pago).length;
+  return `${gus.length>1?`<div class="op" style="margin-bottom:8px">${gus.map(g=>`<button type="button" data-micgu="${g}" aria-pressed="${g===MIC_GU}">${GU_NOME[g]||g}</button>`).join("")}</div>`:""}
+  <p class="nota" style="margin:0 0 8px">O app calcula tudo pela produção de hoje no AppSheet, cada etapa na sua unidade. Você não confere nada: no fim do turno, separa as miçangas, entrega e marca como pago.</p>
+  <h3 class="h3">Separe de uma vez <small>só o que falta pagar</small></h3>
+  <div class="mcores">${ets.map(k=>{const cp=copinhos(k,falta[k]);return `<div class="caixa mcor"><span class="t">${micSvg(k,18)}<b>Miçanga ${MIC_ET[k].nome_cor}</b></span><span class="sub">${MIC_ET[k].nome}</span><span class="n">${fmt(falta[k])}</span><div class="cop">${cp.html}</div><span class="sub">${cp.txt}</span></div>`}).join("")}</div>
+  <div class="caixa linha" style="gap:8px"><span class="sub" style="white-space:nowrap">${pg} de ${js.length} pagos</span><div class="barra2" style="flex:1"><span style="width:${js.length?pg/js.length*100:0}%"></span></div></div>
+  <details class="caixa regra"><summary>Regra do pagamento</summary>
+   <p class="nota">Proporcional à meta, sempre arredondando para baixo. Bônus em rampa: a partir do início da rampa, a parte até a meta sobe de 1x até o multiplicador em 100%. O que passa da meta paga normal. O pendente de ontem não entra no bônus. Quem trabalha em duas etapas soma o % de cada meta.</p>
+   <table class="rampa"><tr><th>Etapa</th><th>rampa</th><th>90%</th><th>100%</th><th>150%</th></tr>${ets.map(k=>`<tr><td>${micSvg(k,12)} ${MIC_ET[k].nome}</td><td>${MIC_ET[k].rampa}%</td><td>${micPaga(k,.9)}</td><td>${micPaga(k,1)}</td><td>${micPaga(k,1.5)}</td></tr>`).join("")}</table>
+   <p class="nota" style="margin:0">Quem define esses números é o Chanceler, em “Definição das miçangas”.</p></details>
+  <div class="linha" style="margin:12px 0 8px"><h3 class="h3" style="margin:0">Por pessoa <small>${GU_NOME[MIC_GU]}</small></h3><button class="btn ok" data-micpagar="*" ${pg===js.length||MIC_OCUP?"disabled":""}>${pg===js.length?"Todos pagos":"Pagar todos"}</button></div>
+  ${js.map(j=>{const t=micTotal(j),pd=(j.pendente||[]).length;
+    return `<div class="caixa mpes ${j.pago?"pago":""}"><div class="rosto">${rostoMic(j)}</div><div class="meio"><b class="nm">${j.nome}</b>
+     <div class="lin">${(j.etapas||[]).map(e=>`<span>${MIC_ET[e.etapa].nome}: ${fmt(e.qtd)} de ${fmt(e.meta)} ${MIC_ET[e.etapa].un}, ${e.pct}%</span><span>${e.base} ${micSvg(e.etapa,12)}</span>`).join("")}
+      ${(j.etapas||[]).filter(e=>e.bonus>0).map(e=>`<span>Bônus da meta (${xTxt(j.mult)})</span><span>+${e.bonus} ${micSvg(e.etapa,12)}</span>`).join("")}
+      ${(j.pendente||[]).map(p=>`<span>Pendente de ontem</span><span>+${p.qtd} ${micSvg(p.etapa,12)}</span>`).join("")}</div>
+     <div class="tags"><span class="tg ${j.pct>=100?"ok":j.mult>1?"pend":"no"}">${j.pct>=100?`meta batida · ${j.pct}%`:j.mult>1?`na rampa · ${j.pct}%`:`meta ${j.pct}%`}</span>${pd?`<span class="tg pend">${j.pendente.some(p=>p.motivo==="LANCADO_DEPOIS")?"lançado depois no AppSheet":"não pago ontem"}</span>`:""}</div></div>
+     <div class="tot">${ets.filter(k=>t[k]).map(k=>`<span class="c">${micSvg(k,16)}<b>${t[k]}</b><small>${copinhos(k,t[k]).txt}</small></span>`).join("")||`<span class="sub">nada hoje</span>`}
+     ${j.pago?`<span class="feito">✓ pago${/\d{2}:\d{2}/.test(String(j.pago.hora||j.pago.em_hora||j.pago.em))?` às ${horaDe(j.pago.hora||j.pago.em_hora||j.pago.em)}`:""}${j.pago.por?` por ${j.pago.por}`:""}</span>${j.pago.minha||j.pago.pode_desfazer?`<button class="btn neutro" data-micdesf="${j.jogador}">Desfazer</button>`:""}`:`<button class="btn ok" data-micpagar="${j.jogador}" ${MIC_OCUP||!Object.values(t).some(v=>v>0)?"disabled":""}>Pago</button>`}</div></div>`}).join("")}
+  <p class="nota">O que não for marcado como pago no fim do turno, ou que alguém lançar mais tarde no AppSheet, aparece amanhã como “pendente de ontem”. Cada Mestre vê só a própria guilda.</p>`}
+async function micPagar(id){const js=MIC.jogadores.filter(j=>j.guilda===MIC_GU&&!j.pago&&(id==="*"||j.jogador===id));if(!js.length)return;const h=new Date().toTimeString().slice(0,5);
+  if(!ON){js.forEach(j=>j.pago={em:h,minha:true});toast(id==="*"?`${js.length} pagos (prévia).`:`${js[0].nome}: pago (prévia).`);telaLider();return}
+  MIC_OCUP=true;telaLider();
+  try{const r=await api("pagarMicangas",{jogadores:js.map(j=>j.jogador)});const n=(r.pagos||[]).length,s=(r.sem_nada||[]).length;
+    toast(r.mensagem||(n===1&&id!=="*"?`${r.pagos[0].nome}: pago.`:`${n} ${n===1?"pago":"pagos"}${s?`, ${s} sem nada a pagar`:""}.`));await carregarMic()}catch(e){toast(e.message)}finally{MIC_OCUP=false;if(aba==="pesa")telaLider()}}
+async function micDesfazer(id){const j=MIC.jogadores.find(x=>x.jogador===id);
+  if(ON)try{const r=await api("desfazerMicangas",{jogador:id});toast(r.mensagem||"Pagamento desfeito.");await carregarMic();telaLider();return}catch(e){toast(e.message);return}else toast("Pagamento desfeito (prévia).");
+  j.pago=null;telaLider()}
+
+// ---- definição das miçangas (Chanceler e Regente) ----
+async function carregarMicCfg(){if(!ON){MIC_CFG={historico:MIC_CFG&&MIC_CFG.historico||[{desde:"2026-11-27",texto:"Valores iniciais de estudo: 20 por meta cheia, rampa de 80% a 100%, x2.",quem:"Chanceler"}]};return}
+  try{const r=await api("configMicangas");MIC_AMANHA=r.amanha||null;MIC_PODE=r.pode_mudar;const hist=[];
+    (r.etapas||[]).forEach(c=>{const v=c.vigente||{};MIC_ET[c.etapa]={...(MIC_ET[c.etapa]||{}),...v,nome:c.nome_etapa||(MIC_ET[c.etapa]||{}).nome,un:c.unidade||(MIC_ET[c.etapa]||{}).un,por_meta:+v.por_meta||20,rampa:+v.rampa,mult:+v.mult||2,peso_g:+v.peso_g||0,desde:MIC_AMANHA||hojeISO(),agendada:c.agendada||null};
+      (c.historico||[]).forEach(h=>hist.push({...h,etapa:c.etapa}))});
+    hist.sort((a,b)=>String(a.desde)<String(b.desde)?1:-1);MIC_CFG={historico:hist}}catch(e){MIC_CFG={erro:e.message}}}
+function telaMicCfg(){if(!MIC_CFG){carregarMicCfg().then(()=>{if(aba==="pesa"&&PES_SUB==="micfg")telaLider()});return `<div class="caixa sub">Carregando a definição…</div>`}
+  if(MIC_CFG.erro)return `<div class="caixa sub">${MIC_CFG.erro}</div>`;
+  return `<p class="nota" style="margin:0 0 8px">Só o Chanceler e a Regente mudam. A mudança vale a partir da data escolhida, e o que já foi pago não muda. Os números ainda estão em estudo.</p>
+  <form id="micCfgForm" novalidate>${MIC_GUS.map(g=>`<h3 class="h3">${GU_NOME[g]}</h3>`+etsDe(g).map(k=>{const e=MIC_ET[k];return `<div class="caixa mcfg"><div class="t">${micSvg(k,20)}<b>${e.nome}</b><span class="sub">meta em ${e.un}</span></div>
+   <div class="g4"><label>Miçangas por meta cheia<input class="inp" type="number" min="1" data-mcf="${k}|por_meta" value="${e.por_meta}"></label>
+   <label>Início da rampa (%)<input class="inp" type="number" min="0" max="99" step="5" data-mcf="${k}|rampa" value="${e.rampa}"></label>
+   <label>Multiplicador na meta<input class="inp" type="number" min="1" max="5" step="0.5" data-mcf="${k}|mult" value="${e.mult}"></label>
+   <label>Cor da miçanga<span class="corl"><input type="color" data-mcf="${k}|cor" value="${e.cor}" aria-label="Cor"><input class="inp" data-mcf="${k}|nome_cor" value="${e.nome_cor}" maxlength="20" aria-label="Nome da cor"></span></label>
+   <label>Peso de 1 miçanga (g)<input class="inp" type="number" min="0" step="0.01" data-mcf="${k}|peso_g" value="${e.peso_g||0}"></label>
+   <label>Vale a partir de<input class="inp" type="date" data-mcf="${k}|desde" value="${e.desde||MIC_AMANHA||hojeISO()}" min="${MIC_AMANHA||hojeISO()}"></label></div>
+   ${e.agendada?`<div class="sub" style="color:#ffe08a">Já agendado para ${dataCurta(e.agendada.desde)}: ${e.agendada.por_meta} por meta, rampa ${e.agendada.rampa}%, ${xTxt(+e.agendada.mult)}.</div>`:""}
+   <div class="sub">${+e.peso_g?`A pesagem confere: o esperado é ${String(e.peso_g).replace(".",",")} g por miçanga paga. Acima de 110%, o excesso vai para análise do Conselheiro.`:"Peso em branco: a pesagem não confere as miçangas."}</div><div class="sub">Com isso: 80% dá ${micPaga(k,.8)}, 90% dá ${micPaga(k,.9)}, 100% dá ${micPaga(k,1)} e 150% dá ${micPaga(k,1.5)}.</div></div>`}).join("")).join("")}
+   <label class="rot" for="micMot" style="display:block;margin-top:6px">Motivo (vai para o histórico e para o aviso)</label><input class="inp" id="micMot" style="width:100%" maxlength="120" placeholder="Ex.: teste de 2 semanas com 25 por meta">
+   <button class="btn ok larga" type="submit" style="margin-top:10px" ${MIC_OCUP?"disabled":""}>${MIC_OCUP?"Salvando…":"Salvar definição"}</button><p class="nota" role="status">${MIC_CFG_MSG}</p></form>
+  <h3 class="h3">Histórico</h3><div class="caixa">${(MIC_CFG.historico||[]).map(h=>`<div class="lp"><span class="sub">${dataCurta(h.desde)}</span><span>${h.texto||[h.etapa&&(MIC_ET[h.etapa]||{}).nome,h.motivo].filter(Boolean).join(": ")}${h.por_meta?` <span class="sub">(${h.por_meta} por meta, rampa ${h.rampa}%, ${xTxt(+h.mult)}${+h.peso_g?`, ${String(h.peso_g).replace(".",",")} g`:""})</span>`:""}</span><span class="sub">${h.quem||""}</span></div>`).join("")||`<div class="sub">Nenhuma mudança ainda.</div>`}</div>`}
+const MIC_MUD=new Set();
+async function salvarMicCfg(){const mot=($("micMot")||{}).value||"";if(!mot.trim()){MIC_CFG_MSG="Escreva o motivo.";telaLider();return}
+  if(!ON){MIC_CFG.historico.unshift({desde:hojeISO(),texto:mot.trim(),quem:NOMEL[papel]});MIC_CFG_MSG="Salvo (prévia). Os Mestres e os jogadores das etapas recebem um aviso.";MIC_MUD.clear();MIC=null;telaLider();return}
+  MIC_OCUP=true;telaLider();
+  try{for(const k of (MIC_MUD.size?[...MIC_MUD]:Object.keys(MIC_ET))){const e=MIC_ET[k];await api("salvarConfigMicangas",{etapa:k,por_meta:e.por_meta,rampa:e.rampa,mult:e.mult,peso_g:+e.peso_g||0,cor:e.cor,nome_cor:e.nome_cor,desde:e.desde||MIC_AMANHA||undefined,motivo:mot.trim()})}
+    MIC_CFG_MSG="Salvo. Os Mestres e os jogadores das etapas recebem um aviso.";MIC_MUD.clear();MIC_CFG=null;MIC=null}catch(e){MIC_CFG_MSG=e.message}finally{MIC_OCUP=false;if(aba==="pesa")telaLider()}}
+
+// ---- operador: cartão "Miçangas de hoje" no Início ----
+function micOp(){if(ON){const m=SRV&&SRV.micangas;if(!m)return null;(m.cores||[]).forEach(c=>{MIC_ET[c.etapa]={...(MIC_ET[c.etapa]||{}),...c,nome:c.nome_etapa||(MIC_ET[c.etapa]||{}).nome,un:c.unidade||(MIC_ET[c.etapa]||{}).un}});
+    const es=m.etapas||[],pk=(es.slice().sort((a,b)=>b.pct-a.pct)[0]||{}).etapa||Object.keys(m.cheio||{})[0],tot={...(m.total||{})};Object.entries(m.pendente||{}).forEach(([k,v])=>tot[k]=(tot[k]||0)+(+v||0));
+    const F=(m.pct||0)/100,e=MIC_ET[pk]||{rampa:80,mult:2};return {guilda:SRV.jogador.guilda,etapas:es,pct:m.pct||0,principal:pk,total:tot,pendente:m.pendente||{},cheio:(m.cheio||{})[pk]||Object.values(m.cheio||{}).reduce((s,v)=>s+v,0),falta_pct:m.falta_pct!=null?m.falta_pct:Math.max(0,100-(m.pct||0)),mult:F>=1?(+e.mult||2):F*100>(+e.rampa||80)?1.5:1,semBonus:true}}const g=Object.keys(GU_MAP).find(k=>GU_MAP[k]===A.guilda);if(!MIC_GUS.includes(g))return null;
+  if(!MIC_OP||MIC_OP.g!==g)MIC_OP={g,qtd:g==="ELFOS"?{CONFERENCIA:19}:{SEGREGACAO:21},pend:g==="ELFOS"?{CONFERENCIA:5}:{}};
+  const c=micCalc(MIC_OP.qtd,g),total={};c.etapas.forEach(e=>total[e.etapa]=e.base+e.bonus);Object.entries(MIC_OP.pend).forEach(([k,v])=>total[k]=(total[k]||0)+v);
+  return {guilda:g,etapas:c.etapas,pct:c.pct,mult:c.mult,principal:c.principal,total,pendente:MIC_OP.pend,cheio:micPaga(c.principal,1),falta_pct:Math.max(0,100-c.pct),demo:true}}
+function micOpHtml(){const m=micOp();if(!m)return "";const g=m.guilda||(SRV&&SRV.jogador&&SRV.jogador.guilda),ets=etsDe(g).filter(k=>(m.total||{})[k]||(m.etapas||[]).some(e=>e.etapa===k)||ets0(g).length<2),pk=m.principal||((m.etapas||[])[0]||{}).etapa||ets[0];
+  const bon=(m.etapas||[]).reduce((s,e)=>s+(+e.bonus||0),0),bTxt=m.semBonus?"":` (+${bon})`,bAgora=m.semBonus?"":` (+${bon} agora)`,pend=Object.entries(m.pendente||{}).filter(([,v])=>v>0);
+  const msg=m.pct>=100?`Meta batida: a parte até a meta pagou <b>${xTxt(m.mult||2)}</b>${bTxt}. O que passar da meta paga normal.`
+    :(m.mult||1)>1?`Faltam <b>${m.falta_pct}%</b> para <b>${m.cheio} miçangas</b>. Você já está na rampa do bônus${bAgora}.`
+    :`Faltam <b>${m.falta_pct}%</b> para <b>${m.cheio} miçangas</b>. A partir de ${(MIC_ET[pk]||{}).rampa||80}% o bônus já começa a subir.`;
+  return `<h2>${micSvg(pk,18)} Miçangas de hoje <small>previsão</small></h2>
+  <div class="caixa"><div class="sub">${(m.etapas||[]).filter(e=>+e.qtd).map(e=>`${fmt(e.qtd)} de ${fmt(e.meta)} ${MIC_ET[e.etapa].un} em ${MIC_ET[e.etapa].nome}`).join(" · ")||"Nenhuma produção ainda hoje."}</div>
+   <div class="barra2" title="% da meta do dia"><span style="width:${Math.min(100,(m.pct||0)/1.5)}%"></span><i style="left:${100/1.5}%"></i></div><div class="sub">${m.pct||0}% da meta do dia</div>
+   <div class="mhoje">${ets.map(k=>`<div class="c"><span class="sub">${micSvg(k,14)} Miçanga ${MIC_ET[k].nome_cor}</span><b>${(m.total||{})[k]||0}</b><span class="sub">${copinhos(k,(m.total||{})[k]||0).txt}</span></div>`).join("")}</div>
+   ${pend.length?`<div class="sub" style="margin-top:6px">Inclui ${pend.map(([k,v])=>`${v} ${micSvg(k,12)}`).join(" + ")} pendentes de ontem.</div>`:""}
+   <div class="falta ${m.pct>=100?"ok":""}">${msg}</div>
+   ${m.demo?`<div class="op" style="margin-top:8px"><button type="button" data-micmais="1">Simular +1</button><button type="button" data-micmais="10">+10</button></div>`:""}
+   <p class="nota" style="margin:6px 0 0">Atualiza com a produção do AppSheet a cada 15 minutos. O Mestre entrega no fim do turno.</p></div>`}
+const ets0=g=>etsDe(g);
+const _telaInicioMic=telaInicio;telaInicio=function(){_telaInicioMic();const el=$("t-inicio");if(!el)return;const h=micOpHtml();if(!h)return;
+  const alvo=el.querySelector(".recep");const d=document.createElement("div");d.innerHTML=h;if(alvo)alvo.after(...d.childNodes);else el.append(...d.childNodes)};
+
+document.addEventListener("click",e=>{const b=e.target.closest("button");if(!b||b.disabled)return;const d=b.dataset;
+  if(d.micgu){MIC_GU=d.micgu;telaLider()}
+  else if(d.micpagar)micPagar(d.micpagar);
+  else if(d.micdesf)micDesfazer(d.micdesf);
+  else if(d.micmais&&MIC_OP){const pk=micCalc(MIC_OP.qtd,MIC_OP.g).principal;MIC_OP.qtd[pk]=(MIC_OP.qtd[pk]||0)+(+d.micmais);const y=window.scrollY;telaInicio();window.scrollTo(0,y)}});
+document.addEventListener("change",e=>{const cf=e.target.dataset.mcf;if(!cf)return;const [k,c]=cf.split("|"),v=e.target.value,E=MIC_ET[k];
+  if(c==="cor"||c==="nome_cor"||c==="desde")E[c]=v;else if(c==="peso_g")E[c]=Math.max(0,+v||0);else E[c]=Math.max(c==="rampa"?0:1,Math.min(c==="rampa"?99:9999,+v||0));MIC_MUD.add(k);MIC_CFG_MSG="";const y=window.scrollY;telaLider();window.scrollTo(0,y)});
+document.addEventListener("submit",e=>{if(e.target.id==="micCfgForm"){e.preventDefault();salvarMicCfg()}});
 
 // =====================================================================
 //   CONEXÃO COM A API (Apps Script "Reino API"). Sem URL, o app roda na prévia.
@@ -2735,7 +2891,7 @@ async function api(acao,dados={}){
 async function chamar(acao,dados,ok){if(ocupado)return;ocupado=true;try{const r=await api(acao,dados);await ok(r)}catch(e){toast(e.message)}finally{ocupado=false}}
 
 function avatarLocal(id){try{return JSON.parse(localStorage.getItem("reinoAv_"+id)||"null")}catch(e){return null}}
-function aplicarEstado(e){SRV=e;ORC_SRV=e.orcamento||null;EVL=null;VETO=null;PES=null;MINHAS_PES=null;const j=e.jogador;papel=PAPEL_MAP[j.papel]||"op";aba=papel==="op"?(["inicio","eventos","loja","heroi","guilda"].includes(aba)?aba:"inicio"):(["linicio","aprov","resg","gctl","avisos","itens"].includes(aba)?aba:"linicio");
+function aplicarEstado(e){SRV=e;ORC_SRV=e.orcamento||null;EVL=null;VETO=null;PES=null;MINHAS_PES=null;MIC=null;MIC_CFG=null;const j=e.jogador;papel=PAPEL_MAP[j.papel]||"op";aba=papel==="op"?(["inicio","eventos","loja","heroi","guilda"].includes(aba)?aba:"inicio"):(["linicio","aprov","resg","gctl","avisos","itens"].includes(aba)?aba:"linicio");
   const g=GU_MAP[j.guilda]||"min",av=j.avatar||avatarLocal(j.id);
   if(papel==="op"){A=av&&av.guilda?{...av,guilda:g}:{guilda:g,etapa:0,...PADRAO[g][(A&&A.sexo)||"m"]};if(j.etapa!=null&&ETAPAS[g][j.etapa])A.etapa=j.etapa}
   else{if(av&&av.guilda)AL[papel]=av;NOMEL[papel]=j.nome}
