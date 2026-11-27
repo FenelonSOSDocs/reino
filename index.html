@@ -111,6 +111,18 @@ nav.baixo button[aria-current=page] svg{filter:drop-shadow(0 2px 0 #6a4a20)}
 .ed .palco{width:42%;flex:none;position:sticky;top:0;border:3px solid var(--bd)}
 .ed .palco svg{width:100%;display:block}
 .ctl{flex:1;display:grid;gap:4px}
+.rn-abas{flex-wrap:wrap}.rn-busca{width:100%;margin:0 0 8px}
+.rn-lista{padding:2px 10px}.pessoa{display:flex;gap:10px;align-items:center;width:100%;text-align:left;font:inherit;color:var(--tx);background:none;border:0;border-bottom:2px dashed #3a2e44;padding:8px 2px;cursor:pointer;min-height:56px}
+.pessoa:last-child{border-bottom:0}.pessoa .meio{flex:1;min-width:0}.pessoa b{display:block;font-size:15px}.pessoa em{font-style:normal;font-size:12px;color:var(--mu);font-family:system-ui,sans-serif}.pessoa .seta{color:var(--mu);font-size:20px}
+.pessoa .rosto{width:44px;height:44px;border:3px solid var(--bd);overflow:hidden;background:#000;flex:none}.pessoa .rosto svg{width:330%!important;height:auto;max-width:none;margin:-62% 0 0 -115%;display:block}
+.rn-grade .rn-g{background:var(--card2);border:2px solid var(--bd);padding:3px;text-align:center;font:inherit;font-size:12px;line-height:1.15;color:var(--tx);cursor:pointer;display:flex;flex-direction:column;align-items:stretch;min-width:0}
+.rn-grade .rn-g svg{width:100%;height:auto;display:block;margin-bottom:3px}.rn-grade .rn-g span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.rn-grade .rn-g em{font-style:normal;font-size:11px;color:var(--mu)}
+.rn-topo{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.rn-palco{display:flex;gap:12px;align-items:flex-end;margin-bottom:10px}.rn-palco .av{width:120px;flex:none;border:3px solid var(--bd);background:#120e18}.rn-palco .av svg{width:100%;height:auto;display:block}
+.rn-palco .info{min-width:0}.rn-palco .nome{font-size:22px;line-height:1.1}.rn-palco .nv{display:flex;align-items:baseline;gap:6px;margin-top:6px}.rn-palco .nv b{font-size:30px;color:#ffe08a;line-height:1}
+.rn-cam{padding:6px 10px}.rn-cam div{display:grid;grid-template-columns:auto 1fr;gap:8px;font-family:system-ui,sans-serif;font-size:13px;padding:3px 0}
+.rn-priv{border:2px dashed #c09030;padding:8px;margin-top:10px}.rn-priv>b{font-size:14px}
+
 .pops{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .pcard{font:inherit;color:var(--tx);text-align:left;cursor:pointer;background:var(--card);border:3px solid var(--bd);box-shadow:inset 0 0 0 2px #1b1626,0 3px 0 #0e0b12;padding:6px;display:flex;flex-direction:column;gap:4px;min-width:0;position:relative}
 .pcard[aria-pressed=true]{border-color:#fff0b0;box-shadow:inset 0 0 0 2px #1b1626,0 0 0 2px #e8b04a}
@@ -1904,7 +1916,7 @@ function telaLider(){const el=$("t-lider");
   if(aba==="linicio")el.innerHTML=`${perfilLider()}${orcamentoHtml()}<h3 class="h3">Últimos avisos</h3><div class="caixa mural">${AVISOS.filter(a=>a.para.includes(papel)).length?"":`<div class="sub">Nenhum aviso por enquanto.</div>`}${AVISOS.filter(a=>a.para.includes(papel)).slice(0,3).map(a=>`<div>${icone(...AV_IC[a.t],18)}<span>${a.txt}<em class="q">${a.q}</em></span></div>`).join("")}</div>`;
   else if(aba==="aprov")el.innerHTML=telaAprov();
   else if(aba==="resg")el.innerHTML=telaResgL();
-  else if(aba==="gctl")el.innerHTML=telaGuildaL();
+  else if(aba==="gctl")el.innerHTML=telaGuildaL()+(ON?"":`<h2>${icone("escudo",OUROc,20)} Todo o reino <small>todos veem todos</small></h2>${reinoHtml(false)}`);
   else if(aba==="avisos")el.innerHTML=telaAvisos();
   else if(aba==="itens")el.innerHTML=telaItensL();
 }
@@ -1922,8 +1934,8 @@ function telaGuilda(){
   <div class="caixa item"><div class="ic" style="width:52px;height:52px">${icone("chama",FOGOc,34)}</div><div class="meio"><b>${eventos().length} eventos ativos</b><div class="sub">${eventos().map(e=>e.nome).join(", ")}</div></div><div class="acao"><button class="btn ok" data-aba="eventos">Ver</button></div></div>
   <h2>Responsáveis pela guilda</h2>
   <div class="resp">${SUPS.map(s=>`<div>${svg(s.a()).replace("<svg ",'<svg style="width:56px;height:auto;display:block" ')}<span><b>${s.nome}</b><span class="q">${s.k?CLASSES[s.k].nome:"Mestre da Guilda"} · ${s.turno}</span></span></div>`).join("")}${ON?"":`<div style="grid-column:1/-1">${svg(AL.coo).replace("<svg ",'<svg style="width:56px;height:auto;display:block" ')}<span><b>${NOMEL.coo}</b><span class="q">Conselheira do Reino · coordena as três guildas. Recebe contestações e estornos.</span></span></div>`}</div>
-  <h2>Heróis da guilda <small>${MEMBROS.length} membros</small></h2>
-  <div class="membros">${MEMBROS.map(([nm,sx,e,nv,av,m],i)=>{const a=av&&av.guilda?{...av,guilda:A.guilda}:sorteio(31+i*17,A.guilda,e,sx);if(!av)a.chapeu=i%3?a.chapeu:0;return `<div>${svg(a)}${nm}<em>nível ${nv} · ${m?m.faixa:ETAPAS[A.guilda][e].nome}</em></div>`}).join("")}</div>
+  <h2>Heróis do reino <small>toque para ver o perfil</small></h2>
+  ${reinoHtml(true)}
   ${ON?"":`<h2>Mural</h2>
   <div class="caixa mural">
     <div>${icone("estrela",OUROc,18)}<span><b>Fábio</b> chegou à faixa ${FAIXAS[A.guilda][4]}.</span></div>
@@ -2868,6 +2880,83 @@ document.addEventListener("change",e=>{const cf=e.target.dataset.mcf;if(!cf)retu
   if(c==="cor"||c==="nome_cor"||c==="desde")E[c]=v;else if(c==="peso_g")E[c]=Math.max(0,+v||0);else E[c]=Math.max(c==="rampa"?0:1,Math.min(c==="rampa"?99:9999,+v||0));MIC_MUD.add(k);MIC_CFG_MSG="";const y=window.scrollY;telaLider();window.scrollTo(0,y)});
 document.addEventListener("submit",e=>{if(e.target.id==="micCfgForm"){e.preventDefault();salvarMicCfg()}});
 
+// ---- reino e perfis: todos veem a lista e o perfil de todos (motor: guildas, guilda{guilda}, perfil{jogador}) ----
+const RN_K={min:"GRAMPOMINAS",gua:"CRONOMINAS",elf:"ELFOS"},RN_G={GRAMPOMINAS:"min",CRONOMINAS:"gua",ELFOS:"elf"};
+const RN_RAR={COMUM:"Comum",INCOMUM:"Incomum",RARA:"Rara",EPICA:"Épica",LENDARIA:"Lendária"};
+let RN_ABAS=null,RN_SEL=null,RN_BUSCA="",RN_LISTA={},RN_CARR={};
+const rnPapelK=p=>({SUPERVISOR:"sup",COORDENADOR:"coo",CHANCELER:"chn",GERENTE:"ger"})[p]||p;
+function rnAvatar(m){if(m.lider){const k=m.k;return m.avatar&&m.avatar.guilda?m.avatar:{guilda:k,etapa:0,...PADRAO[k][m.sexo||"m"]}}
+  const g=RN_G[m.guilda]||m.guilda||"min";if(m.avatar&&m.avatar.guilda)return {...m.avatar,guilda:g};return m._a||{guilda:g,etapa:0,...PADRAO[g].m}}
+// demo: guildas inventadas a partir do mesmo sorteio do app
+const RN_DEMO_N={min:[["Vera","f"],["Wagner","m"],["Yara","f"],["Zeca","m"],["Bia","f"]],gua:[["Íris","f"],["Joel","m"],["Kátia","f"],["Lucas","m"],["Mara","f"],["Nico","m"]],elf:[["Olga","f"],["Paulo","m"],["Rita","f"],["Saulo","m"],["Tina","f"]]};
+function rnDemo(){const out={};
+  for(const g of ["min","gua","elf"]){const base=g===((A&&A.guilda)||"min")?MEMBROS.map(([nm,sx,e,nv])=>[nm,sx,e,nv]):(RN_DEMO_N[g]||[]).map(([nm,sx],i)=>[nm,sx,i%2,8+(i*13)%37]);
+    out[RN_K[g]]=base.map(([nm,sx,e,nv],i)=>{const a=sorteio(31+i*17,g,e,sx);if(i%3)a.chapeu=0;return {id:g+":"+nm,nome:nm,guilda:RN_K[g],nivel:nv,faixa:FAIXAS[g][Math.floor(nv/10)],conquistas:5+(i*7)%22,_a:a,_i:i}})}
+  out.LIDERANCA=[{id:"ger",nome:NOMEL.ger,lider:1,k:"ger",avatar:AL.ger},{id:"chn",nome:"Fenelon",lider:1,k:"chn",avatar:AL.chn},{id:"coo",nome:NOMEL.coo,lider:1,k:"coo",avatar:AL.coo},
+    {id:"sup",nome:"Mestre Ferrugem",lider:1,k:"sup",avatar:AL.sup,guilda:"GRAMPOMINAS"},{id:"sup2",nome:"Mestra Brasa",lider:1,k:"sup",avatar:SUPS[1]&&SUPS[1].a(),guilda:"GRAMPOMINAS"},{id:"sup3",nome:"Mestre Cronos",lider:1,k:"sup",guilda:"CRONOMINAS"},{id:"sup4",nome:"Mestra Aurora",lider:1,k:"sup",sexo:"f",guilda:"ELFOS"}];
+  return out}
+function rnAbas(){if(ON&&RN_ABAS)return RN_ABAS;
+  const meu=ON?(SRV&&SRV.jogador&&SRV.jogador.guilda):papel==="op"?RN_K[A.guilda]:papel==="sup"?"GRAMPOMINAS":"";
+  const D=ON?{}:rnDemo(),gs=["GRAMPOMINAS","CRONOMINAS","ELFOS"].sort((a,b)=>(b===meu)-(a===meu));
+  return [...gs.map(g=>({guilda:g,nome:GUILDA[RN_G[g]].nome,membros:ON?null:D[g].length,minha:g===meu})),{guilda:"LIDERANCA",nome:"Liderança do reino",lideres:ON?null:D.LIDERANCA.length}]}
+function rnLista(g){if(!ON)return rnDemo()[g];if(RN_LISTA[g])return RN_LISTA[g];rnCarregar(g);return null}
+async function rnCarregar(g){if(RN_CARR[g])return;RN_CARR[g]=1;
+  try{rnCarregarAbas();
+    const r=await api("guilda",{guilda:g});
+    RN_LISTA[g]=g==="LIDERANCA"?(r.lideranca||[]).map(l=>({...l,lider:1,k:rnPapelK(l.papel)})):[...(r.lideranca||[]).map(l=>({...l,lider:1,k:rnPapelK(l.papel),guilda:g})),...(r.membros||[]).map(m=>({...m,guilda:g}))];
+  }catch(e){RN_LISTA[g]={erro:e.message}}RN_CARR[g]=0;rnRedesenhar()}
+let RN_ABAS_C=0;function rnCarregarAbas(){if(RN_ABAS||RN_ABAS_C||!ON)return;RN_ABAS_C=1;api("guildas").then(r=>{RN_ABAS=r.guildas;RN_ABAS_C=0;rnRedesenhar()}).catch(()=>{RN_ABAS_C=0})}
+function rnRedesenhar(){if(!logado)return;if(papel==="op")telaGuilda();else if(aba==="gctl")telaLider()}
+function rnSub(m){if(m.lider)return CLASSES[m.k].nome+(m.guilda&&m.k==="sup"?" · "+GUILDA[RN_G[m.guilda]].nome:"");return `nível ${m.nivel} · ${m.faixa} · ${m.conquistas} conquistas`}
+function rnItens(l,grade){const q=RN_BUSCA.trim().toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
+  const f=l.filter(m=>!q||String(m.nome).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").includes(q));
+  if(!f.length)return `<div class="sub" style="padding:10px 0;grid-column:1/-1">${l.length?"Ninguém com esse nome.":"Ninguém cadastrado ainda nesta guilda."}</div>`;
+  if(grade)return f.map(m=>`<button class="rn-g" data-perfil="${m.id}">${svg(rnAvatar(m))}<span>${m.nome.split(" ")[0]}</span><em>${m.lider?CLASSES[m.k].nome:`nível ${m.nivel}`}</em></button>`).join("");
+  return f.map(m=>`<button class="pessoa" data-perfil="${m.id}"><span class="rosto">${svg(rnAvatar(m))}</span><span class="meio"><b>${m.nome}</b><em>${rnSub(m)}</em></span><span class="seta" aria-hidden="true">›</span></button>`).join("")}
+function reinoHtml(grade){rnCarregarAbas();const abas=rnAbas();if(!RN_SEL||!abas.some(a=>a.guilda===RN_SEL))RN_SEL=abas[0].guilda;
+  const l=rnLista(RN_SEL),conta=a=>a.guilda==="LIDERANCA"?a.lideres:a.membros!=null?a.membros+(a.lideres||0):null;
+  return `<div class="abinhas rn-abas" role="tablist">${abas.map(a=>{const n=conta(a);return `<button role="tab" data-rngu="${a.guilda}" aria-selected="${RN_SEL===a.guilda}">${a.guilda==="LIDERANCA"?"Liderança":(GUILDA[RN_G[a.guilda]]||a).nome}${n!=null?` · ${n}`:""}</button>`}).join("")}</div>
+   <input class="inp rn-busca" data-rnbusca placeholder="Buscar pelo nome" value="${RN_BUSCA.replace(/"/g,"&quot;")}" aria-label="Buscar pelo nome" autocomplete="off">
+   <div data-grade="${grade?1:0}" class="rn-l ${grade?"membros rn-grade":"caixa rn-lista"}">${!l?`<div class="sub" style="padding:10px 0;grid-column:1/-1">Carregando…</div>`:l.erro?`<div class="sub" style="padding:10px 0;grid-column:1/-1">Não deu para carregar: ${l.erro}</div>`:rnItens(l,grade)}</div>
+   <p class="nota">Toque em alguém para abrir o perfil. Todo mundo vê o perfil de todo mundo, sem ranking e sem erros.</p>`}
+document.addEventListener("input",e=>{if(!e.target.matches||!e.target.matches("[data-rnbusca]"))return;RN_BUSCA=e.target.value;const el=e.target.nextElementSibling,l=rnLista(RN_SEL);if(el&&l&&!l.erro)el.innerHTML=rnItens(l,el.dataset.grade==="1")});
+// ---- perfil ----
+function rnAcharMembro(id){for(const g in (ON?RN_LISTA:rnDemo())){const l=(ON?RN_LISTA:rnDemo())[g];if(Array.isArray(l)){const m=l.find(x=>x.id===id);if(m)return m}}
+  return (MEMBROS_SRV||[]).find(x=>x.id===id)||(LIDER_SRV||[]).map(l=>({...l,lider:1,k:rnPapelK(l.papel)})).find(x=>x.id===id)}
+function rnVitrine(vs){if(!vs||!vs.length)return "";
+  return `<h3 class="h3">Vitrine</h3><div class="conq" style="grid-template-columns:repeat(3,1fr)">${vs.map(c=>{const r=RN_RAR[c.raridade]||c.raridade||"Comum",cor=SFX.RAR[r]||SFX.RAR.Comum;return `<div style="border-color:${cor}">${SFX.icone("trofeu",30,cor)}${c.nome}<em style="color:${cor}">${r}${c.pioneiro?" · Pioneiro":""}</em></div>`}).join("")}</div>`}
+function rnMural(T,ids){const M=(ids&&ids.length?ids.map(id=>T.find(t=>t.id===id)):T.slice().sort((a,b)=>({diamante:5,platina:4,ouro:3,prata:2,bronze:1}[b.grau]||0)-({diamante:5,platina:4,ouro:3,prata:2,bronze:1}[a.grau]||0)).slice(0,5)).filter(Boolean);
+  if(!M.length)return "";return `<h3 class="h3">Mural de insígnias</h3><div class="caixa mural-ins">${M.map(t=>`<div>${desenhoIns(t)}<span>${t.nome}</span></div>`).join("")}</div>`}
+function rnCaminho(h){if(!h||!h.length)return "";
+  return `<h3 class="h3">Caminho no reino</h3><div class="caixa rn-cam">${h.map(x=>`<div><span class="sub">${dataLonga(x.inicio)}${x.fim?" a "+dataLonga(x.fim):" até hoje"}</span><span>${(GUILDA[RN_G[x.guilda]]||{nome:x.guilda}).nome}</span></div>`).join("")}</div>`}
+function rnPriv(p){if(!p.saldo)return "";const eu=ON&&SRV&&SRV.jogador&&SRV.jogador.id===p.jogador.id;
+  return `<div class="rn-priv"><b>${eu?"Só você e a liderança veem":"Só a liderança vê"}</b><div class="grade2" style="gap:6px;margin-top:6px">
+   <div class="caixa" style="margin:0;padding:6px"><div class="rot">GC disponível</div><div class="num" style="font-size:20px">${fmt(p.saldo.gc)}</div>${p.saldo.gc_a_caminho?`<div class="sub">+${fmt(p.saldo.gc_a_caminho)} a caminho</div>`:""}</div>
+   ${p.receptaculo?`<div class="caixa" style="margin:0;padding:6px"><div class="rot">Receptáculo de GC</div><div class="num" style="font-size:20px">${Math.round(p.receptaculo.pct||0)}%</div><div class="sub">${fmt(p.receptaculo.preenchido)} de ${fmt(p.receptaculo.capacidade)}</div></div>`:""}</div></div>`}
+function rnFolha(m,p){const lid=m.lider,g=RN_G[(p&&p.jogador&&p.jogador.guilda)||m.guilda];
+  const a=rnAvatar({...m,avatar:(p&&p.jogador&&p.jogador.avatar)||m.avatar});
+  const nome=(p&&p.jogador&&p.jogador.nome)||m.nome,nivel=p&&p.nivel!=null?p.nivel:m.nivel,faixa=p&&p.faixa?p.faixa:m.faixa,nconq=p&&p.conquistas?p.conquistas.length:m.conquistas;
+  return `<div class="rn-topo"><span class="sub">${lid?"Liderança do reino":g?GUILDA[g].nome:""}</span><button class="btn neutro" data-ed="cancelar">Fechar</button></div>
+   <div class="rn-palco"><div class="av">${svg(a)}</div><div class="info"><div class="nome">${nome}</div><span class="sub">${lid?rnSub(m):g?GUILDA[g].nome:""}</span>
+    ${lid?"":`<div class="nv"><b>${nivel??"…"}</b><span class="sub">nível${faixa?` · faixa ${faixa}`:""}</span></div><div class="sub">${nconq??"…"} conquistas${p&&p.selos_total?` · ${p.selos_total} selos recebidos`:""}</div>`}</div></div>
+   ${!p?`<div class="sub" style="margin:12px 0">Carregando o perfil…</div>`:p.erro?`<div class="sub" style="margin:12px 0">Não deu para abrir: ${p.erro}</div>`:
+    `${rnVitrine(p.vitrine)}${rnMural(p.trajetoria||[],p.mural)}${rnCaminho(p.historico_guildas)}${lid&&!(p.vitrine||[]).length&&!(p.trajetoria||[]).length?`<p class="sub" style="margin-top:10px">${CLASSES[m.k].nome} do reino.</p>`:""}${rnPriv(p)}`}
+   <p class="nota">Ninguém vê os erros de outra pessoa aqui.</p>`}
+function rnDemoPerfil(m){if(m.lider)return {vitrine:[],trajetoria:[],historico_guildas:[]};const i=m._i||0,ids=["OLHO_DE_AGUIA","SEQUENCIA_PERFEITA","MADRUGADOR","PRIMEIRO_TESOURO","ASCENSAO","HEROI_DA_MISSAO"];
+  const T=A?trajDemo():[];return {vitrine:[0,1,2].map(k=>{const c=CQ.find(x=>x.id===ids[(i+k)%ids.length]);return c&&{nome:c.nome,raridade:["RARA","EPICA","COMUM","INCOMUM","LENDARIA"][(i+k)%5]}}).filter(Boolean),
+   trajetoria:T.slice(i%3,i%3+2+i%4),mural:null,historico_guildas:i%5===2?[{guilda:"GRAMPOMINAS",inicio:"2026-11-02",fim:"2026-11-19"},{guilda:m.guilda,inicio:"2026-11-20"}]:[{guilda:m.guilda,inicio:"2026-11-02"}],
+   selos_total:3+i%6,saldo:papel==="op"?null:{gc:120+(i*97)%900,gc_a_caminho:0},receptaculo:papel==="op"?null:{pct:30+(i*23)%70,preenchido:30+(i*23)%70,capacidade:100}}}
+let RN_ABERTO=null;
+function rnSemear(r){const g=r.guilda||(SRV&&SRV.jogador&&SRV.jogador.guilda);if(!g)return;RN_LISTA[g]=[...(r.lideranca||[]).map(l=>({...l,lider:1,k:rnPapelK(l.papel),guilda:g})),...(r.membros||[]).map(m=>({...m,guilda:g}))]}
+function rnZerar(){RN_ABAS=null;RN_ABAS_C=0;RN_LISTA={};RN_CARR={};RN_SEL=null;RN_BUSCA=""}
+async function abrirPerfil(id){const m=rnAcharMembro(id);if(!m)return;RN_ABERTO=id;
+  $("folha").innerHTML=rnFolha(m,ON?null:rnDemoPerfil(m));abrirModal();if(!ON)return;
+  let p;try{p=await api("perfil",{jogador:id})}catch(e){p={erro:e.message}}
+  if(RN_ABERTO===id&&$("modal").style.display!=="none")$("folha").innerHTML=rnFolha(m,p)}
+document.addEventListener("click",e=>{const t=e.target.closest("[data-rngu],[data-perfil]");if(!t)return;
+  if(t.dataset.rngu){RN_SEL=t.dataset.rngu;rnRedesenhar();return}
+  abrirPerfil(t.dataset.perfil)});
+
 // =====================================================================
 //   CONEXÃO COM A API (Apps Script "Reino API"). Sem URL, o app roda na prévia.
 // =====================================================================
@@ -2967,13 +3056,13 @@ const ACAO_MAP={ESTORNO:"estorno",AJUSTE_GC:"ajusteGC",AJUSTE_XP:"ajusteXP",ERRO
 let LIDER_SRV=null;
 const L_PAPEL={SUPERVISOR:"sup",COORDENADOR:"coo",CHANCELER:"chn",GERENTE:"ger"};
 async function carregarTrajetoria(){try{const r=await api("trajetoria");TRAJ_SRV=r.trajetoria||[];INS_CAT=r.insignias||[];if(logado&&aba==="heroi")telaHeroi()}catch(e){}}
-async function carregarGuilda(){carregarTrajetoria();try{const r=await api("guilda");MEMBROS_SRV=r.membros;LIDER_SRV=r.lideranca||[];
+async function carregarGuilda(){carregarTrajetoria();try{const r=await api("guilda");MEMBROS_SRV=r.membros;LIDER_SRV=r.lideranca||[];rnSemear(r);
   MEMBROS.splice(0,MEMBROS.length,...r.membros.map(m=>[m.nome.split(" ")[0],(m.avatar&&m.avatar.sexo)||"m",(m.avatar&&m.avatar.etapa)||0,m.nivel,m.avatar||null,m]));
   if(papel==="op")SUPS.splice(0,SUPS.length,...LIDER_SRV.map(l=>{const k=L_PAPEL[l.papel]||"sup";return {nome:l.nome,turno:CLASSES[k].cargo,k,a:()=>l.avatar&&l.avatar.guilda?l.avatar:{guilda:k,etapa:0,...PADRAO[k].m}}}));
   if(logado)tudo()}catch(e){}}
 async function carregarManual(){try{const r=await api("manual");ITENS.forEach(i=>{if(i.como&&!ITEM_COMO[i.id])ITEM_COMO[i.id]=i.como});MANUAL.novos=[];MANUAL.alterados=[];ITENS.splice(0,ITENS.length,...r.itens.map(x=>({id:x.id,nome:ac(x.nome),tipo:/VISUAL/.test(x.tipo)?"visual":"poder",rar:RAR_MAP[x.raridade]||"Comum",ic:icoDe(x.nome),ef:ac(x.descricao||""),conf:/VISUAL/.test(x.tipo)?"-":(CONF_MAP[x.aprova]||"sup"),val:x.validade_dias||null,como:(ITEM_COMO[x.id]||"")})));MANUAL.data="hoje"}catch(e){}}
 const ITEM_COMO={};
-function sairSessao(){if(TOKEN)api("sair").catch(()=>{});guardarTk(null);abrirLogin()}
+function sairSessao(){rnZerar();if(TOKEN)api("sair").catch(()=>{});guardarTk(null);abrirLogin()}
 // ---- login real ----
 async function loginEnviar(){emailLogin=($("lgEmail").value||"").trim().toLowerCase();if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(emailLogin)){toast("Digite o e-mail completo, com @.");return}
   await chamar("pedirCodigo",{email:emailLogin},r=>{passoLogin="codigo";MSG_COD=r.mensagem;telaLogin();setTimeout(()=>{const i=document.querySelector(".codigo input");if(i)i.focus()},50)})}
@@ -3065,14 +3154,10 @@ function perfilLiderOn(){const c=papel,pend=PED.length,nov=AVISOS.filter(a=>a.no
     <button class="caixa kpi" data-aba="avisos"><span class="num">${nov}</span><span class="rot">avisos novos</span></button>
    </div>
    <h3 class="h3">Fechar a semana <small>paga os GC da semana</small></h3>${rodadasHtml()}${BOTAO_SAIR()}`}
-function guildaLOnline(){const ms=MEMBROS_SRV||[],ls=LIDER_SRV||[],g=GU_MAP[SRV.jogador.guilda]||"min";
-  const linha=(m,lid)=>{const k=L_PAPEL[m.papel],a=m.avatar&&m.avatar.guilda?m.avatar:lid?{guilda:k,etapa:0,...PADRAO[k].m}:{guilda:g,etapa:0,...PADRAO[g].m};
-    return `<div class="lm"><span class="mini">${svg(lid?a:{...a,guilda:g}).replace("<svg ",'<svg style="width:34px;height:auto;display:block" ')}</span><span class="lm-n"><b>${m.nome}</b><em>${lid?CLASSES[k].cargo:`nível ${m.nivel} · faixa ${m.faixa} · ${m.conquistas} conquistas`}</em></span></div>`};
-  return `<h2 style="margin-top:4px">${icone("escudo",OUROc,20)} ${GUILDA[g].nome} <small>${ms.length} membros</small></h2>
-   ${ls.length?`<h3 class="h3">Liderança</h3><div class="caixa tabela">${ls.map(m=>linha(m,1)).join("")}</div>`:""}
-   <h3 class="h3">Operadores</h3><div class="caixa tabela">${ms.map(m=>linha(m,0)).join("")||`<div class="sub">Ninguém cadastrado ainda na aba Jogadores.</div>`}</div>
-   <button class="btn neutro larga" data-novoped style="margin-top:10px">Pedir bônus ou ajuste</button>
-   <p class="nota">Em ordem alfabética, sem GC e sem erros. Para ver o perfil de alguém, peça a ela que mostre o app.</p>`}
+function guildaLOnline(){
+  return `<h2 style="margin-top:4px">${icone("escudo",OUROc,20)} ${papel==="sup"?"Guilda e reino":"Reino"} <small>${papel==="sup"?"você administra a sua guilda":"você administra todas as guildas"}</small></h2>
+   ${reinoHtml(false)}
+   <button class="btn neutro larga" data-novoped style="margin-top:10px">Pedir bônus ou ajuste</button>`}
 document.addEventListener("input",e=>{const i=e.target;if(!i.closest||!i.closest(".codigo"))return;const ins=[...document.querySelectorAll(".codigo input")],v=i.value.replace(/\D/g,"");
   if(v.length>1){v.split("").slice(0,6).forEach((c,k)=>{if(ins[k])ins[k].value=c});(ins[Math.min(5,v.length-1)]||i).focus();if(v.length>=6&&ON)loginCodigo();return}
   i.value=v;if(v){const n=ins[ins.indexOf(i)+1];if(n)n.focus();else if(ON&&ins.every(x=>x.value))loginCodigo()}});
