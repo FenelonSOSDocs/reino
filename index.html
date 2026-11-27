@@ -2884,9 +2884,15 @@ document.addEventListener("submit",e=>{if(e.target.id==="micCfgForm"){e.preventD
 const RN_K={min:"GRAMPOMINAS",gua:"CRONOMINAS",elf:"ELFOS"},RN_G={GRAMPOMINAS:"min",CRONOMINAS:"gua",ELFOS:"elf"};
 const RN_RAR={COMUM:"Comum",INCOMUM:"Incomum",RARA:"Rara",EPICA:"Épica",LENDARIA:"Lendária"};
 // rosto: recorta o avatar no rosto (o rosto fica em alturas diferentes em cada raça e classe)
-const ROSTO_Y={min:.37,guam:.32,gua:.40,elf:.25,supm:.24,sup:.34,coo:.33,chn:.33,ger:.33};
-function rosto(a){const g=a.guilda,y=ROSTO_Y[g+(a.sexo||"m")]||ROSTO_Y[g]||.36,W=2.6;
-  return svg(a).replace("<svg ",`<svg style="display:block;width:${W*100}%;height:auto;max-width:none;margin:${(-((y*W*140/114)-.5)*100).toFixed(1)}% 0 0 ${(-((.43*W)-.5)*100).toFixed(1)}%" `)}
+// retrato: todo boneco é enquadrado pelos olhos, no mesmo ponto e no mesmo zoom (marca os olhos com uma cor-teste e acha onde ficaram)
+const ROSTO_C={},ROSTO_V=40,ROSTO_OY=.46;
+function rostoCentro(a){const k=JSON.stringify(a);if(ROSTO_C[k])return ROSTO_C[k];let r=null;
+  try{const mapa=h=>{const m={};svg({...a,olhoHex:h,oculos:0},false).replace(/<rect x="([\d.]+)" y="([\d.]+)" width="([\d.]+)" height="([\d.]+)" fill="([^"]+)"/g,(t,x,y,w,hh,c)=>{m[x+","+y]=[+x+(+w)/2,+y+(+hh)/2,c];return t});return m};
+    const A1=mapa("#ff00fe"),A2=mapa("#00fe00"),px=[];for(const q in A1)if(A2[q]&&A2[q][2]!==A1[q][2])px.push(A1[q]);
+    if(px.length>=2){const xs=px.map(p=>p[0]),ys=px.map(p=>p[1]);r={x:(Math.min(...xs)+Math.max(...xs))/2,y:(Math.min(...ys)+Math.max(...ys))/2}}}catch(e){}
+  return ROSTO_C[k]=r||{x:57,y:48}}
+function rosto(a){const s=svg(a),c=rostoCentro(a),V=ROSTO_V,W=114/V,x0=Math.max(0,Math.min(114-V,c.x-V/2)),y0=Math.max(0,Math.min(140-V,c.y-V*ROSTO_OY));
+  return s.replace("<svg ",`<svg style="display:block;width:${(W*100).toFixed(1)}%;height:auto;max-width:none;margin:${(-y0/V*100).toFixed(1)}% 0 0 ${(-x0/V*100).toFixed(1)}%" `)}
 let RN_ABAS=null,RN_SEL=null,RN_BUSCA="",RN_LISTA={},RN_CARR={};
 const rnPapelK=p=>({SUPERVISOR:"sup",COORDENADOR:"coo",CHANCELER:"chn",GERENTE:"ger"})[p]||p;
 function rnAvatar(m){if(m.lider){const k=m.k;return m.avatar&&m.avatar.guilda?m.avatar:{guilda:k,etapa:0,...PADRAO[k][m.sexo||"m"]}}
